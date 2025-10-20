@@ -76,8 +76,6 @@
 ### Емпирично антибиотично лечение
 
 #### 1. Пациенти без рискови фактори за мултирезистентни патогени (ранна поява до 4-ти ден)
-#### Пациенти без рискови фактори за мултирезистентни патогени (ранна поява до 4-ти ден)
-#### Пациенти без рискови фактори за мултирезистентни патогени (ранна поява до 4-ти ден)
 | Потенциални патогени | Препоръчителна терапия |
 |----------------------|-----------------------|
 | *Streptococcus pneumoniae*<br>*Haemophilus influenzae*<br>Метицил-чувствителен *Staphylococcus aureus*<br>*Escherichia coli*<br>*Klebsiella pneumoniae*<br>*Enterobacter* species<br>*Serratia marcescens* | Ceftriaxone <br>или<br> Levofloxacin, Moxifloxacin, Ciprofloxacin<br>или<br>Ampicillin/sulbactam<br>или<br>Ertapenem |
