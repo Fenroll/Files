@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Анамнеза и Статус</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <style>
+    body { 
+      font-family: "Open Sans", Arial, sans-serif; 
+      max-width: 1400px; 
+      margin: 0.5rem auto; 
+      padding: 0 1rem; 
+      line-height: 1.8; 
+      color: #1f2937; 
+    }
+    h1, h2, h3, h4 { 
+      font-weight: 600; 
+      margin-top: 0.8em;
+      margin-bottom: 0.3em;
+    }
+    h1 { font-size: 1.5em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; }
+    h4 { font-size: 1.05em; }
+    h3 + h4 { margin-top: 0.3em; }
+    p { 
+      margin: 0.7em 0; 
+      white-space: pre-wrap;
+    }
+    p + ul, p + ol { margin-top: -0.5em; }
+    h1 + p, h2 + p, h3 + p, h4 + p,
+    h1 + ul, h2 + ul, h3 + ul, h4 + ul,
+    h1 + ol, h2 + ol, h3 + ol, h4 + ol { 
+      margin-top: 0.1em; 
+    }
+    ul, ol { 
+      margin: 0.3em 0; 
+      padding-left: 1.5em; 
+    }
+    li { margin: 0.15em 0; }
+    ul ul { list-style-type: circle; }
+    ul ul ul { list-style-type: square; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+    code { 
+      background: rgba(146, 64, 14, 0.1); 
+      padding: 2px 6px; 
+      border-radius: 3px; 
+      font-family: "Courier New", monospace; 
+      font-size: 0.9em; 
+    }
+    pre {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 12px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.5em 0;
+      font-family: "Courier New", monospace;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    blockquote {
+      border-left: 3px solid #f59e0b;
+      padding-left: 1em;
+      margin: 0.5em 0;
+      font-style: italic;
+      color: #78350f;
+    }
+    table { 
+      border-collapse: collapse; 
+      margin: 0.75em 0; 
+      width: 100%; 
+      table-layout: auto;
+    }
+    th, td { 
+      border: 1px solid rgba(146, 64, 14, 0.35); 
+      padding: 6px 10px; 
+      text-align: left; 
+      vertical-align: top;
+    }
+    thead th { 
+      background: rgba(196, 127, 9, 0.08); 
+      font-weight: 600; 
+    }
+    tbody tr:nth-child(odd) { 
+      background: rgba(146, 64, 14, 0.03); 
+    }
+    img { 
+      max-width: 100%; 
+      height: auto; 
+    }
+    a { 
+      color: #f59e0b; 
+      text-decoration: underline; 
+    }
+    a:hover {
+      color: #d97706;
+    }
+    @media (max-width: 768px) {
+      body {
+        max-width: 100%;
+        margin: 0.5rem 0;
+        padding: 0 0.5rem;
+        font-size: 16px;
+      }
+      h1 { font-size: 1.3em; }
+      h2 { font-size: 1.1em; }
+      h3 { font-size: 1em; }
+      p { margin: 0.5em 0; }
+      ul, ol { padding-left: 1.2em; }
+      li { margin: 0.1em 0; }
+      table { font-size: 0.9em; }
+      th, td { padding: 4px 6px; }
+    }
+  </style>
+</head>
+<body>
+<h2>АНАМНЕЗА (ИСТОРИЯ НА ЗАБОЛЯВАНЕТО)</h2><h3>1. Въведение и Паспортни Данни</h3><ul><li><strong>Паспортни Данни:</strong> "Анамнезата е снета по данни на болния..." – (Име, Години/Възраст, Местоживеене).</li><li><strong>Прием в Клиниката:</strong> "Постъпва за (кой път?) в клиниката със следните оплаквания..."</li></ul><h3>2. Anamnesis morbi (Анамнеза за Сегашното Състояние)</h3><h4>Общи Принципи</h4><ul><li><strong>Основно Оплакване:</strong> Определя причината, поради която пациентът търси медицинска помощ.</li><li><strong>Хронология:</strong> Всички симптоми се записват хронологически с думите на пациента.</li><li><strong>Прогрес:</strong> Началото, продължителността и прогресът на всеки симптом.</li><li><strong>Лечение:</strong> Всяко предишно лечение на това състояние и изходът от него.</li><li><strong>Предишни Епизоди:</strong> История на подобни симптоми, лечение и изход.</li><li><strong>Травма (при наличие):</strong> Допълнителна история за загуба на съзнание, повръщане, кървене (уста, нос, гърло), ретро- или антероградна амнезия.</li></ul><h4>Детайлен Разпит по Симптоми</h4><ul><li><strong>Болка:</strong> Локализация, ирадиация, <strong>характер</strong> (остра/тъпа), от какво се <strong>провокира</strong>, продължителност, с какво се <strong>придружава</strong>.</li><li><strong>Кашлица:</strong> Суха или с храчки, алергична, свързана ли е с <strong>физическо натоварване</strong>, <strong>кръв</strong>, количество на храчките и цвят.</li><li><strong>Задух:</strong> Свързан ли е с <strong>физическо натоварване</strong>, <strong>сърдечен или белодробен</strong>, сила на задуха, <strong>непрекъснат или в покой отминава</strong>.</li><li><strong>Високо Кръвно Налягане (КН):</strong> Колко високо, с какви <strong>лекарства</strong>, от колко време, <strong>хипертонични кризи</strong>.</li><li><strong>Диабет:</strong> Високи стойности, <strong>хипогликемия</strong>, обичайни стойности на захарта, имал ли е <strong>кетоацидоза</strong>, <strong>диабетни усложнения</strong>.</li><li><strong>Температура (Т):</strong> До колко C, <strong>втрисване/изпотяване</strong>, <strong>септична</strong>, колко време я поддържа, <strong>повлиява ли се от антипиретици</strong>.</li><li><strong>Изследвания:</strong> Какви изследвания са правени до момента.</li></ul><h4>Разпит по Системи</h4><ul><li>Глава, Шия, Дихателна, Сърдечна, Храносмилателна, Пикочоотделителна, Двигателна система.</li></ul><h3>3. Anamnesis vitae (Минала и Настояща Медицинска История)</h3><ul><li><strong>Прекарани Заболявания:</strong> Минали прекарани заболявания, болести, операции (напр. диабет, хепатит, туберкулоза, пневмонии).</li><li><strong>Медикаменти:</strong> Настоящ или в миналото прием на медикаменти.</li></ul><h3>4. Социална и Фамилна Анамнеза</h3><h4>Социална История (Персонални Навици)</h4><ul><li><strong>Тютюнопушене:</strong> <strong>Пакетогодини</strong> (години × брой кутии).</li><li><strong>Алкохолизъм.</strong></li><li><strong>Наркотични вещества.</strong></li></ul><h4>Фамилна Обремененост</h4><ul><li><strong>Фамилна История:</strong> Детайлна история на фамилията – възраст, общо здраве, медикаментозни лечения, причина и възраст по време на смъртта.</li><li><strong>Наследствени Болести:</strong> Наследствено прекарани болести, епилепсия, сърдечни проблеми, диабет, нарушения свързани с кръвотечение.</li></ul><h4>Алергична Анамнеза</h4><ul><li><strong>Алергии:</strong> Свръхчуствителност към <strong>храни и медикаменти</strong>.</li></ul><hr><h2>СТАТУС ПРЕЗЕНС (STATUS PRAESENS)</h2><h3>1. Общо състояние</h3><ul><li><strong>Паспортни данни:</strong> Мъж/Жена на видима възраст, отговаряща на действителната (календарната).</li><li><strong>Съзнание и Положение:</strong> Ориентиран адекватно в съзнание <strong>(сомнолентно, ступор, кома)</strong>. Заема <strong>активно</strong> положение в леглото <strong>(пасивно, принудително)</strong>.</li><li><strong>Конституция:</strong> Ръст среден, правилно телосложение, <strong>нормостеничен хабитус</strong>.</li><li><strong>Охраненост:</strong> Добре развита подкожна мастна тъкан <strong>(кахексия, обезитас)</strong>.</li><li><strong>Кожа и Лигавици:</strong> Кожа – бледомургава/бяла със запазен <strong>тургор и еластичност</strong>. Няма обривни единици. Видими лигавици – <strong>розови (цианотични, иктерични)</strong>.</li><li><strong>Лимфни възли:</strong> Лимфни възли – <strong>неувеличени, не се палпират</strong>.</li><li><strong>Температура:</strong> 36.6°C <strong>(фебрилна, субфебрилна)</strong>.</li><li><strong>Походка:</strong> Запазена <strong>(нарушена)</strong>.</li></ul><h3>2. Глава и Шия</h3><ul><li><strong>Глава:</strong> С правилна конфигурация, съразмерна на ръстта, подвижна.</li><li><strong>Очи:</strong> Очни ябълки двустранно в правилно положение. <strong>Зеници кръгли, еднакво широки (около 3 мм)</strong>, реакции запазени (на светлина, акомодация и конвергенция).</li><li><strong>Нос:</strong> Проходим <strong>(секреции – воднист, гноен)</strong>.</li><li><strong>Устна кухина:</strong> Устни ъгли на еднаква височина. Устна лигавица – розова <strong>(цианоза, херпес)</strong>.</li><li><strong>Език:</strong> Подвижен, заема срединно положение, <strong>влажен, необложен</strong>, с добре изразени папили <strong>(обложен, дехидратиран)</strong>.</li><li><strong>Тонзили:</strong> Розови, <strong>неувеличени (гнойни, тонзилит)</strong>. Фарингеална лигавица – розова <strong>(червена, налепи)</strong>.</li><li><strong>Шия:</strong> Съразмерна, <strong>свободна подвижна</strong>.Щитовидна жлеза <strong>не се палпира увеличена</strong>. Набъбнали шийни вени <strong>не се установяват</strong>.</li></ul><h3>3. Дихателна система</h3><ul><li><strong>Оглед:</strong> Гръден кош - <strong>правилен, симетричен</strong>, двете гръдни половини вземат еднакво участие при дишане. Дишане - <strong>диафрагмално</strong>, ритмично, с нормална честота.</li><li><strong>Палпация:</strong> Гласов фремитус - <strong>нормален и еднакъв</strong> на симетрични места. </li><li><strong>Перкусия (Граници):</strong> <strong>Ясен белодробен перкутонен тон</strong> навсякъде, запазени белодробни граници.</li><li>Респираторна подвижност: <strong>запазена</strong> и еднаква от двете страни (отпред - 3 см, аксиларно - 5 см, отзад - 4 см).</li><li><strong>Аускултация:</strong> Дишане - <strong>везикуларно без прибавени шумове и хрипове</strong>. (при наличие: <strong>сухи свиркащи - обструкция, влажни хрипове - инфекция, плеврално триене</strong>)</li></ul><h3>4. Сърдечно-съдова система</h3><ul><li><strong>Оглед и Палпация:</strong> Няма деформации и патологични пулсации в областта на прекордиума.</li><li><strong>Фремисман и триене - не се установяват.</strong></li><li><strong>Ictus cordis</strong> (върхов сърдечен удар) се палпира в <strong>5-то ляво междуребрие 2 см наляво от медиоклавикуларна линия</strong>, систоличен.</li><li><strong>Перкусия (Граници - Релативно притъпление):</strong></li><li><strong>Лява граница:</strong> В V-то междуребрие на 2 см навътре от лМКЛ.</li><li><strong>Дясна граница:</strong> В V-то междуребрие на 0.5 см от десния стернален ръб и т.н. (пълните детайли са излишни за рутинна употреба, но са налични в оригиналния текст).</li><li><strong>Аускултация:</strong> Сърдечната дейност е <strong>ритмична</strong>, с нормална честота. Сърдечните тонове са <strong>ясни</strong>, <strong>сърдечни шумове не се долавят</strong>. (При наличие: <strong>фаза, p.max, характер – духащи/свиркащи, ирадиация</strong>).</li><li><strong>Периферно:</strong></li><li><strong>Не се установява шиен венозен застой</strong></li><li><strong>Артериално налягане (АН):</strong> <strong>120/80 mmHg</strong>.</li><li><strong>Пулс:</strong> Ритмичен, умерено напълнен и с нормални характеристики, еднакъв на двете ръце. <strong>Пулсов дефицит - няма.</strong></li></ul><h3>5. Корем и Коремни органи</h3><ul><li><strong>Оглед:</strong> Корем - <strong>на нивото на гръдния кош</strong>, симетричен, участва при дишане.</li><li><strong>Аускултация:</strong> Умерена чревна перисталтика.</li><li><strong>Перкусия:</strong> Тимпаничен перкуторен тон.</li><li><strong>Палпация:</strong></li><li><strong>Слезка:</strong> Горният ръб на IX ребро, долният на XI ребро. Надлъжният размер е <strong>7 см</strong> (норма). <strong>Слезката не се опипва</strong> при дълбока посрещаща палпация.</li><li><strong>Чернодробна област:</strong> Сагиталният размер по дМКЛ е <strong>10 см</strong> (норма). Долният ръб на черния дроб е <strong>еластичен и умерено плътен</strong>, <strong>не се палпира уголемен</strong> под ребрената дъга.</li><li><strong>Дълбока:</strong> Не се установява болезненост, дефанс или туморни маси.</li><li><strong>Повърхностна:</strong> Коремните стени са <strong>мекоеластични</strong>. Болезненост, дефанс, тумори и хернии <strong>не се установяват</strong>.</li></ul><h3>6. Пикочо-полова и Двигателна система</h3><ul><li><strong>Бъбречни области:</strong> Видимо без промени. Бъбреците <strong>не се опипват</strong> при бимануална палпация.</li><li><strong>Симптом на Голдфлам:</strong> <strong>Сукусио реналис е неболезнено двустранно.</strong></li><li><strong>Пикочен мехур и уретери:</strong> Болка по хода на уретерите и пикочния мехур <strong>липсва</strong>.</li><li><strong>Външни полови органи:</strong> Видимо и при опипване са <strong>без промени</strong>.</li><li><strong>Крайници и стави:</strong> Крайниците са съразмерни на тялото, <strong>активно и пасивно подвижни</strong> във всички посоки.</li><li><strong>Крайници</strong> - Липсват отоци, атрофични промени по кожата или разширени вени.</li></ul>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+<script>
+renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true},
+    {left: '$', right: '$', display: false}
+  ]
+});
+</script>
+</body>
+</html>
