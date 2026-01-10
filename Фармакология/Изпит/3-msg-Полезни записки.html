@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <style>
+    body { 
+      font-family: "Open Sans", Arial, sans-serif; 
+      max-width: 1550px; 
+      margin: 0.5rem auto; 
+      padding: 0 1rem; 
+      line-height: 1.8; 
+      color: #1f2937; 
+    }
+    h1, h2, h3, h4 { 
+      font-weight: 600; 
+      margin-top: 0.8em;
+      margin-bottom: 0.3em;
+      color: #7c2d12;
+    }
+    h1 { font-size: 1.5em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; }
+    h4 { font-size: 1.05em; }
+    h3 + h4 { margin-top: 0.3em; }
+    p { 
+      margin: 0.7em 0; 
+      white-space: pre-wrap;
+    }
+    p + ul, p + ol { margin-top: -0.5em; }
+    h1 + p, h2 + p, h3 + p, h4 + p,
+    h1 + ul, h2 + ul, h3 + ul, h4 + ul,
+    h1 + ol, h2 + ol, h3 + ol, h4 + ol { 
+      margin-top: 0.1em; 
+    }
+    ul, ol { 
+      margin: 0.3em 0; 
+      padding-left: 1.5em; 
+    }
+    li { margin: 0.15em 0; }
+    ul ul { list-style-type: circle; }
+    ul ul ul { list-style-type: square; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+    code { 
+      background: rgba(146, 64, 14, 0.1); 
+      padding: 2px 6px; 
+      border-radius: 3px; 
+      font-family: "Courier New", monospace; 
+      font-size: 0.9em; 
+    }
+    pre {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 12px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.5em 0;
+      font-family: "Courier New", monospace;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    blockquote {
+      border-left: 3px solid #f59e0b;
+      padding-left: 1em;
+      margin: 0.5em 0;
+      font-style: italic;
+      color: #78350f;
+    }
+    table { 
+      border-collapse: collapse; 
+      margin: 0.75em 0; 
+      width: 100%; 
+      table-layout: auto;
+    }
+    th, td { 
+      border: 1px solid rgba(146, 64, 14, 0.35); 
+      padding: 6px 10px; 
+      text-align: left; 
+      vertical-align: top;
+      height: 24px;
+      line-height: 1.2;
+    }
+    thead th { 
+      background: rgba(196, 127, 9, 0.08); 
+      font-weight: 600; 
+    }
+    tbody tr:nth-child(odd) { 
+      background: rgba(146, 64, 14, 0.03); 
+    }
+    img { 
+      max-width: 100%; 
+      height: auto; 
+    }
+    a { 
+      color: #f59e0b; 
+      text-decoration: underline; 
+    }
+    a:hover {
+      color: #d97706;
+    }
+    /* Keep <p> tags inside list items on same line (as they appear in editor) */
+    li p {
+      margin: 0 !important;
+      padding: 0 !important;
+      display: inline !important;
+      line-height: 1 !important;
+    }
+    /* Prevent nested list paragraph issues */
+    li > ul,
+    li > ol {
+      margin: 0.3em 0 0 0;
+      padding-left: 1.5em;
+    }
+    /* Ensure list structure is clean */
+    ul ul, ul ol,
+    ol ul, ol ol {
+      margin-top: 0.2em;
+      padding-left: 1.5em;
+    }
+    @media (max-width: 768px) {
+      body {
+        max-width: 100%;
+        margin: 0.5rem 0;
+        padding: 0 0.5rem;
+        font-size: 16px;
+      }
+      h1 { font-size: 1.3em; }
+      h2 { font-size: 1.1em; }
+      h3 { font-size: 1em; }
+      p { margin: 0.5em 0; }
+      ul, ol { padding-left: 1.2em; }
+      li { margin: 0.1em 0; }
+      table { font-size: 0.9em; }
+      th, td { padding: 4px 6px; }
+    }
+  </style>
+</head>
+<body>
+<h1>CYP метаболизъм</h1><table><thead><tr><th><font color="#7c2d12">Индуктори</font></th><th><font color="#7c2d12" style="">Инхибитори</font></th><th><font color="#7c2d12">Важни Субстрати</font></th></tr></thead><tbody><tr><td><b><u>Rifampicin </u></b>(Антитуберкулозно средство)</td><td><b><u>Ketoconazole </u></b>(Най-силният CYP инхибитор от системните азоли)</td><td><b>Нестероидни противовъзпалителни лекарства</b></td></tr><tr><td><b><u>Carbamazepine </u></b>(Противоепилептично средство)</td><td><b><u>Clarithromycin и Erythromycin</u>&nbsp;</b>(Макролидни антибиотици, това ги различава от Azithromycin)</td><td><b>H1 блокери</b></td></tr><tr><td><b><u>Phenytoin </u></b>(Противоепилептично средство)</td><td><p><b>Chloramphenicol</b></p></td><td><p><b><strong><u>Сулфонилурейни лекарства</u></strong></b></p></td></tr><tr><td><b><u>Phenobarbital </u></b>(Барбитурат, индуцира и глюкуронилтрансферазата)</td><td><b><u>Ritonavir </u></b>(Протеазен инхибитор)</td><td><b><u></u></b><p><b><u>Естрогени</u></b></p></td></tr><tr><td><b>Griseofulvin </b>(Антимикотик)</td><td><b><u>Amiodarone </u></b>(Антиаритмично средство)</td><td><b><u>Codeine</u> </b>(частичен метаболизъм до морфин)</td></tr><tr><td><b>Nevirapine </b>(Антиретровирусно средство, ненуклеозиден инхибитор)</td><td><b><u>Cimetidine </u></b>(H2-блокер при Язва)</td><td><p><b>Oxycodone</b></p> </td></tr><tr><td><b>Тютюнопушене</b></td><td><b>Fluconazole </b>(Азолен антимикотик)</td><td><p><b><u></u></b></p><p><b><u>Инхибитори на фактор Xa </u></b>(Rivaroxaban, Apixaban, Edoxaban)</p> </td></tr><tr><td><b>Dexamethasone </b>(Глюкокортикостероид)</td><td><b>Verapamil </b>(Калциев антагонист)</td><td><b>Methadone</b></td></tr><tr><td><b>Primidone </b>(Противоепилептично средство)</td><td><b>Сок от грейпфрут</b></td><td><b>Всички амиди като местни анестетици </b>(Lidocaine, Mepivacaine, Bupivacaine)</td></tr><tr><td></td><td><p><strong>Ciprofloxacin и Norfloxacin</strong> (Хинолонови антибиотици)</p></td><td><p><b><u>Бензодиазепини</u> </b>(Midazolam, Cinolazepam, Flunitrazepam)</p> </td></tr><tr><td></td><td><p><b>Conivaptan </b>(антагонист на АДХ)</p></td><td><p><u><strong>Кумаринови антикоагуланти</strong> </u>(Acenocoumarol, Warfarin)</p></td></tr><tr><td></td><td><p><b>Metronidazole </b>(нитромидазоли)</p></td><td><p><b>Антипсихотици, трициклични антидепресанти</b></p> </td></tr><tr><td></td><td><p><b>Сулфонамиди </b>(Sulfamethoxazole +Trimethoprim = Co-trimoxazole, Sulfasalazine, Sulfathiazole)</p></td><td><b><u>Статинит</u>е -&nbsp;риск от рабдомиолиза<u><br></u></b>(Lovastatin, Simvastatin, Fluvastatin, Atorvastatin, Rosuvastatin без Pravastatin)&nbsp;</td></tr><tr><td></td><td><p><b>Макролиди </b>(I поколение:Erythromycin, Spiramycin &amp;II поколение: Clarithromycin, Azithromycin, Midecamycin, Roxithromycin)</p></td><td> </td></tr><tr><td></td><td><p><b>Valproic acid</b></p></td><td></td></tr><tr><td></td><td><p><b>Lomitapide </b>(Лекарства понижаващи non-HDL-C)</p></td><td></td></tr><tr><td></td><td><p><b>SSRI </b>(Fluoxetine, Paroxetine, Sertraline, Fluvoxamine, Citalopram, Escitalopram)</p></td><td></td></tr></tbody></table><br>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+<script>
+renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true},
+    {left: '$', right: '$', display: false}
+  ]
+});
+</script>
+</body>
+</html>
