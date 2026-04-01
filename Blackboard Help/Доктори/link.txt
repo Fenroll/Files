@@ -1,0 +1,4 @@
+Gemini 🐐 | https://gemini.google.com/app
+ChatGPT | https://chatgpt.com/
+NotebookLM | https://notebooklm.google.com/
+OpenEvidence | https://www.openevidence.com/ask

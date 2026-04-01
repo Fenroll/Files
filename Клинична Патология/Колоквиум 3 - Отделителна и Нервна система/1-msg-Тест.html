@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тест</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <style>
+    body { 
+      font-family: "Open Sans", Arial, sans-serif; 
+      max-width: 1550px; 
+      margin: 0.5rem auto; 
+      padding: 0 1rem; 
+      line-height: 1.6; 
+      color: #1f2937; 
+    }
+    h1, h2, h3, h4 { 
+      font-weight: 600; 
+      margin-top: 0.8em;
+      margin-bottom: 0.15em;
+      color: #588157;
+    }
+    h1 { font-size: 1.65em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; margin-bottom: 0.1em; }
+    h4 { font-size: 1.05em; margin-bottom: 0.1em; }
+    h1 + h2, h1 + h3, h1 + h4, h2 + h3, h2 + h4, h3 + h4 { margin-top: 0.2em; }
+    p { 
+      margin: 0.3em 0; 
+      white-space: pre-wrap;
+    }
+    p + ul, p + ol { margin-top: -0.5em; }
+    h1 + p, h2 + p, h3 + p, h4 + p,
+    h1 + ul, h2 + ul, h3 + ul, h4 + ul,
+    h1 + ol, h2 + ol, h3 + ol, h4 + ol { 
+      margin-top: 0.1em; 
+    }
+    ul, ol { 
+      margin: 0.5em 0; 
+      padding-left: 1.5em; 
+      list-style-position: outside;
+    }
+    li { margin: 0.2em 0; }
+    li p {
+      margin: 0;
+      padding: 0;
+      display: inline;
+    }
+    li > ul, li > ol {
+      margin: 0.3em 0 0 0;
+      padding-left: 1.5em;
+    }
+    ul ul, ul ol, ol ul, ol ol {
+      margin-top: 0.2em;
+      padding-left: 1.5em;
+    }
+    ul ul { list-style-type: circle; }
+    ul ul ul { list-style-type: square; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+    code { 
+      background: rgba(146, 64, 14, 0.1); 
+      padding: 2px 6px; 
+      border-radius: 3px; 
+      font-family: "Courier New", monospace; 
+      font-size: 0.9em; 
+    }
+    pre {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 12px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.5em 0;
+      font-family: "Courier New", monospace;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    blockquote {
+      border-left: 3px solid #588157;
+      padding-left: 1em;
+      margin: 0.5em 0;
+      font-style: italic;
+      color: #166534;
+    }
+    table { 
+      border-collapse: collapse; 
+      margin: 0.75em 0; 
+      width: 100%; 
+      table-layout: auto;
+    }
+    th, td { 
+      border: 1px solid rgba(2, 2, 2, 0.2);
+      padding: 6px 10px; 
+      text-align: left; 
+      vertical-align: top;
+      height: 24px;
+      line-height: 1.2;
+    }
+    thead th { 
+      background: rgba(88, 129, 87, 0.13); 
+      font-weight: 600; 
+    }
+    tbody tr:nth-child(odd) { 
+      background: rgba(88, 129, 87, 0.06); 
+    }
+    /* Image styles are handled by inline styles and data-width attributes */
+    a {
+      color: inherit; /* Changed to inherit */
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #74b673;
+    }
+    /* Keep <p> tags inside list items on same line (as they appear in editor) */
+    li p {
+      margin: 0 !important;
+      padding: 0 !important;
+      display: inline !important;
+      line-height: 1 !important;
+    }
+    /* Prevent nested list paragraph issues */
+    li > ul,
+    li > ol {
+      margin: 0.3em 0 0 0;
+      padding-left: 1.5em;
+    }
+    /* Ensure list structure is clean */
+    ul ul, ul ol,
+    ol ul, ol ol {
+      margin-top: 0.2em;
+      padding-left: 1.5em;
+    }
+    @media (max-width: 768px) {
+      body {
+        margin: 0.5rem 0;
+        padding: 0 0.5rem;
+        font-size: 16px;
+      }
+      h1 { font-size: 1.3em; }
+      h2 { font-size: 1.1em; }
+      h3 { font-size: 1em; }
+      p { margin: 0.5em 0; }
+      ul, ol { padding-left: 1.2em; }
+      li { margin: 0.1em 0; }
+      table { font-size: 0.9em; }
+      th, td { padding: 4px 6px; }
+    }
+    .editor-note {
+      text-decoration: underline dotted #a3b18a;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      text-decoration-skip-ink: none;
+      cursor: help;
+      position: relative;
+    }
+    .note-tooltip {
+      display: none;
+      position: absolute;
+      background-color: #f0f7f0;
+      color: #1f2937;
+      border: 1px solid #588157;
+      border-radius: 4px;
+      padding: 8px 12px;
+      width: fit-content;
+      max-width: min(700px, calc(100vw - 20px));
+      max-height: calc(100vh - 20px);
+      overflow: auto;
+      box-sizing: border-box;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 10000;
+      font-size: 0.9em;
+      line-height: 1.4;
+      word-wrap: break-word;
+    .note-tooltip ul, .note-tooltip ol {
+      margin: 0 !important;
+      padding-left: 20px !important;
+    }
+    .note-tooltip li {
+      margin: 0 0 0.1em 0 !important;
+      padding: 0 !important;
+      line-height: 1.2 !important;
+    }
+    .note-tooltip li:last-child {
+      margin-bottom: 0 !important;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'note-tooltip';
+      document.body.appendChild(tooltip);
+
+      function parseNoteMarkdown(text) {
+        if (!text) return '';
+        
+        let lines = text.split('\n');
+        let html = [];
+        let stack = [];
+        
+        for (let i = 0; i < lines.length; i++) {
+          let line = lines[i];
+          
+          let indentMatch = line.match(/^(\s*)/);
+          let indent = indentMatch ? indentMatch[1].length : 0;
+          let content = line.trim();
+          
+          let isUl = /^[-*]\s+(.+)/.test(content);
+          let isOl = /^\d+\.\s+(.+)/.test(content);
+          
+          if (isUl || isOl) {
+            let listType = isUl ? 'ul' : 'ol';
+            let match = isUl ? content.match(/^[-*]\s+(.+)/) : content.match(/^\d+\.\s+(.+)/);
+            let itemText = match[1];
+            
+            if (stack.length === 0) {
+              stack.push({ type: listType, indent: indent });
+              html.push('<' + listType + '>');
+            } else {
+              let last = stack[stack.length - 1];
+              
+              if (indent > last.indent) {
+                stack.push({ type: listType, indent: indent });
+                html.push('<' + listType + '>');
+              } else if (indent < last.indent) {
+                while (stack.length > 0 && stack[stack.length - 1].indent > indent) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                }
+                if (stack.length === 0 || stack[stack.length - 1].indent !== indent) {
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                } else if (stack[stack.length - 1].type !== listType) {
+                   let closed = stack.pop();
+                   html.push('</' + closed.type + '>');
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                }
+              } else {
+                if (last.type !== listType) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                  stack.push({ type: listType, indent: indent });
+                  html.push('<' + listType + '>');
+                }
+              }
+            }
+            html.push('<li>' + itemText + '</li>');
+          } else {
+            if (content !== '') {
+               while (stack.length > 0) {
+                 let closed = stack.pop();
+                 html.push('</' + closed.type + '>');
+               }
+            }
+            if (/^#{1,4}\s+/.test(content)) {
+              const headingMatch = content.match(/^(#{1,4})\s+(.+)$/);
+              if (headingMatch) {
+                const level = headingMatch[1].length;
+                html.push('<h' + level + '>' + headingMatch[2] + '</h' + level + '>');
+              }
+            } else if (content) {
+              html.push(content + '<br>');
+            } else {
+              html.push('<br>');
+            }
+          }
+        }
+        
+        while (stack.length > 0) {
+          let closed = stack.pop();
+          html.push('</' + closed.type + '>');
+        }
+        
+        let result = html.join('')
+          .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/__(.+?)__/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>')
+          .replace(/_(.+?)_/g, '<em>$1</em>')
+          .replace(/`(.+?)`/g, '<code>$1</code>')
+          .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
+        
+        result = result
+          .replace(/<br><ul>/g, '<ul>')
+          .replace(/<br><ol>/g, '<ol>')
+          .replace(/</ul><br>/g, '</ul>')
+          .replace(/</ol><br>/g, '</ol>');
+        
+        return result;
+      }
+
+      document.body.addEventListener('mouseover', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          const note = e.target.dataset.note;
+          if (note) {
+            tooltip.innerHTML = parseNoteMarkdown(note);
+            tooltip.style.display = 'block';
+            const rect = e.target.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+            const pageX = window.scrollX || window.pageXOffset;
+            const pageY = window.scrollY || window.pageYOffset;
+            const maxLeft = pageX + window.innerWidth - tooltipRect.width - 10;
+            const minLeft = pageX + 10;
+
+            let left = rect.left + pageX;
+            if (left > maxLeft) left = maxLeft;
+            if (left < minLeft) left = minLeft;
+
+            let top = rect.bottom + pageY + 6;
+            const maxTop = pageY + window.innerHeight - tooltipRect.height - 10;
+            if (top > maxTop) {
+              top = rect.top + pageY - tooltipRect.height - 6;
+            }
+            if (top < pageY + 10) top = pageY + 10;
+
+            tooltip.style.left = left + 'px';
+            tooltip.style.top = top + 'px';
+          }
+        }
+      });
+
+      document.body.addEventListener('mouseout', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          setTimeout(() => {
+            if (!tooltip.matches(':hover')) {
+              tooltip.style.display = 'none';
+            }
+          }, 100);
+        }
+      });
+
+      tooltip.addEventListener('mouseleave', function() {
+        tooltip.style.display = 'none';
+      });
+    });
+  </script>
+</head>
+<body>
+<blockquote></blockquote><p><strong>Глиомите метастазират в:</strong></p><ul><li><font color="#ff0000">ЦНС</font></li></ul><p><strong>Астроцитомът:</strong></p><ul><li><font color="#ff0000">Развива се в голямомозъчните хемисфери, състои се от звездовидни клетки с израстъци</font></li></ul><p><strong>Остро настъпила парализа на долните крайници, хипертермия и катар на ГДП:</strong></p><ul><li><font color="#ff0000">полиомиелит </font>- невронофагия, стаза в съдовете</li></ul><p><strong>Вретеновидни клетки, групирани в снопчета, с ядра подредени палисадно:</strong></p><ul><li><font color="#ff0000">Неврином </font>- шваном</li></ul><p><strong>Тумор свързан с дура матер и плътна консистенция:</strong></p><ul><li><font color="#ff0000">Менингиом</font></li></ul><p><strong>При нефритен синдром:</strong></p><ul><li><font color="#ff0000">1. Хематурия 2. Хипертония 3. Азотна задръжка</font></li></ul><p><strong>Мезангиална интерпозиция:</strong></p><ul><li><font color="#ff0000">Мембранопролиферативен гломерулонефрит</font></li></ul><p><strong>Нефросклероза със симетрични изменения:</strong></p><ul><li><font color="#ff0000">Диабетна</font></li></ul><p><strong>Имплантационни метастази по хода на отделителната система:</strong></p><ul><li><font color="#ff0000">Преходноклетъчен карцином на бъбречното легенче</font></li></ul><p><strong>Подоцитите:</strong></p><ul><li><font color="#ff0000">Висцерален лист на Баумановата капсула между гломерулните капиляри</font></li></ul><p><strong>Голям бял бъбрек:</strong></p><ul><li><font color="#ff0000">Амилоидоза на бъбрека</font></li></ul><p><strong>Нефрозен синдром:</strong></p><ul><li><font color="#ff0000">Гломерулопатии и гломерулонефрити</font></li></ul><p><strong>Линеарна флуоресценция:</strong></p><ul><li><font color="#ff0000">Бързопрогресиращ полулунен гломерулонефрит, синдром на Гудпасчър</font></li></ul><p><strong>Стадии на тубулна некроза:</strong></p><ul><li><font color="#ff0000">1. Шоков 2. Олиго-ануричен 3. Възстановителен</font></li></ul><p><strong>Характерни микроскопски белези на хроничния пиелонефрит:</strong></p><ul><li><font color="#ff0000">1. Перикапсуларна гломерулосклероза</font></li><li><font color="#ff0000">2. Лимфоцитни инфилтрати в интерстициума</font></li><li><font color="#ff0000">3. Струпвания на каналчетата</font></li></ul><p><strong>Действителните групи нефросклерози:</strong></p><ul><li><font color="#ff0000">1. Съдови 2. Обменни 3. Уриногенни</font></li></ul><p><strong>Нефролитиазата може да се усложни със:</strong></p><ul><li><font color="#ff0000">Хидронефроза, хроничен пиелонефрит, остър пиелонефрит</font></li></ul><p><strong>Тубулорексис се наблюдава при:</strong></p><ul><li><font color="#ff0000">Исхемична тубулна некроза</font></li></ul><p><strong>При нефрозен синдром се наблюдава:</strong></p><ul><li><font color="#ff0000">Протеинурия над 3,5 грама, хиперхолестеролемия, хипопротеинемия</font></li></ul><p><strong>Шипчета се намират при:</strong></p><ul><li><font color="#ff0000">Мембранозен гломерулонефрит</font></li></ul><p><strong>Мозъчна форма на атеросклероза:</strong></p><ul><li><font color="#ff0000">Енцефаломалация</font></li></ul><p><strong>Прогресивна парализа:</strong></p><ul><li><font color="#ff0000">Трети стадий на луес</font></li></ul><p><strong>Гломерулонефрит не може да се развие като усложнение на:</strong></p><ul><li><font color="#ff0000">Хаман-Рич</font></li></ul><p><strong>Дифузен мезангиокапилярен гломерулонефрит:</strong></p><ul><li><font color="#ff0000">Двойна базална мембрана в ЕМ, вид на ЖП траверси</font></li></ul><p><strong>Хистологични промени в БД при ХБН:</strong></p><ul><li><font color="#ff0000">Хиперемия, ателектаза и наличие на панделковиден белтъчен материал в алвеолите</font></li></ul><p><strong>Туберкулозен менингит:</strong></p><ul><li><font color="#ff0000">Желатинозен сиво-жълто зелен цвят</font></li></ul><p><strong>Най-честа локализация на мозъчните усложнения при хипертонична болест:</strong></p><ul><li><font color="#ff0000">Capsula interna и basal ganglia</font></li></ul><p><strong>До развитието на хидронефроза не води:</strong></p><ul><li><font color="#ff0000">Феохромоцитом</font></li></ul><p><strong>Синдром на Гудпасчър:</strong></p><ul><li><font color="#ff0000">Хеморагичен пулмонит и полулунен гломерулонефрит</font></li></ul><p><strong>Болестта на Кройцфелд-Якобс е:</strong></p><ul><li><font color="#ff0000">Прионова болест</font></li></ul><p><strong>Главните изменения при луетичен менингит:</strong></p><ul><li><font color="#ff0000">Основата и фронталните дялове</font></li></ul><p><strong>Мембранозна нефропатия:</strong></p><ul><li><font color="#ff0000">Шипчета</font></li></ul><p><strong>Тумори в малкия мозък:</strong></p><ul><li><font color="#ff0000">Медулобластом</font></li></ul><p><strong>Множество малки лакунарни инфаркти:</strong></p><ul><li><font color="#ff0000">При хипертонична болест</font></li></ul><p><strong>Инфекция с HSV1 в мозък:</strong></p><ul><li><font color="#ff0000">Обширни некрози и кръвоизливи в темпоралните дялове, формиране на гигантски клетки</font></li></ul><p><strong>В пикочния мехур не може да се развие:</strong></p><ul><li><font color="#ff0000">Базоцелуларен карцином</font></li></ul><p><strong>При остър пиелонефрит не се виждат:</strong></p><ul><li><font color="#ff0000">Умерено хиалинизирани гломерули</font></li></ul><p><strong>При малигнена хипертония в бъбреците се наблюдава:</strong></p><ul><li><font color="#ff0000">Фибриноидна некроза в бъбречните артериоли</font></li></ul><p><strong>При миеломна болест бъбречните каналчета се изпълват с:</strong></p><ul><li><font color="#ff0000">Парапротеин - Белтък на Бенц-Джоунз</font></li></ul><p><strong>Бактериален менингит макроскопски:</strong></p><ul><li><font color="#ff0000">Бял налеп по конвекситета на мозъка</font></li></ul><p><strong>При гломерулонефрит:</strong></p><ul><li><font color="#ff0000">Урината е стерилна</font></li></ul><p><strong>Екстраренални прояви на ХБН:</strong></p><ul><li><font color="#ff0000">Кожа, сърце, кости</font></li></ul><p><strong>Рефлукс в отделителната система:</strong></p><ul><li><font color="#ff0000">Везико-уретерален</font></li></ul><p><strong>Карциномът на пикочния мехур може да доведе до:</strong></p><ul><li><font color="#ff0000">Инфилтрация на органите в малкия таз, хидронефроза, желязодефицитна анемия</font></li></ul><p><strong>Кои имуноглобулини могат да се открият при гломерулонефритите:</strong></p><ul><li><font color="#ff0000">IgA, IgM, IgG</font></li></ul><p><strong>Макроскопски промени при хроничен гломерулонефрит:</strong></p><ul><li><font color="#ff0000">Намалени бъбреци, дребнозърнеста повърхност</font></li></ul><p><strong>При кои заболявания повърхността на бъбреците е умерено зърниста:</strong></p><ul><li><font color="#ff0000">Хроничен гломерулонефрит, диабетна нефропатия</font></li></ul><p><strong>Макроскопски белези при хроничен пиелонефрит:</strong></p><ul><li><font color="#ff0000">Кръглоклетъчна инфилтрация с фиброза на интерстициума, груба неравна повърхност</font></li></ul><p><strong>Остър пиелонефрит:</strong></p><ul><li><font color="#ff0000">Абсцеси</font></li></ul><p><strong>Срезната повърхност на бъбречния карцином:</strong></p><ul><li><font color="#ff0000">Пъстра и осеяна с кръвоизливи и некрози</font></li></ul><p><strong>Амилоидоза на бъбрека:</strong></p><ul><li><font color="#ff0000">Голям бял бъбрек, белтъчни цилиндри, големи хомогенно-розови гломерули</font></li></ul><p><strong>Гнойният менингит (остра фаза) дава следните хистологични промени:</strong></p><ul><li><font color="#ff0000">Гнойна инфилтрация, кръвоизливи в субарахноидалното пространство</font></li></ul><p><strong>Предимно в бялото мозъчно вещество се развиват:</strong></p><ul><li><font color="#ff0000">Мултиплена склероза, постваксинален енцефалит</font></li></ul><p><strong>Базален менингит се среща при:</strong></p><ul><li><font color="#ff0000">ТБК, грип, луетичен невросифилис</font></li></ul><p><strong>Кои енцефалити са демиелинизиращи:</strong></p><ul><li><font color="#ff0000">След варицела, рубеола, паротит, постваксинален</font></li></ul><p><strong>Най-често усложнение на хипертоничната болест в мозък:</strong></p><ul><li><font color="#ff0000">Кръвоизливи с или без пробив във вентрикулите</font></li></ul><p><strong>Най-честите усложнения в мозъка при атеросклероза са във:</strong></p><ul><li><font color="#ff0000">Вътрешната капсула</font></li></ul><p><strong>Промени в бъбреците при артериална хипертония:</strong></p><ul><li><font color="#ff0000">Хиалинизация на гломерули</font></li></ul><p><strong>Макроскопски промени в бъбреците при атеросклероза:</strong></p><ul><li><font color="#ff0000">Намалени размери и дребнозърниста повърхност</font></li></ul><p><strong>Голям бял бъбрек с точковидни кръвоизливи в кората има при:</strong></p><ul><li><font color="#ff0000">Полулунен гломерулонефрит</font></li></ul><p><strong>Бъбречният карцином не се свързва с:</strong></p><ul><li><font color="#ff0000">Продукция на калцитонин</font></li></ul><p><strong>За засегнатия от остър пиелонефрит бъбрек не е характерно:</strong></p><ul><li><font color="#ff0000">Намалени размери</font> (бъбрекът е уголемен при остър, а намален при хроничен)</li></ul><p><strong>Дифузен ендокапилярен гломерулонефрит:</strong></p><ul><li><font color="#ff0000">Умерено увеличени бъбреци и петехиални кръвоизливи в кората</font></li></ul><p><strong>Макроскопски белези при дифузния склерозиращ гломерулонефрит:</strong></p><ul><li><font color="#ff0000">Малки бъбреци с дребнозърниста повърхност</font></li></ul><p><strong>Характерно за балканската ендемична нефропатия е:</strong></p><ul><li><font color="#ff0000">Често се съчетава с тумори на легенчето</font></li></ul><p><strong>Образуването на полулуния при бързопрогресиращия гломерулонефрит не включва:</strong></p><ul><li><font color="#ff0000">Хеморагичен стадий</font></li></ul><p><strong>Фенацетинова нефропатия:</strong></p><ul><li><font color="#ff0000">Т.нар. струмизация на каналчетата</font></li></ul><p><strong>Диабетна нефропатия:</strong></p><ul><li><font color="#ff0000">Нодуларна дифузна гломерулосклероза, нефрозен синдром съчетан с хипертония</font></li></ul><p><strong>Огнищен гломерулонефрит не може да се дължи на:</strong></p><ul><li><font color="#ff0000">Хипертонична болест</font></li></ul><p><strong>Образуване на полулуния:</strong></p><ul><li><font color="#ff0000">Руптура на базалната мембрана, моноцити и фибрин в Баумановото пространство</font></li></ul><p><strong>Мембранозна нефропатия:</strong></p><ul><li><font color="#ff0000">Руптура на базалната мембрана, електронномикроскопски видими плътни отлагания, между които има шипчета</font></li></ul><p><strong>Светлинномикроскопски промени при диабетната нефропатия:</strong></p><ul><li><font color="#ff0000">Интеркапилярна гломерулосклероза и фибринови шапчици</font></li></ul><p><strong>Малигнена хипертония:</strong></p><ul><li><font color="#ff0000">Фибриноидна некроза в артериолите в бъбреците</font></li></ul><p><strong>Дифузен ендокапилярен гломерулонефрит:</strong></p><ul><li><font color="#ff0000">Субедотелиални отлагания във вид на гърбица</font></li></ul><p><strong>Дифузен ендокапилярен гломерулонефрит - причинител:</strong></p><ul><li><font color="#ff0000">Б-хемолитичен стрептокок</font></li></ul><p><strong>Гломерулонефрит на Льохлеин:</strong></p><ul><li><font color="#ff0000">Подостър бактериален ендокардит</font></li></ul><p><strong>Тумори в стромата си имащи ГМК и НН мускулни клетки:</strong></p><ul><li><font color="#ff0000">Нефробластом - тумор на Вилмс</font></li></ul><p><strong>За тумора на Вилмс не е характерно:</strong></p><ul><li><font color="#ff0000">Сивобелезникава повърхност и при срез вид на "рибе месо"</font></li></ul><p><strong>Тумор с експанзивен растеж:</strong></p><ul><li><font color="#ff0000">Менингеом</font></li></ul><p><strong>Макроскопски ТБК на мозък:</strong></p><ul><li><font color="#ff0000">Желатинозен налеп в базалните части</font></li></ul><p><strong>Конгофилната ангиопатия е характерна за:</strong></p><ul><li><font color="#ff0000">Болест на Алцхаймер</font></li></ul><p><strong>Артериолосклеротичната нефросклероза:</strong></p><ul><li><font color="#ff0000">Симетрично намалени бъбреци, дребнозърнисти с кафяво-червеникава повърхност</font></li></ul><p><strong>Телца на Верокай:</strong></p><ul><li><font color="#ff0000">Шваном</font></li></ul><p><strong>2г Фенацетин:</strong></p><ul><li><font color="#ff0000">Папиларна некроза</font> - фенацетинова нефропатия</li></ul><p><strong>Диапедезни кръвоизливи:</strong></p><ul><li><font color="#ff0000">Хипертония, енцефалити и инфекции</font></li></ul><p><strong>Най-честите атеросклеротични промени:</strong></p><ul><li><font color="#ff0000">A. basilaris, a. cerebri media</font></li></ul><p><strong>Макроскопски вид на бъбреците при трети стадий на хипертонична болест:</strong></p><ul><li><font color="#ff0000">Намалени размери и тегло и дифузна фина зърнистост</font></li></ul><p><strong><font color="#ff0000">Трихинелоза:</font></strong></p><ul><li>Грануломи тип чуждо тяло</li></ul><p><strong>Гноен менингит:</strong></p><ul><li><font color="#ff0000">Пневмокок, менингокок, стрептокок</font></li></ul><p><strong>Менингити с облитериращ ендартериит:</strong></p><ul><li><font color="#ff0000">Туберкулозен менингит</font></li></ul><p><strong>Входна врата на инфекцията при полиомиелит:</strong></p><ul><li><font color="#ff0000">ГИТ</font></li></ul><p><strong>Остра форма на епидемичен гноен менингит:</strong></p><ul><li><font color="#ff0000">Гнойно възпаление на лептоменинингите, енцефалит и стаза в микроциркулацията - оток на мозък</font></li></ul><p><strong>Невронофагията е характерна за:</strong></p><ul><li><font color="#ff0000">детски паралич (полиомиелит)</font></li></ul><p><strong>Вазогенен оток на мозъка:</strong></p><ul><li><font color="#ff0000">Арт. хипертония, вътремозъчни процеси, интоксикация с олово и енцефалити</font></li></ul><p><strong>Предимно в сивото мозъчно вещество:</strong></p><ul><li><font color="#ff0000">Полиоенцефалити - детски паралич, бяс и летаргичен енцефалит</font></li></ul><p><strong>Вътреядрени включвания:</strong></p><ul><li><font color="#ff0000">Бяс и цитомегаловирус</font></li></ul><p><strong>Нефротичен синдром се развива при гломерулонефрити:</strong></p><ul><li><font color="#ff0000">Протеинурия без хематурия</font></li></ul><p><strong>Инфекцията водеща до пиелонефрит може да се дължи на:</strong></p><ul><li><font color="#ff0000">Гематогенно дисеминирана инфекция или асцендентно от пикочните пътища</font></li></ul><p><strong>Най-честият първичен гломерулонефрит при деца е:</strong></p><ul><li><font color="#ff0000">Болест на минималните изменения</font> (диагностицира се само електронномикроскопски)</li></ul><p><strong>Безпулсовата болест е:</strong></p><ul><li><font color="#ff0000">Болест на Бергер</font></li></ul><p><strong>Зърниста флуоресценция при гломерулонефритите:</strong></p><ul><li><font color="#ff0000">Задържане на имунни комплекси, отлагане в мезангиума и под крачетата на подоцитите</font></li></ul><p><strong>Светлоклетъчните карциноми произхождат от клетките на:</strong></p><ul><li><font color="#ff0000">Каналчетата</font></li></ul><p><strong>Серозен менингит:</strong></p><ul><li><font color="#ff0000">Херпес симплекс вирус, грип, паротит</font></li></ul><hr><p><strong>Амиотрофична латерална склероза - характерни промени:</strong></p><ul><li><font color="#ff0000">Деменция</font></li><li>Загуба на моторни неврони в предния рог</li><li>Мускулна слабост в крайниците</li><li>Леко преобладаване на мъжкия пол</li></ul><p><strong>Най-характерните промени при болестта Паркинсон:</strong></p><ul><li><font color="#ff0000">Загуба на пигмент в substantia nigra</font></li><li>Атрофия на преден лоб</li><li>Атрофия на темпорален лоб</li><li>Хидроцефалия "ex vacuo"</li></ul><p><strong>Наличието на неврофибриларни плаки в хипокампа е:</strong></p><ul><li><font color="#ff0000">Патогномонично за болестта на Алцхаймер</font></li><li>Патогномично за болестта на Пик</li><li>Патогномонично за болестта на Кройцфелд-Якобс</li><li>Може да се наблюдава при „здрави“ възрастни</li></ul><p><strong>Болестта на Кройцфелд-Якобс се характеризира с всички долуизброени с изключение на</strong></p><ul><li><p><font color="#ff0000">Ригидност на мускулатурата</font></p><br></li><li>Инфекция с вируса на Кройцфелд-Якобс</li><li>Деменция</li><li>Спонгиформени промени в мозъка</li></ul><p><strong>Кумулативният резултат от множество малки лакунарни инфаркти е:</strong></p><ul><li><font color="#ff0000">Мултиинфарктна деменция</font></li><li>Алцхаймерова деменция</li><li>Паркинсонизъм</li><li>Глиобластом мултиформис</li></ul><p><strong>Тромбоза на базиларната артерия ще доведе до:</strong></p><ul><li><font color="#ff0000">Инфаркт в понса</font></li><li>Инфаркт в базалните ганглии</li><li>Инфаркт в амониевия рог</li><li>Инфаркт в неокортекса</li></ul><p><strong>Бактериален менингит при пациент на 45 г. най-вероятно е причинен от:</strong></p><ul><li><font color="#ff0000">Анаеробен стрептокок</font></li><li>Ентерокок</li></ul><p><strong>Характерните промени при болестта на Алцхаймер включват всичко без:</strong></p><ul><li><font color="#ff0000">Увеличени атипични астроцити</font></li><li>Неврофибрилни плаки</li><li>Грануло-вакуоларна дегенерация</li><li>Наличие на амилоид в плаките</li></ul><strong>Всички от изброените могат да бъдат усложнение на "BERRY" аневризми на Вилизиевия кръг, с изключение на:</strong><br><ul><li><font color="#ff0000">Формиране на A-V шънт</font></li><li>Постхеморагичен спазъм и инфаркт</li><li>Руптура и хеморагия в субарахноидалното пространство</li><li>Увеличаване на обема и формиране на маса, заемаща пространство</li></ul><p><strong>Церебралната малария, предизвикана от Plasmodium falciparum може да е животозастрашаваща, защото организмите могат да са отговорни за:</strong></p><ul><li><font color="#ff0000">Обструкция на кръвоносни съдове</font></li><li>Формиране на абсцес</li><li>Образуване на гранулом</li><li>Развитие на дифузен енцефалит</li></ul><p><strong>Коя от неоплазмите на ЦНС има най-голяма склонност да се разпространява по ликворен път:</strong></p><ul><li><font color="#ff0000">Глиобластома</font></li><li>Медулобластома</li><li>Олигодендроглиома</li><li>Астроцитома</li></ul><p><strong>Абсцесът в мозъка често е усложнение на:</strong></p><ul><li><font color="#ff0000">Среден отит/мастоидит</font></li><li>Травма</li><li>Възпаление на параназалните синуси</li><li>Менингококов сепсис</li></ul><p><strong>Инфекцията на мозъка, причинена от HIV-1, се характеризира с:</strong></p><ul><li><font color="#ff0000">Многоядрени гигантски клетки</font></li><li>Микроабсцеси</li><li>Грануломи с централна казеификация</li><li>Обширни некрози без възпалителна реакция</li></ul><p><strong>Коя от изброените електронномикроскопски промени е патогномична за дифузния ендокапилярен гломерулонефрит:</strong></p><ul><li><font color="#ff0000">Субедотелни електронноплътни отлагания под формата на гърбица</font></li><li>Изглаждане на подоцитните крачета</li><li>Просветлявания в базалната мембрана</li><li>Електронноплътни отлагания в lamina densa на базалната мембрана</li></ul><p><strong>Кой екзогенен антиген причинява дифузния ендокапилярен гломерулонефрит:</strong></p><ul><li><font color="#ff0000">Бета-хемолитичен стрептокок</font></li><li>Вируси</li><li>Стрептокок вириданс</li><li>Стафилокок</li></ul><strong>Болестта на Бергер свързваме с:</strong><ul><li><font color="#ff0000">Мезангиално отлагане на IgA</font></li><li>Отлагане на плазмени протеини</li><li>Отлагане на фибрин</li><li>Отлагане на липохиалин</li></ul><p><strong>Гломерулонефрит на Löhlein се развива при:</strong></p><ul><li><font color="#ff0000">Подостър бактериален ендокардит</font></li><li>Панартериит</li><li>Сепсис</li><li>Системен лупус</li></ul><p><strong>Усложнения на острия пиелонефрит включват изброените по-долу, освен:</strong></p><ul><li><font color="#ff0000">Миокардиосклероза</font></li><li>Паранефрит</li><li>Бактериален шок</li><li>Нефросклероза</li></ul><p><strong>В кой от посочените тумори, стромата съдържа клетки на гладка и напречнонабраздена мускулатура:</strong></p><ul><li><font color="#ff0000">Нефробластом </font>(Тумор на Wilms)</li><li>Бъбречен карцином</li><li>Аденом на бъбрека</li><li>Ганглионевром</li></ul><p><strong>За тумора на Вилмс са характерни следните особености, освен:</strong></p><ul><li><font color="#ff0000">Има сиво-белезникава срезна повърхност във вид на "рибе месо"</font></li><li>Развива се в деца до 3 години</li><li>Разполага се ретроперитонеално</li></ul><p><strong>Малки по размери бъбреци с виолетово-червен цвят и финннозърнеста повърхност се наблюдават при:</strong></p><ul><li><font color="#ff0000">Хипертонична болест</font></li><li>Хроничен пиелонефрит</li><li>Амилоидоза</li><li>Ендемична нефропатия</li></ul><p><strong>Честите интеркурентни инфекции при липоидна некроза се свързват с:</strong></p><ul><li><font color="#ff0000">Нарушения в Т-клетъчния имунитет и хипопротеинемия</font></li><li>Интоксикация с тетрациклини</li><li>Хиповитаминоза А</li><li>Образуване на автоантитила</li></ul><p><strong>Ксантогрануломатозен пиелонефрит представлява:</strong></p><ul><li><font color="#ff0000">Хронично грануломатозно възпаление с наличие на многобройни, натоварени с липиди макрофаги, многоядрени клетки и левкоцити</font></li><li>Остро некротично възпаление</li><li>Възпаление, причинено от E. coli</li><li>Грануломатозно възпаление около казеозна некроза</li></ul><p><strong>За мембранозната нефропатия са характерни</strong></p><ul><li><font color="#ff0000">Ритмични, електронноплътни отлагания, между които има шипчета</font></li><li>Задебелени базални мембрани тип "телени бримки"</li><li>Електронноплътни отлагания в мезангиума</li><li>Субепителни отлагания под формата на гърбици</li></ul><p><strong>Симетрични кортикални некрози се свързват с:</strong></p><ul><li><font color="#ff0000">ДИК синдром</font></li><li>Интоксикация със сулфонамиди</li><li>Ужилване от насекомо</li><li>Отравяне с антифриз</li></ul><p><strong>До развитие на хидронефроза водят следните фактори, освен</strong></p><ul><li><font color="#ff0000">Феохромоцитом</font></li><li>Камъни в бъбречното легенче</li><li>Простатна хипертрофия</li><li>Тумори в областта на малкия таз</li></ul><p><strong>Посочете характерните светлинномикроскопски промени при диабетна нефропатия:</strong></p><ul><li><font color="#ff0000">Интеркапилярна гломерулосклероза и субендотелно разположени фибринови шапчици</font></li><li>Двоен контур на базалната мембрана тип "траверса"</li><li>Лобулирани гломерули</li><li>Фиброзни полулуния</li></ul><p><strong>При малигнена хипертония в бъбреците се наблюдава:</strong></p><ul><li><font color="#ff0000">Фибриноидна некроза в артериолите</font></li><li>Хиалинизация на гломерулите</li><li>Калциеви отлагания в папилите</li><li>Интерстициална фиброза</li></ul><p><strong>Кое от изброените хистологични изменения на гломерулите е строго специфично за лупусната нефропатия:</strong></p><ul><li><font color="#ff0000">Частици от разрушена ДНК - т.н. хематоксилинови телца</font></li><li>Наличие на левкоцити в капилярните лумени</li><li>Дигитация на гломерулните капилярни бримки</li><li>Интеркапилярна гломерулосклероза</li></ul><p><strong>За дифузния ендокапилярен гломерулонефрит са характерни следните макроскопски промени:</strong></p><ul><li><font color="#ff0000">Умерено увеличени бъбреци и петехиални кръвоизливи по кората</font></li><li>Намалени размери на бъбреците с гладка повърхност</li><li>Наличие на множество корови инфаркти</li><li>Зърниста повърхност на бъбреците</li></ul><strong>Към развитие на цистит предразполагат следните фактори, освен:</strong><br><ul><li><font color="#ff0000">Аневризма на коремната аорта</font></li><li>Бременност</li><li>Тумори на пикочния мехур</li><li>Механична травма (катетеризация)</li></ul><p><strong>Макроскопска характеристика на бъбречния карцином включва:</strong></p><ul><li><font color="#ff0000">Всички изброени белези</font></li><li>Разположение в единия полюс</li><li>Ограждане с псевдокапсула</li><li>Срезна повърхност с жълт цвят и кръвоизливи</li></ul><p><strong>С кои макроскопски белези свързвате дифузният склерозиращ гломерулонефрит:</strong></p><ul><li><font color="#ff0000">Малки бъбреци с дребнозърнеста повърхност</font></li><li>Наличие на симетрични кортикални некрози</li><li>Силно намаление на размерите и гладка повърхност</li><li>Наличие на папиларни некрози</li></ul><p><strong>Образуването на полулуния при бързопрогресиращия гломерулонефрит преминава през следните стадии, освен:</strong></p><ul><li><p><font color="#ff0000">Хеморагичен</font></p><br></li><li>Целуларен</li><li>Фиброцелуларен</li><li>Фиброзен</li></ul><p><strong>Характерно за балканската ендемична нефропатия:</strong></p><ul><li><font color="#ff0000">Често съчетание с тумори на легенчето</font></li><li>Големи бъбреци с бледа, разширена кора</li><li>Неравна повърхност с плитки, белезникави цикатрикси</li><li>Съчетание с кожни тумори</li></ul><strong>В различните стадии от развитието на фенацетиновата нефропатия наблюдава следните хистологични промени, освен:</strong><br><ul><li><font color="#ff0000">Т.н. „струмизация" на каналчетата</font></li><li>Оток в интерстициума на медулата</li><li>Некроза на папилите с оформяне на демаркационна линия</li><li>Хронично тубуло-интерстициално възпаление</li></ul><p><strong>В клинико-морфологичен аспект диабетната нефропатия представлява:</strong></p><ul><li><font color="#ff0000">Нодуларна или дифузна гломерулосклероза, протичаща с нефрозен синдром и хипертония</font></li><li>Мезангиална склероза, предизвикваща нефрозен синдром</li><li>Гломерулосклероза, протичаща с хематурия и цилиндрурия</li><li>Гломерулосклероза, водеща до уремия</li></ul><strong>Огнищен гломерулонефрит може да се развие като усложнение на следните заболявания:</strong><br><ul><li><font color="#ff0000">Хипертонична болест</font> (бележка: Огнищен ГН обикновено е имуномедиран, хипертонията води до артериолосклероза)</li><li>Пурпура на Шонлайн-Хенох</li><li>Системен лупус</li><li>Грануломатоза на Вегенер</li></ul><p><strong>Кой от посочените морфологични белези НЕ се отнася за хроничния пиелонефрит:</strong></p><ul><li><font color="#ff0000">Симетрично засягане на двата бъбрека</font></li><li>Множество големи, неравномерно разпределени цикатрикси</li><li>Задебелена лигавица на легенчето</li><li>Деформация на чашките</li></ul><strong>Посочете кой от изброените фактори има значение за образуването на полулуния при бързопрогресиращия гломерулонефрит:</strong><br><ul><li><font color="#ff0000">Руптура на базалната мембрана, моноцити и фибрин в Баумановото пространство</font></li><li>Левкоцитна инфилтрация</li><li>Пролиферация на мезангиални клетки</li><li>Отделяне на ацетилхолин</li></ul><p><strong>Голям бял бъбрек с точковидни корови кръвоизливи се наблюдава при:</strong></p><ul><li><font color="#ff0000">Полулунен гломерулонефрит</font></li><li>Диабетна нефропатия</li><li>Ендемична нефропатия</li><li>Малигнена хипертония</li></ul><p><strong>Кой от посочените гломерулонефрити се диагностицира изключително на ЕМ ниво:</strong></p><ul><li><font color="#ff0000">Болест на минималните изменения</font></li><li>Мембранозен</li><li>Мезангиопролиферативен</li><li>Огнищен гломерулонефрит</li></ul><p><strong></strong></p><p><strong>За бъбречния карцином са характерни следните особености, с изключение на:</strong></p><ul><li><font color="#ff0000">Свързан е с продукция на калцитонин</font></li><li>Прораства в бъбречната вена</li><li>Инфилтрира бъбречната капсула</li><li>Метастазира предимно по хематогенен път</li></ul><strong>Коя от посочените хистологични промени в гломерулите характеризира дифузния мезангиокапилярен гломерулонефрит?</strong><ul><li><font color="#ff0000">Двойна базална мембрана с електронномикроскопски вид на ЖП траверса</font></li><li>Хиалинизация на аферентните артериоли</li><li>Излив на фибрин в Баумановото пространство</li><li>Формиране на полулуния</li></ul><p><strong>Синдром на Гудпасчър е:</strong></p><ul><li><font color="#ff0000">Съчетание на хеморагичен пулмонит с полулунен гломерулонефрит</font></li><li>Съчетание на хеморагичен пулмонит с панартериит</li><li>Съчетание на хеморагичен пулмонит с грануломатозно възпаление на носната лигавица</li><li>Съчетание на хеморагичен пулмонит с полиартрит</li></ul><p><strong></strong></p><p><strong>Кой от посочените хистологични видове тумори може да се развие в пикочния мехур?</strong></p><ul><li><font color="#ff0000">Папиларен преходноклетъчен карцином</font></li><li>Дребноклетъчен карцином</li><li>Апудом</li><li>Базоцелуларен карцином</li></ul><p><strong>Кой от изброените признаци не е характерен за нефротичния синдром?</strong></p><ul><li><font color="#ff0000">Хематурия</font></li><li>Мастна дегенерация на цитоплазмата на епителните клетки на проксималните каналчета</li><li>Хиперпротеинурия</li><li>Хиалинно-капчеста дегенерация в епитела на проксималните каналчета</li></ul><p><strong>За засегнатия от острия пиелонефрит бъбрек са характерни следните макроскопски изменения освен:</strong></p><ul><li><font color="#ff0000">Намалени размери на бъбрека</font></li><li>Умерено уголемен по размери бъбрек</li><li>Наличие на абсцеси по повърхността на бъбрека</li><li>Възпаление на лигавицата на легенчето</li></ul><br>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+<script>
+renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true},
+    {left: '$', right: '$', display: false},
+    {left: '\[', right: '\]', display: true},
+    {left: '\(', right: '\)', display: false}
+  ],
+  throwOnError: false
+});
+</script>
+</body>
+</html>

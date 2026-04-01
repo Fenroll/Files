@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <style>
+    body { 
+      font-family: "Open Sans", Arial, sans-serif; 
+      max-width: 1550px; 
+      margin: 0.5rem auto; 
+      padding: 0 1rem; 
+      line-height: 1.6; 
+      color: #1f2937; 
+    }
+    h1, h2, h3, h4 { 
+      font-weight: 600; 
+      margin-top: 0.7em;
+      margin-bottom: 0;
+      color: #588157;
+    }
+    h1 { font-size: 1.65em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; margin-bottom: 0; }
+    h4 { font-size: 1.05em; margin-bottom: 0; }
+    h1 + h2, h1 + h3, h1 + h4, h2 + h3, h2 + h4, h3 + h4 { margin-top: 0.1em; }
+    p { 
+      margin: 0.3em 0; 
+      white-space: pre-wrap;
+    }
+    hr {
+      margin: 0.45em 0 0.2em;
+    }
+    hr + h1,
+    hr + h2,
+    hr + h3,
+    hr + h4 {
+      margin-top: 0.2em;
+    }
+    hr + p,
+    hr + ul,
+    hr + ol,
+    hr + blockquote,
+    hr + pre,
+    hr + table {
+      margin-top: 0.08em;
+    }
+    p + ul, p + ol { margin-top: 0.2em; }
+    h1 + p, h2 + p, h3 + p, h4 + p,
+    h1 + ul, h2 + ul, h3 + ul, h4 + ul,
+    h1 + ol, h2 + ol, h3 + ol, h4 + ol { 
+      margin-top: 0; 
+    }
+    ul, ol { 
+      margin: 0.2em 0; 
+      padding-left: 1.5em; 
+      list-style-position: outside;
+    }
+    li { margin: 0.2em 0; }
+    li p {
+      margin: 0;
+      padding: 0;
+      display: inline;
+    }
+    li > ul, li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    ul ul, ul ol, ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    ul ul { list-style-type: circle; }
+    ul ul ul { list-style-type: square; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+    code { 
+      background: rgba(146, 64, 14, 0.1); 
+      padding: 2px 6px; 
+      border-radius: 3px; 
+      font-family: "Courier New", monospace; 
+      font-size: 0.9em; 
+    }
+    pre {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 12px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.5em 0;
+      font-family: "Courier New", monospace;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    blockquote {
+      border-left: 3px solid #588157;
+      padding-left: 1em;
+      margin: 0.5em 0;
+      font-style: italic;
+      color: #166534;
+    }
+    table { 
+      border-collapse: collapse; 
+      margin: 0.75em 0; 
+      width: 100%; 
+      table-layout: auto;
+    }
+    th, td { 
+      border: 1px solid rgba(2, 2, 2, 0.2);
+      padding: 6px 10px; 
+      text-align: left; 
+      vertical-align: top;
+      height: 24px;
+      line-height: 1.2;
+    }
+    thead th { 
+      background: rgba(88, 129, 87, 0.13); 
+      font-weight: 600; 
+    }
+    tbody tr:nth-child(odd) { 
+      background: rgba(88, 129, 87, 0.06); 
+    }
+    /* Image alignment rules for exported content and md-viewer */
+    img[data-align="left"] {
+      display: block;
+      margin: 8px auto 8px 0;
+    }
+    img[data-align="center"] {
+      display: block;
+      margin: 8px auto;
+    }
+    img[data-align="right"] {
+      display: block;
+      margin: 8px 0 8px auto;
+    }
+    .audio-link-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0.2em 0;
+      max-width: 100%;
+      vertical-align: middle;
+    }
+    .audio-link-icon {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #588157;
+      border-radius: 999px;
+      background: #f0f7f0;
+      color: #2f5d50;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+    .audio-link-inline audio {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .audio-link-icon img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    a {
+      color: inherit; /* Changed to inherit */
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #74b673;
+    }
+    /* Keep <p> tags inside list items on same line (as they appear in editor) */
+    li p {
+      margin: 0 !important;
+      padding: 0 !important;
+      display: inline !important;
+    }
+    /* Prevent nested list paragraph issues */
+    li > ul,
+    li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    /* Ensure list structure is clean */
+    ul ul, ul ol,
+    ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    @media (max-width: 768px) {
+      body {
+        margin: 0.5rem 0;
+        padding: 0 0.5rem;
+        font-size: 16px;
+      }
+      h1 { font-size: 1.65em; }
+      h2 { font-size: 1.3em; }
+      h3 { font-size: 1.1em; }
+      p { margin: 0.3em 0; }
+      ul, ol { padding-left: 1.5em; }
+      li { margin: 0.2em 0; }
+      table { font-size: 0.9em; }
+      th, td { padding: 6px 10px; }
+    }
+    .editor-note {
+      text-decoration: underline dotted #a3b18a;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      text-decoration-skip-ink: none;
+      cursor: help;
+      position: relative;
+    }
+    .note-tooltip {
+      display: none;
+      position: absolute;
+      background-color: #f0f7f0;
+      color: #1f2937;
+      border: 1px solid #588157;
+      border-radius: 4px;
+      padding: 8px 12px;
+      width: fit-content;
+      max-width: min(700px, calc(100vw - 20px));
+      max-height: calc(100vh - 20px);
+      overflow: auto;
+      box-sizing: border-box;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 10000;
+      font-size: 0.9em;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    .note-tooltip ul, .note-tooltip ol {
+      margin: 0 !important;
+      padding-left: 20px !important;
+    }
+    .note-tooltip li {
+      margin: 0 0 0.1em 0 !important;
+      padding: 0 !important;
+      line-height: 1.2 !important;
+    }
+    .note-tooltip li:last-child {
+      margin-bottom: 0 !important;
+    }
+    .note-tooltip .note-table-scroll {
+      overflow-x: auto;
+      margin: 0.3em 0;
+    }
+    .note-tooltip table {
+      border-collapse: collapse;
+      width: max-content;
+      max-width: 100%;
+      min-width: 220px;
+      background: #ffffff;
+    }
+    .note-tooltip th,
+    .note-tooltip td {
+      border: 1px solid rgba(88, 129, 87, 0.35);
+      padding: 4px 8px;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .note-tooltip thead th {
+      background: rgba(88, 129, 87, 0.12);
+      font-weight: 600;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'note-tooltip';
+      document.body.appendChild(tooltip);
+
+      function parseNoteMarkdown(text) {
+        if (!text) return '';
+        
+        const splitTableCells = function(line) {
+          return String(line || '')
+            .trim()
+            .replace(/^\|/, '')
+            .replace(/\|$/, '')
+            .split('|')
+            .map(function(cell) { return cell.trim(); });
+        };
+
+        const isTableSeparatorLine = function(line) {
+          const cells = splitTableCells(line);
+          return cells.length > 0 && cells.every(function(cell) {
+            return /^:?-{3,}:?$/.test(cell);
+          });
+        };
+
+        const getTableAlignment = function(cell) {
+          if (/^:-{3,}:$/.test(cell)) return 'center';
+          if (/^-{3,}:$/.test(cell)) return 'right';
+          if (/^:-{3,}$/.test(cell)) return 'left';
+          return '';
+        };
+
+        let lines = text.split('\n');
+        let html = [];
+        let stack = [];
+        
+        for (let i = 0; i < lines.length; i++) {
+          let line = lines[i];
+          
+          let indentMatch = line.match(/^(\s*)/);
+          let indent = indentMatch ? indentMatch[1].length : 0;
+          let content = line.trim();
+
+          const nextLine = i + 1 < lines.length ? lines[i + 1].trim() : '';
+          const maybeTableHeader = content.includes('|') && splitTableCells(content).length >= 2;
+          const maybeTableSeparator = nextLine.includes('|') && isTableSeparatorLine(nextLine);
+
+          if (maybeTableHeader && maybeTableSeparator) {
+            while (stack.length > 0) {
+              let closed = stack.pop();
+              html.push('</' + closed.type + '>');
+            }
+
+            const headerCells = splitTableCells(content);
+            const alignCells = splitTableCells(nextLine);
+
+            html.push('<div class="note-table-scroll"><table><thead><tr>');
+            headerCells.forEach(function(cell, idx) {
+              const align = getTableAlignment(alignCells[idx] || '');
+              const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+              html.push('<th' + alignAttr + '>' + cell + '</th>');
+            });
+            html.push('</tr></thead><tbody>');
+
+            i += 2;
+            while (i < lines.length) {
+              const rowLine = lines[i].trim();
+              if (!rowLine || !rowLine.includes('|')) break;
+              if (isTableSeparatorLine(rowLine)) {
+                i++;
+                continue;
+              }
+
+              const rowCells = splitTableCells(rowLine);
+              if (rowCells.length === 0) {
+                i++;
+                continue;
+              }
+
+              html.push('<tr>');
+              rowCells.forEach(function(cell, idx) {
+                const align = getTableAlignment(alignCells[idx] || '');
+                const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+                html.push('<td' + alignAttr + '>' + cell + '</td>');
+              });
+              html.push('</tr>');
+              i++;
+            }
+
+            html.push('</tbody></table></div>');
+            i--;
+            continue;
+          }
+          
+          let isUl = /^[-*]\s+(.+)/.test(content);
+          let isOl = /^\d+\.\s+(.+)/.test(content);
+          
+          if (isUl || isOl) {
+            let listType = isUl ? 'ul' : 'ol';
+            let match = isUl ? content.match(/^[-*]\s+(.+)/) : content.match(/^\d+\.\s+(.+)/);
+            let itemText = match[1];
+            
+            if (stack.length === 0) {
+              stack.push({ type: listType, indent: indent });
+              html.push('<' + listType + '>');
+            } else {
+              let last = stack[stack.length - 1];
+              
+              if (indent > last.indent) {
+                stack.push({ type: listType, indent: indent });
+                html.push('<' + listType + '>');
+              } else if (indent < last.indent) {
+                while (stack.length > 0 && stack[stack.length - 1].indent > indent) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                }
+                if (stack.length === 0 || stack[stack.length - 1].indent !== indent) {
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                } else if (stack[stack.length - 1].type !== listType) {
+                   let closed = stack.pop();
+                   html.push('</' + closed.type + '>');
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                }
+              } else {
+                if (last.type !== listType) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                  stack.push({ type: listType, indent: indent });
+                  html.push('<' + listType + '>');
+                }
+              }
+            }
+            html.push('<li>' + itemText + '</li>');
+          } else {
+            if (content !== '') {
+               while (stack.length > 0) {
+                 let closed = stack.pop();
+                 html.push('</' + closed.type + '>');
+               }
+            }
+            if (/^#{1,4}\s+/.test(content)) {
+              const headingMatch = content.match(/^(#{1,4})\s+(.+)$/);
+              if (headingMatch) {
+                const level = headingMatch[1].length;
+                html.push('<h' + level + '>' + headingMatch[2] + '</h' + level + '>');
+              }
+            } else if (content) {
+              html.push(content + '<br>');
+            } else {
+              html.push('<br>');
+            }
+          }
+        }
+        
+        while (stack.length > 0) {
+          let closed = stack.pop();
+          html.push('</' + closed.type + '>');
+        }
+        
+        let result = html.join('')
+          .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/__(.+?)__/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>')
+          .replace(/_(.+?)_/g, '<em>$1</em>')
+          .replace(/`(.+?)`/g, '<code>$1</code>')
+          .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
+        
+        result = result
+          .replace(/<br><ul>/g, '<ul>')
+          .replace(/<br><ol>/g, '<ol>')
+          .replace(/</ul><br>/g, '</ul>')
+          .replace(/</ol><br>/g, '</ol>');
+        
+        return result;
+      }
+
+      document.body.addEventListener('mouseover', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          const note = e.target.dataset.note;
+          if (note) {
+            tooltip.innerHTML = parseNoteMarkdown(note);
+            tooltip.style.display = 'block';
+            const rect = e.target.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+            const pageX = window.scrollX || window.pageXOffset;
+            const pageY = window.scrollY || window.pageYOffset;
+            const maxLeft = pageX + window.innerWidth - tooltipRect.width - 10;
+            const minLeft = pageX + 10;
+
+            let left = rect.left + pageX;
+            if (left > maxLeft) left = maxLeft;
+            if (left < minLeft) left = minLeft;
+
+            let top = rect.bottom + pageY + 6;
+            const maxTop = pageY + window.innerHeight - tooltipRect.height - 10;
+            if (top > maxTop) {
+              top = rect.top + pageY - tooltipRect.height - 6;
+            }
+            if (top < pageY + 10) top = pageY + 10;
+
+            tooltip.style.left = left + 'px';
+            tooltip.style.top = top + 'px';
+          }
+        }
+      });
+
+      document.body.addEventListener('mouseout', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          setTimeout(() => {
+            if (!tooltip.matches(':hover')) {
+              tooltip.style.display = 'none';
+            }
+          }, 100);
+        }
+      });
+
+      tooltip.addEventListener('mouseleave', function() {
+        tooltip.style.display = 'none';
+      });
+    });
+  </script>
+</head>
+<body>
+<h1 style="text-align: center">ИНТЕРФЕРЕНТНИ ТОКОВЕ</h1><h2>Произход и физичен принцип</h2><p>Интерферентните токове (ИТ) са открити и предложени за използване в лечебната практика от австрийския учен Nemec през 1949 г. При тази методика върху третирания участък се въздейства едновременно с два средночестотни променливи тока с постоянна амплитуда, които се въвеждат чрез два чифта електроди. Електродите се разполагат перпендикулярно един на друг, така че силовите им линии да се кръстосват. Честотата на първия токов кръг е фиксирана на <strong>4000 Hz</strong>, докато при втория тя се променя автоматично в диапазона от <strong>4001 до 4100 Hz</strong>.</p><p>Когато двата средночестотни тока се кръстосат в дълбочината на тъканите, настъпва феноменът <strong>интерференция</strong>. В резултат на това се поражда ендогенно образуван трети ток с честота, равна на разликата между честотите на двата изходни кръга (от <strong>1 до 100 Hz</strong>), на чието лечебно действие се разчита в терапията.</p><h2>Усещания и апаратура</h2><p>Усещанията при въздействие с ИТ се описват като дълбоки вибрации с променлив характер, зависещ от честотата. Най-отчетливо това се усеща в мускулатурата под и в близост до електродите, където се създава най-голяма плътност на тока. Първоначалното равномерно разпределение на тока постепенно се затруднява от съпротивлението на различните тъканни структури, поради което интерференция настъпва както в дълбоките, така и в повърхностните тъкани.</p><p>Апаратите за интерферентна терапия разполагат с два чифта електроди, като всеки токов кръг е цветово означен. Съвременните устройства са снабдени с еластични „електроди камбанки“ от еластична материя, които позволяват реализирането на вакуумно въздействие върху кожата. Към някои апарати се прилагат и електроди с форма на ръкавица, които се поставят върху гумени ръкавици – <strong>интерференц-кинезия</strong>.<br>Терапевтът може да избира между постоянна честота (напр. 100 Hz) или автоматично променяща се честота в различни варианти (0—100 Hz, 90—100 Hz, 50—100 Hz).<img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775040411850-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775040411850-image.png" data-width="100" data-align="center" style="width: 1058px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><h2>Физиологични отговори според честотите</h2><p>Чрез избор на честоти получаваме различни физиологични отговори, като най-общо честотите от 10 до 50 Hz притежават ексцитомоторен ефект, а от 50 до 100 Hz седативен, като вътре в посочените граници се наблюдават следните нюанси:</p><ul><li><strong>1 до 15 Hz:</strong> Предизвикват бавни клонични контракции (силен ексцитомоторен ефект).</li><li><strong>15 до 80 Hz:</strong> Мускулните контракции са бързи с характер на тетанус; този диапазон има и силен вазомоторен ефект.</li><li><strong>80 до 100 Hz:</strong> Предизвикват бързи вибрации с картина на постоянен тетанус и имат подчертан аналгетичен и хиперемиращ ефект.</li><li><strong>100 Hz (постоянна честота):</strong> Проявяват симпатиколитичен ефект и премахват съдовите спазми.</li><li><strong>90 до 100 Hz:</strong> Оказват седативен и спазмолитичен ефект, като същевременно се избягва привикването на тъканите към дразнителя. Тази честота <u>стимулира и остеогенезата</u>.</li><li><strong>1 до 100 Hz:</strong> Съчетават динамогенно, трофично, спазмолитично и аналгезиращо действие, <u>без да предизвикват мускулна умора</u>.&nbsp;</li><li><strong>0 до 100 Hz:</strong> Стимулира остеогенезата.</li></ul><h2>Терапевтични ефекти и биологично действие</h2><p>Основният симпатиколитичен ефект на ИТ води до изразена вазодилатация в периферната съдова мрежа и активна хиперемия, съпроводена с отделяне на биологично активни вещества като ацетилхолин и хистамин. Подобрената кръвна циркулация ускорява тъканния метаболизъм и резорбтивните процеси, което създава условия за противооточен, противовъзпалителен и аналгетичен ефект.</p><p>Интерферентните токове променят pH на средата към алкална и стимулират продукцията на ацетилхолин. Приложението им в ритмична честота от 1 до 100 Hz стимулира регенерацията на увредените периферни нерви и подобрява функционалното състояние на нервно-мускулния апарат. Освен това ИТ стимулират остеогенезата и ускоряват калусообразуването чрез засилване на тъканния метаболизъм.</p><h2>Методика на приложение</h2><p>ИТ могат да се прилагат по няколко начина, като се допуска тяхното комбиниране:</p><ul><li><strong>Локално:</strong> Директно върху засегнатата зона.</li><li><strong>Сегментарно:</strong> В областите на симпатикусовите възли (паравертебрално) и в зоните на Захарин—Хед.</li></ul><p>Големината на тока се дозира според субективната поносимост на пациента, като целта е достигане до усещане за неболезнени мускулни контракции.</p><h2>Показания и противопоказания</h2><p><strong>Показания:</strong></p><ul><li>Хронични възпалителни и дегенеративни заболявания на опорно-двигателния апарат.</li><li>Неврити, невралгии и радикулити.</li><li>Посттравматични състояния: контузии, навяхвания, контрактури, състояния след луксации и фрактури.</li><li>Хронични възпалителни заболявания на женските полови органи и хроничен простатит.</li><li>Атрофия на Zudeck, болест на Бюргер и болест на Рейно.</li><li>Професионални заболявания, например вибрационна болест.</li></ul><p><strong>Противопоказания:</strong></p><ul><li>Остри възпалителни заболявания и фебрилитет.</li><li>Тромбофлебит и напреднала атеросклероза.</li><li>Туберкулоза и туморни процеси.</li><li><strong>Болест на Паркинсон</strong>.</li><li>Бременност.</li><li><strong>Деца на възраст под две години</strong>.</li></ul><br><style></p><p>    body { </p><p>      font-family: "Open Sans", Arial, sans-serif; </p><p>      max-width: 1200px; </p><p>      margin: 2rem auto; </p><p>      padding: 0 1rem; </p><p>      line-height: 1.6; </p><p>      color: #1f2937; </p><p>    }</p><p>    h1 { </p><p>      font-weight: 600; </p><p>      font-size: 1.5em;</p><p>      margin-top: 1.5em;</p><p>      margin-bottom: 0.5em;</p><p>      color: #3a5a40;</p><p>      border-bottom: 2px dashed #a3b18a;</p><p>      padding-bottom: 5px;</p><p>    }</p><p>    p { </p><p>      margin: 0.7em 0 1.5em 0; </p><p>      white-space: pre-wrap;</p><p>    }</p><p>    @media (max-width: 768px) {</p><p>      body { font-size: 16px; }</p><p>      h1 { font-size: 1.3em; }</p><p>    }</p><p>  </style>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+<script>
+renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true},
+    {left: '$', right: '$', display: false},
+    {left: '\\[', right: '\\]', display: true},
+    {left: '\\(', right: '\\)', display: false}
+  ],
+  throwOnError: false
+});
+</script>
+</body>
+</html>

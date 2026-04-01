@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <style>
+    body { 
+      font-family: "Open Sans", Arial, sans-serif; 
+      max-width: 1550px; 
+      margin: 0.5rem auto; 
+      padding: 0 1rem; 
+      line-height: 1.6; 
+      color: #1f2937; 
+    }
+    h1, h2, h3, h4 { 
+      font-weight: 600; 
+      margin-top: 0.7em;
+      margin-bottom: 0;
+      color: #588157;
+    }
+    h1 { font-size: 1.65em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; margin-bottom: 0; }
+    h4 { font-size: 1.05em; margin-bottom: 0; }
+    h1 + h2, h1 + h3, h1 + h4, h2 + h3, h2 + h4, h3 + h4 { margin-top: 0.1em; }
+    p { 
+      margin: 0.3em 0; 
+      white-space: pre-wrap;
+    }
+    hr {
+      margin: 0.45em 0 0.2em;
+    }
+    hr + h1,
+    hr + h2,
+    hr + h3,
+    hr + h4 {
+      margin-top: 0.2em;
+    }
+    hr + p,
+    hr + ul,
+    hr + ol,
+    hr + blockquote,
+    hr + pre,
+    hr + table {
+      margin-top: 0.08em;
+    }
+    p + ul, p + ol { margin-top: 0.2em; }
+    h1 + p, h2 + p, h3 + p, h4 + p,
+    h1 + ul, h2 + ul, h3 + ul, h4 + ul,
+    h1 + ol, h2 + ol, h3 + ol, h4 + ol { 
+      margin-top: 0; 
+    }
+    ul, ol { 
+      margin: 0.2em 0; 
+      padding-left: 1.5em; 
+      list-style-position: outside;
+    }
+    li { margin: 0.2em 0; }
+    li p {
+      margin: 0;
+      padding: 0;
+      display: inline;
+    }
+    li > ul, li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    ul ul, ul ol, ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    ul ul { list-style-type: circle; }
+    ul ul ul { list-style-type: square; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+    code { 
+      background: rgba(146, 64, 14, 0.1); 
+      padding: 2px 6px; 
+      border-radius: 3px; 
+      font-family: "Courier New", monospace; 
+      font-size: 0.9em; 
+    }
+    pre {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 12px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.5em 0;
+      font-family: "Courier New", monospace;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    blockquote {
+      border-left: 3px solid #588157;
+      padding-left: 1em;
+      margin: 0.5em 0;
+      font-style: italic;
+      color: #166534;
+    }
+    table { 
+      border-collapse: collapse; 
+      margin: 0.75em 0; 
+      width: 100%; 
+      table-layout: auto;
+    }
+    th, td { 
+      border: 1px solid rgba(2, 2, 2, 0.2);
+      padding: 6px 10px; 
+      text-align: left; 
+      vertical-align: top;
+      height: 24px;
+      line-height: 1.2;
+    }
+    thead th { 
+      background: rgba(88, 129, 87, 0.13); 
+      font-weight: 600; 
+    }
+    tbody tr:nth-child(odd) { 
+      background: rgba(88, 129, 87, 0.06); 
+    }
+    /* Image alignment rules for exported content and md-viewer */
+    img[data-align="left"] {
+      display: block;
+      margin: 8px auto 8px 0;
+    }
+    img[data-align="center"] {
+      display: block;
+      margin: 8px auto;
+    }
+    img[data-align="right"] {
+      display: block;
+      margin: 8px 0 8px auto;
+    }
+    .audio-link-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0.2em 0;
+      max-width: 100%;
+      vertical-align: middle;
+    }
+    .audio-link-icon {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #588157;
+      border-radius: 999px;
+      background: #f0f7f0;
+      color: #2f5d50;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+    .audio-link-inline audio {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .audio-link-icon img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    a {
+      color: inherit; /* Changed to inherit */
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #74b673;
+    }
+    /* Keep <p> tags inside list items on same line (as they appear in editor) */
+    li p {
+      margin: 0 !important;
+      padding: 0 !important;
+      display: inline !important;
+    }
+    /* Prevent nested list paragraph issues */
+    li > ul,
+    li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    /* Ensure list structure is clean */
+    ul ul, ul ol,
+    ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    @media (max-width: 768px) {
+      body {
+        margin: 0.5rem 0;
+        padding: 0 0.5rem;
+        font-size: 16px;
+      }
+      h1 { font-size: 1.65em; }
+      h2 { font-size: 1.3em; }
+      h3 { font-size: 1.1em; }
+      p { margin: 0.3em 0; }
+      ul, ol { padding-left: 1.5em; }
+      li { margin: 0.2em 0; }
+      table { font-size: 0.9em; }
+      th, td { padding: 6px 10px; }
+    }
+    .editor-note {
+      text-decoration: underline dotted #a3b18a;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      text-decoration-skip-ink: none;
+      cursor: help;
+      position: relative;
+    }
+    .note-tooltip {
+      display: none;
+      position: absolute;
+      background-color: #f0f7f0;
+      color: #1f2937;
+      border: 1px solid #588157;
+      border-radius: 4px;
+      padding: 8px 12px;
+      width: fit-content;
+      max-width: min(700px, calc(100vw - 20px));
+      max-height: calc(100vh - 20px);
+      overflow: auto;
+      box-sizing: border-box;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 10000;
+      font-size: 0.9em;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    .note-tooltip ul, .note-tooltip ol {
+      margin: 0 !important;
+      padding-left: 20px !important;
+    }
+    .note-tooltip li {
+      margin: 0 0 0.1em 0 !important;
+      padding: 0 !important;
+      line-height: 1.2 !important;
+    }
+    .note-tooltip li:last-child {
+      margin-bottom: 0 !important;
+    }
+    .note-tooltip .note-table-scroll {
+      overflow-x: auto;
+      margin: 0.3em 0;
+    }
+    .note-tooltip table {
+      border-collapse: collapse;
+      width: max-content;
+      max-width: 100%;
+      min-width: 220px;
+      background: #ffffff;
+    }
+    .note-tooltip th,
+    .note-tooltip td {
+      border: 1px solid rgba(88, 129, 87, 0.35);
+      padding: 4px 8px;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .note-tooltip thead th {
+      background: rgba(88, 129, 87, 0.12);
+      font-weight: 600;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'note-tooltip';
+      document.body.appendChild(tooltip);
+
+      function parseNoteMarkdown(text) {
+        if (!text) return '';
+        
+        const splitTableCells = function(line) {
+          return String(line || '')
+            .trim()
+            .replace(/^\|/, '')
+            .replace(/\|$/, '')
+            .split('|')
+            .map(function(cell) { return cell.trim(); });
+        };
+
+        const isTableSeparatorLine = function(line) {
+          const cells = splitTableCells(line);
+          return cells.length > 0 && cells.every(function(cell) {
+            return /^:?-{3,}:?$/.test(cell);
+          });
+        };
+
+        const getTableAlignment = function(cell) {
+          if (/^:-{3,}:$/.test(cell)) return 'center';
+          if (/^-{3,}:$/.test(cell)) return 'right';
+          if (/^:-{3,}$/.test(cell)) return 'left';
+          return '';
+        };
+
+        let lines = text.split('\n');
+        let html = [];
+        let stack = [];
+        
+        for (let i = 0; i < lines.length; i++) {
+          let line = lines[i];
+          
+          let indentMatch = line.match(/^(\s*)/);
+          let indent = indentMatch ? indentMatch[1].length : 0;
+          let content = line.trim();
+
+          const nextLine = i + 1 < lines.length ? lines[i + 1].trim() : '';
+          const maybeTableHeader = content.includes('|') && splitTableCells(content).length >= 2;
+          const maybeTableSeparator = nextLine.includes('|') && isTableSeparatorLine(nextLine);
+
+          if (maybeTableHeader && maybeTableSeparator) {
+            while (stack.length > 0) {
+              let closed = stack.pop();
+              html.push('</' + closed.type + '>');
+            }
+
+            const headerCells = splitTableCells(content);
+            const alignCells = splitTableCells(nextLine);
+
+            html.push('<div class="note-table-scroll"><table><thead><tr>');
+            headerCells.forEach(function(cell, idx) {
+              const align = getTableAlignment(alignCells[idx] || '');
+              const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+              html.push('<th' + alignAttr + '>' + cell + '</th>');
+            });
+            html.push('</tr></thead><tbody>');
+
+            i += 2;
+            while (i < lines.length) {
+              const rowLine = lines[i].trim();
+              if (!rowLine || !rowLine.includes('|')) break;
+              if (isTableSeparatorLine(rowLine)) {
+                i++;
+                continue;
+              }
+
+              const rowCells = splitTableCells(rowLine);
+              if (rowCells.length === 0) {
+                i++;
+                continue;
+              }
+
+              html.push('<tr>');
+              rowCells.forEach(function(cell, idx) {
+                const align = getTableAlignment(alignCells[idx] || '');
+                const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+                html.push('<td' + alignAttr + '>' + cell + '</td>');
+              });
+              html.push('</tr>');
+              i++;
+            }
+
+            html.push('</tbody></table></div>');
+            i--;
+            continue;
+          }
+          
+          let isUl = /^[-*]\s+(.+)/.test(content);
+          let isOl = /^\d+\.\s+(.+)/.test(content);
+          
+          if (isUl || isOl) {
+            let listType = isUl ? 'ul' : 'ol';
+            let match = isUl ? content.match(/^[-*]\s+(.+)/) : content.match(/^\d+\.\s+(.+)/);
+            let itemText = match[1];
+            
+            if (stack.length === 0) {
+              stack.push({ type: listType, indent: indent });
+              html.push('<' + listType + '>');
+            } else {
+              let last = stack[stack.length - 1];
+              
+              if (indent > last.indent) {
+                stack.push({ type: listType, indent: indent });
+                html.push('<' + listType + '>');
+              } else if (indent < last.indent) {
+                while (stack.length > 0 && stack[stack.length - 1].indent > indent) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                }
+                if (stack.length === 0 || stack[stack.length - 1].indent !== indent) {
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                } else if (stack[stack.length - 1].type !== listType) {
+                   let closed = stack.pop();
+                   html.push('</' + closed.type + '>');
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                }
+              } else {
+                if (last.type !== listType) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                  stack.push({ type: listType, indent: indent });
+                  html.push('<' + listType + '>');
+                }
+              }
+            }
+            html.push('<li>' + itemText + '</li>');
+          } else {
+            if (content !== '') {
+               while (stack.length > 0) {
+                 let closed = stack.pop();
+                 html.push('</' + closed.type + '>');
+               }
+            }
+            if (/^#{1,4}\s+/.test(content)) {
+              const headingMatch = content.match(/^(#{1,4})\s+(.+)$/);
+              if (headingMatch) {
+                const level = headingMatch[1].length;
+                html.push('<h' + level + '>' + headingMatch[2] + '</h' + level + '>');
+              }
+            } else if (content) {
+              html.push(content + '<br>');
+            } else {
+              html.push('<br>');
+            }
+          }
+        }
+        
+        while (stack.length > 0) {
+          let closed = stack.pop();
+          html.push('</' + closed.type + '>');
+        }
+        
+        let result = html.join('')
+          .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/__(.+?)__/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>')
+          .replace(/_(.+?)_/g, '<em>$1</em>')
+          .replace(/`(.+?)`/g, '<code>$1</code>')
+          .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
+        
+        result = result
+          .replace(/<br><ul>/g, '<ul>')
+          .replace(/<br><ol>/g, '<ol>')
+          .replace(/</ul><br>/g, '</ul>')
+          .replace(/</ol><br>/g, '</ol>');
+        
+        return result;
+      }
+
+      document.body.addEventListener('mouseover', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          const note = e.target.dataset.note;
+          if (note) {
+            tooltip.innerHTML = parseNoteMarkdown(note);
+            tooltip.style.display = 'block';
+            const rect = e.target.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+            const pageX = window.scrollX || window.pageXOffset;
+            const pageY = window.scrollY || window.pageYOffset;
+            const maxLeft = pageX + window.innerWidth - tooltipRect.width - 10;
+            const minLeft = pageX + 10;
+
+            let left = rect.left + pageX;
+            if (left > maxLeft) left = maxLeft;
+            if (left < minLeft) left = minLeft;
+
+            let top = rect.bottom + pageY + 6;
+            const maxTop = pageY + window.innerHeight - tooltipRect.height - 10;
+            if (top > maxTop) {
+              top = rect.top + pageY - tooltipRect.height - 6;
+            }
+            if (top < pageY + 10) top = pageY + 10;
+
+            tooltip.style.left = left + 'px';
+            tooltip.style.top = top + 'px';
+          }
+        }
+      });
+
+      document.body.addEventListener('mouseout', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          setTimeout(() => {
+            if (!tooltip.matches(':hover')) {
+              tooltip.style.display = 'none';
+            }
+          }, 100);
+        }
+      });
+
+      tooltip.addEventListener('mouseleave', function() {
+        tooltip.style.display = 'none';
+      });
+    });
+  </script>
+</head>
+<body>
+<h1 style="text-align: center">ТОКОВЕ С ВИСОКО НАПРЕЖЕНИЕ И ВИСОКА ЧЕСТОТА</h1><p>Токовете с висока честота и високо напрежение представляват електромагнитни вълни, които се разпространяват със скоростта на светлината. Основна характеристика при тях е обратнопропорционалната зависимост между дължината на вълната и честотата на тока.</p><p>Основните видове токове в тази група са:</p><ul><li><strong>Ток на Д’Арсонвал:</strong> дължина на вълната 1000-3000 m; честота 200-300 KHz.</li><li><strong>Диатермия:</strong> дължина на вълната 10-600 m; честота 1-3 MHz.</li><li><strong>УВЧ (Ултрависокочестотни токове):</strong> дължина на вълната 1-30 m; честота 10-300 MHz (стандартно 11,06 m и 27,13 MHz).</li><li><strong>Дециметрови вълни:</strong> дължина на вълната 0,1-1 m (стандартно 69 cm; честота 433 MHz).</li><li><strong>Сантиметрови вълни:</strong> дължина на вълната 1-100 cm (стандартно 12,6 cm; честота 300-30 000 MHz).</li></ul><p>В генераторите за този вид терапия се използва принципът на трептящия кръг. По време на работа <strong>енергията на електричното поле, създадена между плочите на кондензатора, се превръща в енергия на магнитното поле около проводника</strong>. </p><p>В зависимост от конкретната методика, пациентът може да бъде подложен на:</p><ol><li>Предимно електрическо поле (например УВЧ с кондензаторни електроди).</li><li>Предимно магнитно поле (обща дарсонвализация, индуктотермия, УВЧ-магнитно поле).</li><li>Цялата електромагнитна енергия (сантиметрови вълни/радар).</li></ol><hr><h2 style="text-align: center">ДАРСОНВАЛИЗАЦИЯ</h2><p>Токът на Д`Арсонвал се характеризира със затихващи електромагнитни трептения. Съществуват две основни методики за приложение: обща и местна. При общата дарсонвализация пациентът се намира в специална клетка (кафез), но този метод се използва сравнително рядко в практиката.</p><h3>Физиологично действие</h3><p>При въздействие с този ток първата реакция на организма е кратък спазъм на съдовете, който веднага бива последван от <strong>мощна вазодилатация</strong>. Изключително важен ефект е разширяването на компенсаторните капиляри.</p><p>Други важни физиологични характеристики включват:</p><ul><li><strong>Невъзбудимост на нервно-мускулния апарат:</strong> Нервите и мускулите не реагират на токове с честота над 150 000 Hz.</li><li><strong>Топлинни ефекти:</strong> Поради импулсния характер на тока, образуваната ендогенна топлина не е водещ лечебен фактор.</li><li><strong>Сетивност:</strong> Пациентите усещат леко боцкане от образуването на малки точки с висока температура. Това води до <strong>снижаване на болката</strong>, <strong>тактилната и температурната сетивност</strong>, както и <strong>до значително намаляване на сърбежа</strong>.</li><li><strong>Влияние върху нервната система:</strong> Токът потиска възбудения симпатикус и има <strong>хипотензивно действие</strong>. Повлиява успешно мигренозни оплаквания, заболяване на Рейно, стенокардични пристъпи, както и разширените вени 1-2 стадий.</li><li><strong>Трофично и бактерицидно действие:</strong> Повишава неспецифичния имунитет на кожата, ускорява регенерацията и спомага за заздравяването на атонични рани.</li></ul><h3>Апликационна техника и дозировка</h3><p>Електродите за дарсонвализация имат различна форма според предназначението си и са пълни с благороден газ (аргон). При включване те светят с характерна червено-лилава светлина. Стандартният лечебен курс включва 10 до 15 процедури с времетраене от 5 до 15 минути всяка.</p><h3>Показания</h3><p>Методът се прилага успешно при:</p><ul><li>Неврози, мигрена и заболяване на Рейно.</li><li>Разширени вени (1-2 стадий).</li><li>Измръзвания и диабетни съдови нарушения.</li><li>Хемороиди, рагади, пруритус (сърбеж) и хронични екземи.</li><li>В козметичната медицина за подобряване еластицитета на кожата (лифтинг).</li><li>Кухинни процедури (вулвит, вулвовагинит) и електрокоагулация на брадавици или кожни ерозии.</li></ul><h3>Противопоказания</h3><p>Дарсонвализацията не трябва да се прилага при:</p><ul><li>Туморни формации.</li><li>Гнойни процеси.</li><li>Кръвотечения.</li><li>Наличие на пейсмейкър.</li></ul><hr><h2 style="text-align: center">ДИАТЕРМИЯ</h2><p>В основата на въздействието на диатермията лежат два основни физични процеса: </p><ol><li>Създаване на високочестотни колебания на частиците (йони, молекули и др.), през които преминава токът.</li><li>Генериране на мощна ендогенна топлина в резултат на тези колебания в средата на организма. </li></ol><p>Диатермията се характеризира с една от <strong>най-мощните форми на ендогенна топлина</strong>, която прегрява най-силно кожата, костите, мастната тъкан, периоста и сухожилията. По време на процедурата температурата в тъканите се повишава средно с 2 до 4ºC.</p><h3>Физиологично и терапевтично действие</h3><p>Действието на диатермичния ток е комплексно и включва следните ефекти:</p><ul><li><strong>Релаксиращ ефект:</strong> Намалява възбудимостта на двигателните нерви.</li><li><strong>Болкоуспокояващо действие:</strong> Повлиява позитивно болевата симптоматика.</li><li><strong>Бактерицидно действие:</strong> Ефективно е спрямо термолабилни бактерии, като гонококи и пневмококи.</li></ul><p>Характерно за метода е, че затоплянето продължава от 30 минути до няколко часа след края на лечебния сеанс.</p><h3>Дозировка и приложение</h3><p>Дозировката при диатермия се определя според субективните усещания на пациента и бива четири вида:</p><ol><li><strong>Атермична</strong></li><li><strong>Олиготермична</strong></li><li><strong>Термична</strong></li><li><strong>Хипертермична</strong></li></ol><p>Освен в терапевтичната практика, диатермията намира приложение и в хирургията под формата на диатермичен нож, като там се използват термични и хипертермични дозировки.</p><h3>Показания и ограничения</h3><p><strong>Поради мощната ендогенна топлина и реалната опасност от прегряване на тъканите, този метод се прилага само при определена патология</strong>. Основните показания включват заболявания на малкия таз, като:</p><ul><li>Аднексити</li><li>Салпингити</li><li>Салпингоофорити</li><li>Простатити</li></ul><hr><h2 style="text-align: center">УЛТРАВИСОКОЧЕСТОТНИ ТОКОВЕ (УВЧ)</h2><p>Принципът на въздействие при УВЧ терапията се основава на възникването на резонанс, когато терапевтичната и техническата верига на апарата започнат да трептят с еднаква честота. Основният лечебен фактор при тези токове е образуването на <strong>ендогенна топлина</strong>.</p><h3>Видове електроди и технически особености</h3><p>За излъчване на ултрависокочестотната енергия се използват няколко специфични вида електроди:</p><ul><li><strong>Кондензаторни електроди:</strong> известни още като електроди на Шлифаке.</li><li><strong>Индукционни електроди:</strong> наричани електроди на Коваршик.</li><li><strong>Минод и монод:</strong> това са електродите на Петцолд и Кебел, които осигуряват по-дълбоко въздействие на магнитното поле и по-равномерно разпределение на топлината, доближавайки се до ефекта на микровълните (сантиметровите вълни).</li></ul><p>УВЧ токовете се характеризират с това, че не предизвикват електролиза или поляризационни явления в тъканите. Благодарение на ниското съпротивление, тяхното проникване в дълбочина е лесно и в голям обем.</p><h3>Характеристики на ендогенната топлина</h3><p>Ендогенната топлина, генерирана от УВЧ, се различава съществено от екзогенните източници (като парафина) по следните белези:</p><ul><li>Притежава значително по-голяма прониквателна способност.</li><li>Не задейства терморегулаторните механизми на тялото.</li><li>Не обременява дейността на сърдечната, дихателната и отделителната системи.</li><li>Продължава да се образува в тъканите дори след като излъчването е преустановено.</li><li>Излъчването ѝ от организма обратно в средата става много по-бавно.</li></ul><p>Тази топлина предизвиква мощен вазодилатативен ефект, който е специфичен с това, че не се повлиява от действието на симпатикомиметици като адреналин.</p><h3>Физиологично и терапевтично действие</h3><p>Въздействието на УВЧ зависи силно от приложената доза: малките атермични и олиготермични дози активират жизнените процеси, докато интензивните дози имат потискащо действие.</p><ul><li><p><strong>Сърдечно-съдова система:</strong> При хипертонична болест І-ІІ степен има <strong>хипотензивно </strong>действие, особено при третиране на рефлексогенни зони като синус каротикус, надбъбречна област и плексус соларис</p><p>. Има <strong>антиспатично</strong> действие при периферни съдови смущения като болест на Рейно и акроцианоза</p><p>.</p></li><li><p><strong>Нервна система:</strong> Малките атермични дози стимулират способността на нерва да се регенерира и повишават неговата възбудимост. УВЧ има силен обезболяващ ефект при невралгии, неврити и миалгии. Върху вегетативната нервна система предизвиква симпатиколиза.</p></li><li><p><strong>Ендокринна система:</strong> Стимулира надбъбреците (отделяне на кортикостероиди) и хипофизата, което е полезно при ревматизъм, дисменорея и безвкусен диабет.</p><br></li><li><p><strong>Дихателна система:</strong> Противовъзпалително и спазмолитично действие при хронифицирани пневмонии, трахеобронхити и абсцеси.</p><br></li><li><p><strong>Отделителна система:</strong> Оказва обезболяващ и диуретичен ефект при бъбречни кризи, анурии, нефропатии и отравяния с живак или сулфонамиди.</p><br></li><li><p><strong>Храносмилателна система:</strong> Спазмолитично, обезболяващо и трофично действие.</p><br></li><li><strong>Травматология и хирургия:</strong> Изключително ефективна при измръзвания, тъй като ендогенната топлина не уврежда тъканите допълнително. Използва се при артропатии, контузии, хематоми и в гнойната хирургия за лечение на остеомиелити, мастити, фурункули и карбункули</li></ul><h3>Методика на приложение и дозировка</h3><p>Дозировката се определя както във ватове според монитора, така и според субективното усещане на пациента: атермична, олиготермична, термична и хипертермична. Хипертермичните дози се ползват по-рядко (при миозити, астма, болест на Бехтерев).</p><p>Курсът обикновено включва 10–15 процедури с времетраене от 5 до 15 минути. </p><p>При определяне на разстоянието между електродите и тялото трябва да се знае:</p><ul><li><strong>Минимално разстояние:</strong> води до по-повърхностно затопляне.</li><li><strong>По-голямо разстояние (<u>до 6 см</u>):</strong> разсейва енергията и намалява поглъщането.</li><li><strong>Напречно разположение (от двете страни):</strong> за въздействие в дълбочина.</li><li><strong>Надлъжно разположение (в една линия):</strong> за повърхностно въздействие.</li></ul><h3>Противопоказания</h3><p>Приложението на УВЧ е противопоказано при наличие на туморни формации, пейсмейкър, метални импланти в зоната на въздействие и при състояния, свързани с кръвотечения. По време на курса трябва да се следи за възможни хипотензивни реакции.</p><hr><h2 style="text-align: center">СВРЪХВИСОКОЧЕСТОТНА ТЕРАПИЯ: ДЕЦИМЕТРОВИ ВЪЛНИ</h2><p>Източници на дециметрови вълни (ДМВ) са генератори за свръхвисока честота (СВЧ), които са конструирани на <strong>магнетронен принцип</strong>. Тези апарати са снабдени с няколко вида лъчители: с кръгло поле, с продълговато поле и седловиден лъчител. Изборът на лъчител зависи от патологичния процес, като кръглият се използва при повърхностни процеси като абсцеси и фурункули, надлъжният (линеарен) при неврити и тромбофлебити, а седловидният е предназначен за тазобедрени и други дълбоки стави. Процедурите се извършват от дистанция между 3 и 10 см.</p><h3>Дозиране и методика на приложение</h3><p>Дозирането на дециметровите вълни се извършва чрез <strong>отчитане на ватовете на монитор</strong>а и според <strong>субективните усещания на пациента</strong>: атермична, олиготермична, термична и хипертермична. </p><p>При наличие на остри процеси се препоръчва използването на атермични и олиготермични дозировки. Когато въздействието е насочено директно върху нервните сплитове, задължително се прилагат атермични дозировки.</p><h3>Биологично и терапевтично действие</h3><p>Физическите свойства на ДМВ се приближават максимално до качествата на светлината. Колкото по-отдалечен е лъчителят от тялото, толкова по-голямо е разсейването на полето и по-нисък неговият интензитет. Явленията на рефлектиране при дециметровите вълни са значително по-малки в сравнение с микровълните и достигат максимум 20–30%. Поради това не се наблюдават характерните за микровълните „hot spots“ и се възпрепятства образуването на „стоящи вълни“, което води до минимално термично обременяване на мастната тъкан.</p><p>ДМВ имат голяма <strong>прониквателна способност</strong>, достигаща от <strong>9 до 12 см</strong> в дълбочина. Те стимулират образуването на антитела и активират неспецифичните фактори на имунната защита. Основният терапевтичен ефект е свързан с генерирането на мощна <strong>ендогенна топлина</strong>, която не прегрява тъканите поради своето равномерно разпределение.</p><h3>Индикации за лечение</h3><p>Дециметровите вълни се препоръчват в случаите, когато е необходимо хомогенно и дълбоко загряване, постигане на трайна хиперемия и разнасяне на патологични инфилтрати. Най-честите индикации включват:</p><ul><li>Заболявания на опорно-двигателния апарат като <strong>артрози</strong>, <strong>спондилатрози</strong>, <strong>болест </strong>на <strong>Бехтерев </strong>и <strong>остеомиелити</strong>.</li><li>Неврологични заболявания — <strong>невралгии</strong>, <strong>дископатии </strong>и <strong>дискови хернии</strong>.</li><li>Възпалителни процеси като <strong>мастити</strong>, <strong>аднексити</strong>, <strong>простатити </strong>и <strong>тромбофлебит</strong>.</li><li>Заболявания на дихателната система — <strong>бронхопневмонии </strong>и <strong>бронхиална астма</strong>.</li></ul><p>Специфични клинични проучвания доказват ефективността на ДМВ при конкретни патологии:</p><ul><li><strong>Ревматоиден артрит:</strong> Отбелязва се много добро повлияване при дозировка 40–50 W в зоната от Th10 до L4.</li><li><strong>Захарен диабет:</strong> Облъчването в проекцията на панкреаса с мощност 30 W води до понижаване на кръвната захар.</li><li><strong>Хроничен пиелонефрит:</strong> Дозировки от 20–40 W имат противовъзпалително действие, намаляват болката и понижават кръвното налягане.</li></ul><h3>Противопоказания</h3><p>Приложението на дециметрови вълни е противопоказано при следните състояния:</p><ul><li>Туморни разраствания и смущения в кръвоснабдяването.</li><li>Смущения в температурната сетивност.</li><li>Наличие на пейсмейкър или метална остеосинтеза в зоната на въздействие.</li><li>Областта на епифизарните части на костите при деца.</li></ul><hr><h2 style="text-align: center">САНТИМЕТРОВИ ВЪЛНИ (МИКРОВЪЛНОВА ТЕРАПИЯ – РАДАР)</h2><p>Сантиметровите вълни (СМВ) заемат междинно място между инфрачервените лъчи и ултрависокочестотните (УВЧ) вълни. Законите за тяхното разпространение, отражение и поглъщане се приближават до тези на светлината. При преминаване през тела с различна плътност се наблюдава значително отразяване и поглъщане, като вълнените платове поглъщат енергията особено силно. Поради високия коефициент на разсейване, вълните се насочват към зоната на въздействие чрез специални излъчватели с форма на полусфера или полуцилиндър.</p><p>Съгласно държавните стандарти, апаратите за микровълнова терапия се стационират в т. нар. <strong>Фарадееви клетки</strong>, за да се избегнат смущения в радио и телевизионните предавания.</p><h3>Апаратура и методика на приложение</h3><p>Генераторната лампа на апаратите представлява многорезонаторен магнетрон, а излъчваната енергия се измерва във ватове. При провеждане на процедурата излъчвателят се насочва от разстояние 5 до 10 см, като е задължително участъкът за въздействие да бъде открит. Преди започване трябва да се отстранят всякакви метални части и предмети от зоната на облъчване, като се обръща специално внимание на наличието на импланти. Изключително важно е да не се подлагат на облъчване органи със слабо развита кръвоносна система, като очи, тестиси и яйчници.</p><h3>Дозировка и времетраене</h3><p>Дозировките се определят на базата на ватовете, отчетени на монитора, и субективното усещане на пациента:</p><ul><li><strong>Атермична:</strong> до 10 W.</li><li><strong>Олиготермична:</strong> от 15 до 30 W.</li><li><strong>Термична:</strong> от 30 до 60 W.</li><li><strong>Хипертермична:</strong> над 70 W.</li></ul><p>Стандартният лечебен курс включва между 10 и 15 процедури, като времетраенето на всяка сесия варира от 5 до 15 минути.</p><h3>Механизъм на действие и терапевтичен ефект</h3><p>Тъканите в човешкото тяло поглъщат между 40% и 100% от микровълновата енергия, което ограничава проникването ѝ до дълбочина от 5–6 см. Тъканите, богати на вода и течна среда (кръв, лимфа, <strong>мускули</strong>, черен дроб, бъбреци), поглъщат микровълните в най-голяма степен. Тъкани с по-голяма плътност и ниско съдържание на течности (сухожилия, кости, подкожна тъкан) имат много по-слаба абсорбция. </p><p>Микровълните създават мощна и правилно разпределена ендогенна топлина, като при тях електричната съставка преобладава над магнитната. Освен температурните промени, терапията предизвиква съдово-вегетативни реакции, включително намаляване на патологично повишения съдов пермеабилитет. Този ефект се дължи на снижаването на нивата на серотонин и хепарин в кожата, което осигурява допълнително противовъзпалително и антиалергично действие.</p><h3>Показания за лечение</h3><p>Микровълновата терапия е показана при широк спектър от заболявания:</p><ul><li><strong>Заболявания на опорно-двигателния апарат:</strong> миозити, тендовагинити, бурсити, периартрити, инсерционити и артрозна болест (коксартроза, гонартроза и др.).</li><li><strong>Неврологични заболявания:</strong> неврити, плексити, дископатии и спондилози с радикулерен синдром.</li><li><strong>Вътрешни заболявания:</strong> пневмонии, плеврити, цистити, простатити и параметрити.</li><li><strong>УНГ заболявания:</strong> отити и синуити, като най-добър ефект се постига чрез контактен радар.</li><li><strong>Гнойна хирургия:</strong> фурункули, карбункули, мастити, абсцеси, хидросаденити и панарициуми.</li></ul><h3>Специални предупреждения и противопоказания</h3><p>При лечение трябва да се имат предвид възможните хипотонични реакции, произтичащи от ефекта на вълните върху барорецепторите, дори при третиране на отдалечени зони като колянната става. </p><blockquote><strong>КРИТИЧНО ВАЖНО Е ДА НЕ СЕ ИЗВЪРШВАТ ПРОЦЕДУРИ В СЪРДЕЧНАТА ОБЛАСТ, ТЪЙ КАТО МИКРОВЪЛНИТЕ ПРЕДИЗВИКВАТ СПАЗЪМ НА КОРОНАРНИТЕ АРТЕРИИ</strong>.</blockquote><p><strong>Противопоказания:</strong></p><ul><li>Туморни процеси и кръвни заболявания.</li><li>Наличие на пейсмейкър или метални импланти.</li><li>Болест на Бюргер.</li><li>Въздействие върху епифизите при деца.</li></ul><br><style></p><p>    body { </p><p>      font-family: "Open Sans", Arial, sans-serif; </p><p>      max-width: 1200px; </p><p>      margin: 2rem auto; </p><p>      padding: 0 1rem; </p><p>      line-height: 1.6; </p><p>      color: #1f2937; </p><p>    }</p><p>    h1 { </p><p>      font-weight: 600; </p><p>      font-size: 1.5em;</p><p>      margin-top: 1.5em;</p><p>      margin-bottom: 0.5em;</p><p>      color: #3a5a40;</p><p>      border-bottom: 2px dashed #a3b18a;</p><p>      padding-bottom: 5px;</p><p>    }</p><p>    p { </p><p>      margin: 0.7em 0 1.5em 0; </p><p>      white-space: pre-wrap;</p><p>    }</p><p>    @media (max-width: 768px) {</p><p>      body { font-size: 16px; }</p><p>      h1 { font-size: 1.3em; }</p><p>    }</p><p>  </style>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+<script>
+renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true},
+    {left: '$', right: '$', display: false},
+    {left: '\\[', right: '\\]', display: true},
+    {left: '\\(', right: '\\)', display: false}
+  ],
+  throwOnError: false
+});
+</script>
+</body>
+</html>

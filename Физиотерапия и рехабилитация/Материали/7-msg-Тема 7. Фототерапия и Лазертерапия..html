@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <style>
+    body { 
+      font-family: "Open Sans", Arial, sans-serif; 
+      max-width: 1550px; 
+      margin: 0.5rem auto; 
+      padding: 0 1rem; 
+      line-height: 1.6; 
+      color: #1f2937; 
+    }
+    h1, h2, h3, h4 { 
+      font-weight: 600; 
+      margin-top: 0.7em;
+      margin-bottom: 0;
+      color: #588157;
+    }
+    h1 { font-size: 1.65em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; margin-bottom: 0; }
+    h4 { font-size: 1.05em; margin-bottom: 0; }
+    h1 + h2, h1 + h3, h1 + h4, h2 + h3, h2 + h4, h3 + h4 { margin-top: 0.1em; }
+    p { 
+      margin: 0.3em 0; 
+      white-space: pre-wrap;
+    }
+    hr {
+      margin: 0.45em 0 0.2em;
+    }
+    hr + h1,
+    hr + h2,
+    hr + h3,
+    hr + h4 {
+      margin-top: 0.2em;
+    }
+    hr + p,
+    hr + ul,
+    hr + ol,
+    hr + blockquote,
+    hr + pre,
+    hr + table {
+      margin-top: 0.08em;
+    }
+    p + ul, p + ol { margin-top: 0.2em; }
+    h1 + p, h2 + p, h3 + p, h4 + p,
+    h1 + ul, h2 + ul, h3 + ul, h4 + ul,
+    h1 + ol, h2 + ol, h3 + ol, h4 + ol { 
+      margin-top: 0; 
+    }
+    ul, ol { 
+      margin: 0.2em 0; 
+      padding-left: 1.5em; 
+      list-style-position: outside;
+    }
+    li { margin: 0.2em 0; }
+    li p {
+      margin: 0;
+      padding: 0;
+      display: inline;
+    }
+    li > ul, li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    ul ul, ul ol, ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    ul ul { list-style-type: circle; }
+    ul ul ul { list-style-type: square; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+    code { 
+      background: rgba(146, 64, 14, 0.1); 
+      padding: 2px 6px; 
+      border-radius: 3px; 
+      font-family: "Courier New", monospace; 
+      font-size: 0.9em; 
+    }
+    pre {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 12px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.5em 0;
+      font-family: "Courier New", monospace;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    blockquote {
+      border-left: 3px solid #588157;
+      padding-left: 1em;
+      margin: 0.5em 0;
+      font-style: italic;
+      color: #166534;
+    }
+    table { 
+      border-collapse: collapse; 
+      margin: 0.75em 0; 
+      width: 100%; 
+      table-layout: auto;
+    }
+    th, td { 
+      border: 1px solid rgba(2, 2, 2, 0.2);
+      padding: 6px 10px; 
+      text-align: left; 
+      vertical-align: top;
+      height: 24px;
+      line-height: 1.2;
+    }
+    thead th { 
+      background: rgba(88, 129, 87, 0.13); 
+      font-weight: 600; 
+    }
+    tbody tr:nth-child(odd) { 
+      background: rgba(88, 129, 87, 0.06); 
+    }
+    /* Image alignment rules for exported content and md-viewer */
+    img[data-align="left"] {
+      display: block;
+      margin: 8px auto 8px 0;
+    }
+    img[data-align="center"] {
+      display: block;
+      margin: 8px auto;
+    }
+    img[data-align="right"] {
+      display: block;
+      margin: 8px 0 8px auto;
+    }
+    .audio-link-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0.2em 0;
+      max-width: 100%;
+      vertical-align: middle;
+    }
+    .audio-link-icon {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #588157;
+      border-radius: 999px;
+      background: #f0f7f0;
+      color: #2f5d50;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+    .audio-link-inline audio {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .audio-link-icon img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    a {
+      color: inherit; /* Changed to inherit */
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #74b673;
+    }
+    /* Keep <p> tags inside list items on same line (as they appear in editor) */
+    li p {
+      margin: 0 !important;
+      padding: 0 !important;
+      display: inline !important;
+    }
+    /* Prevent nested list paragraph issues */
+    li > ul,
+    li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    /* Ensure list structure is clean */
+    ul ul, ul ol,
+    ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    @media (max-width: 768px) {
+      body {
+        margin: 0.5rem 0;
+        padding: 0 0.5rem;
+        font-size: 16px;
+      }
+      h1 { font-size: 1.65em; }
+      h2 { font-size: 1.3em; }
+      h3 { font-size: 1.1em; }
+      p { margin: 0.3em 0; }
+      ul, ol { padding-left: 1.5em; }
+      li { margin: 0.2em 0; }
+      table { font-size: 0.9em; }
+      th, td { padding: 6px 10px; }
+    }
+    .editor-note {
+      text-decoration: underline dotted #a3b18a;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      text-decoration-skip-ink: none;
+      cursor: help;
+      position: relative;
+    }
+    .note-tooltip {
+      display: none;
+      position: absolute;
+      background-color: #f0f7f0;
+      color: #1f2937;
+      border: 1px solid #588157;
+      border-radius: 4px;
+      padding: 8px 12px;
+      width: fit-content;
+      max-width: min(700px, calc(100vw - 20px));
+      max-height: calc(100vh - 20px);
+      overflow: auto;
+      box-sizing: border-box;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 10000;
+      font-size: 0.9em;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    .note-tooltip ul, .note-tooltip ol {
+      margin: 0 !important;
+      padding-left: 20px !important;
+    }
+    .note-tooltip li {
+      margin: 0 0 0.1em 0 !important;
+      padding: 0 !important;
+      line-height: 1.2 !important;
+    }
+    .note-tooltip li:last-child {
+      margin-bottom: 0 !important;
+    }
+    .note-tooltip .note-table-scroll {
+      overflow-x: auto;
+      margin: 0.3em 0;
+    }
+    .note-tooltip table {
+      border-collapse: collapse;
+      width: max-content;
+      max-width: 100%;
+      min-width: 220px;
+      background: #ffffff;
+    }
+    .note-tooltip th,
+    .note-tooltip td {
+      border: 1px solid rgba(88, 129, 87, 0.35);
+      padding: 4px 8px;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .note-tooltip thead th {
+      background: rgba(88, 129, 87, 0.12);
+      font-weight: 600;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'note-tooltip';
+      document.body.appendChild(tooltip);
+
+      function parseNoteMarkdown(text) {
+        if (!text) return '';
+        
+        const splitTableCells = function(line) {
+          return String(line || '')
+            .trim()
+            .replace(/^\|/, '')
+            .replace(/\|$/, '')
+            .split('|')
+            .map(function(cell) { return cell.trim(); });
+        };
+
+        const isTableSeparatorLine = function(line) {
+          const cells = splitTableCells(line);
+          return cells.length > 0 && cells.every(function(cell) {
+            return /^:?-{3,}:?$/.test(cell);
+          });
+        };
+
+        const getTableAlignment = function(cell) {
+          if (/^:-{3,}:$/.test(cell)) return 'center';
+          if (/^-{3,}:$/.test(cell)) return 'right';
+          if (/^:-{3,}$/.test(cell)) return 'left';
+          return '';
+        };
+
+        let lines = text.split('\n');
+        let html = [];
+        let stack = [];
+        
+        for (let i = 0; i < lines.length; i++) {
+          let line = lines[i];
+          
+          let indentMatch = line.match(/^(\s*)/);
+          let indent = indentMatch ? indentMatch[1].length : 0;
+          let content = line.trim();
+
+          const nextLine = i + 1 < lines.length ? lines[i + 1].trim() : '';
+          const maybeTableHeader = content.includes('|') && splitTableCells(content).length >= 2;
+          const maybeTableSeparator = nextLine.includes('|') && isTableSeparatorLine(nextLine);
+
+          if (maybeTableHeader && maybeTableSeparator) {
+            while (stack.length > 0) {
+              let closed = stack.pop();
+              html.push('</' + closed.type + '>');
+            }
+
+            const headerCells = splitTableCells(content);
+            const alignCells = splitTableCells(nextLine);
+
+            html.push('<div class="note-table-scroll"><table><thead><tr>');
+            headerCells.forEach(function(cell, idx) {
+              const align = getTableAlignment(alignCells[idx] || '');
+              const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+              html.push('<th' + alignAttr + '>' + cell + '</th>');
+            });
+            html.push('</tr></thead><tbody>');
+
+            i += 2;
+            while (i < lines.length) {
+              const rowLine = lines[i].trim();
+              if (!rowLine || !rowLine.includes('|')) break;
+              if (isTableSeparatorLine(rowLine)) {
+                i++;
+                continue;
+              }
+
+              const rowCells = splitTableCells(rowLine);
+              if (rowCells.length === 0) {
+                i++;
+                continue;
+              }
+
+              html.push('<tr>');
+              rowCells.forEach(function(cell, idx) {
+                const align = getTableAlignment(alignCells[idx] || '');
+                const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+                html.push('<td' + alignAttr + '>' + cell + '</td>');
+              });
+              html.push('</tr>');
+              i++;
+            }
+
+            html.push('</tbody></table></div>');
+            i--;
+            continue;
+          }
+          
+          let isUl = /^[-*]\s+(.+)/.test(content);
+          let isOl = /^\d+\.\s+(.+)/.test(content);
+          
+          if (isUl || isOl) {
+            let listType = isUl ? 'ul' : 'ol';
+            let match = isUl ? content.match(/^[-*]\s+(.+)/) : content.match(/^\d+\.\s+(.+)/);
+            let itemText = match[1];
+            
+            if (stack.length === 0) {
+              stack.push({ type: listType, indent: indent });
+              html.push('<' + listType + '>');
+            } else {
+              let last = stack[stack.length - 1];
+              
+              if (indent > last.indent) {
+                stack.push({ type: listType, indent: indent });
+                html.push('<' + listType + '>');
+              } else if (indent < last.indent) {
+                while (stack.length > 0 && stack[stack.length - 1].indent > indent) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                }
+                if (stack.length === 0 || stack[stack.length - 1].indent !== indent) {
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                } else if (stack[stack.length - 1].type !== listType) {
+                   let closed = stack.pop();
+                   html.push('</' + closed.type + '>');
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                }
+              } else {
+                if (last.type !== listType) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                  stack.push({ type: listType, indent: indent });
+                  html.push('<' + listType + '>');
+                }
+              }
+            }
+            html.push('<li>' + itemText + '</li>');
+          } else {
+            if (content !== '') {
+               while (stack.length > 0) {
+                 let closed = stack.pop();
+                 html.push('</' + closed.type + '>');
+               }
+            }
+            if (/^#{1,4}\s+/.test(content)) {
+              const headingMatch = content.match(/^(#{1,4})\s+(.+)$/);
+              if (headingMatch) {
+                const level = headingMatch[1].length;
+                html.push('<h' + level + '>' + headingMatch[2] + '</h' + level + '>');
+              }
+            } else if (content) {
+              html.push(content + '<br>');
+            } else {
+              html.push('<br>');
+            }
+          }
+        }
+        
+        while (stack.length > 0) {
+          let closed = stack.pop();
+          html.push('</' + closed.type + '>');
+        }
+        
+        let result = html.join('')
+          .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/__(.+?)__/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>')
+          .replace(/_(.+?)_/g, '<em>$1</em>')
+          .replace(/`(.+?)`/g, '<code>$1</code>')
+          .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
+        
+        result = result
+          .replace(/<br><ul>/g, '<ul>')
+          .replace(/<br><ol>/g, '<ol>')
+          .replace(/</ul><br>/g, '</ul>')
+          .replace(/</ol><br>/g, '</ol>');
+        
+        return result;
+      }
+
+      document.body.addEventListener('mouseover', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          const note = e.target.dataset.note;
+          if (note) {
+            tooltip.innerHTML = parseNoteMarkdown(note);
+            tooltip.style.display = 'block';
+            const rect = e.target.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+            const pageX = window.scrollX || window.pageXOffset;
+            const pageY = window.scrollY || window.pageYOffset;
+            const maxLeft = pageX + window.innerWidth - tooltipRect.width - 10;
+            const minLeft = pageX + 10;
+
+            let left = rect.left + pageX;
+            if (left > maxLeft) left = maxLeft;
+            if (left < minLeft) left = minLeft;
+
+            let top = rect.bottom + pageY + 6;
+            const maxTop = pageY + window.innerHeight - tooltipRect.height - 10;
+            if (top > maxTop) {
+              top = rect.top + pageY - tooltipRect.height - 6;
+            }
+            if (top < pageY + 10) top = pageY + 10;
+
+            tooltip.style.left = left + 'px';
+            tooltip.style.top = top + 'px';
+          }
+        }
+      });
+
+      document.body.addEventListener('mouseout', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          setTimeout(() => {
+            if (!tooltip.matches(':hover')) {
+              tooltip.style.display = 'none';
+            }
+          }, 100);
+        }
+      });
+
+      tooltip.addEventListener('mouseleave', function() {
+        tooltip.style.display = 'none';
+      });
+    });
+  </script>
+</head>
+<body>
+<p style="text-align: left"></p><h1 style="text-align: center">ФОТОТЕРАПИЯ</h1><h2>Определение и физична характеристика</h2><p>Фототерапията е приложението на инфрачервените (ИЧЛ), видимите (BЛ) и ултравиолетовите лъчи (УВЛ) от светлинния спектър за лечебни и профилактични цели. </p><p>Светлината се причислява към квантовите излъчвания, които представляват потоци от елементарни частички, носители на определено количество енергия. Тя се разпространява вълнообразно и в спектъра на лъченията заема междинно място между микровълните и рентгеновите лъчи.</p><h2>Видове светлинни лъчи</h2><p>Светлинните лъчи се разделят според дължината на вълната на следните групи:</p><ul><li><strong>Инфрачервени:</strong> 10 000 nm – 760 nm</li><li><strong>Видими:</strong> 760 nm – 400 nm</li><li><strong>Ултравиолетови:</strong> 380 nm – 10 nm</li><ul><li>Група А (380 nm – 320 nm) – луминесцентни</li><li>Група B (320 nm – 275 nm) – еритемни</li><li>Група C (&lt; 270 nm) – бактерицидни</li></ul></ul><h2>Източници на светлина</h2><p>Източниците биват <strong>естествени </strong>(слънчево лъчение) и изкуствени:</p><ul><li><strong>За видими и инфрачервени лъчи (топлинни):</strong> солукс, инфраруж.</li><li><strong>За ултравиолетови лъчи (луминесцентни):</strong> аргоно-живачно-кварцови лампи (стационарни и портативни), фотарийни (за помещения и групово облъчване) и бактерицидни.</li><li><strong>За лазерно лъчение.</strong></li></ul><hr><h2 style="text-align: center">Инфрачервени лъчи (ИЧЛ)</h2><p>ИЧЛ са топлинни лъчи, които проникват на около <strong>5 см под кожата</strong>, където <strong>енергията им се трансформира в топлинна</strong>. При тяхното действие се наблюдава топлинен еритем (<strong>!!erythema calorica!!</strong>), който има следните характеристики:</p><ul><li>Неравномерен и петнист характер.</li><li>Без ясно очертани граници.</li><li>Появява се след няколко минути.</li><li>Изчезва до половин-един час след спиране на въздействието.</li></ul><h3>Основно действие на ИЧЛ</h3><ul><li>Обезболяващо и противовъзпалително действие.</li><li>Антиспастично действие.</li><li>Стимулиране на трофиката на тъканите и регенерацията на кожата и периферните нерви.</li></ul><h2>Показания за приложение на ИЧЛ</h2><ul><li><strong>Заболявания на периферната нервна система:</strong> неврити, невралгии, радикулити, полиневропатии, дискова херния, парализи и мускулни атрофии.</li><li><strong>Катари на горни дихателни пътища.</strong></li><li><strong>Заболявания на опорно-двигателния апарат:</strong> артрозна болест, миалгии, миозити, тендовагинити, бурсити, състояния след фрактури, дисторзио и др.</li><li><strong>Възпалителни заболявания на гениталиите.</strong></li></ul><h2>Видими лъчи (ВЛ) и Хромотерапия</h2><p>В спектъра на видимите лъчи се различават 7 цвята: червен, оранжев, жълт, зелен, небесносин, тъмносин и виолетов. Те се възприема чрез рецептори в ретината, чието възбуждане активира нервни вериги в мозъка, включително връзки с хипоталамусните центрове за регулация на ендокринните функции.</p><p>Различават се два основни биологични ефекта на ВЛ:</p><ol><li><strong>Визуално:</strong> зрителна химична реакция, водеща до освобождаване на хормони.</li><li><strong>Чрез кожата:</strong> основано на електромагнитно въздействие.</li></ol><p>Топлинното действие и прониквателната способност на ВЛ отстъпват пред тези на ИЧЛ. Основното им въздействие е върху психическото състояние (настроение, трудоспособност, сън и апетит) чрез зрителния анализатор. Този тип лечение се нарича <strong>Хромотерапия</strong>.</p><hr><h2 style="text-align: center">Ултравиолетови лъчи (УВЛ)</h2><h3>Физиологични и биологично действие</h3><p>Ултравиолетовите лъчи проникват на около <strong>0,5 мм под кожата, където светлинната енергия се трансформира в химична</strong>. Този процес отключва редица биохимични реакции с широк спектър на въздействие върху организма:</p><ul><li><strong>Нормализиране на жизнените показатели:</strong> Наблюдава се нормализиране на артериалното налягане и стимулиране на еритропоезата.</li><li><strong>Имунна система и регенерация:</strong> УВЛ стимулират имунобиологичната активност и засилват регенеративните способности на кожата и периферните нерви.</li><li><strong>Антиалергичен и обезболяващ ефект:</strong> Потискат се алергичните реакции, а при прилагане в еритемни дози се потиска възбудимостта на сетивните нерви, което води до обезболяване.</li><li><strong>Бактерицидно действие:</strong> При дължина на вълната 254–260 nm се постига денатурация на белтъците и структурни промени в ДНК на микроорганизмите.</li><li><strong>Обмяна на веществата:</strong> Лъчите в диапазона 265–280 nm влияят върху калциево-фосфорния обмен, стимулират образуването на витамин D и нормализират въглехидратната и белтъчната обмяна.</li><li><strong>Ендокринна система:</strong> Наблюдава се стимулиране на функциите на ендокринните жлези.</li></ul><h3>Ултравиолетов еритем (<u>erythema photoelectrica</u>) </h3><p>При облъчване с УВЛ се формира специфична реакция, известна като <strong>ултравиолетов еритем</strong>, която се отличава със следните характеристики:</p><ul><li>Има хомогенен характер и ясно очертани граници.</li><li>Появява се след латентен период от 2, 4, 6 до 12 часа.</li><li>Еритемът не изчезва веднага, а преминава в пигментация вследствие на образувания меланин в базалния слой на епидермиса.</li></ul><h3>Фактори на индивидуалната чувствителност</h3><p>Чувствителността към УВЛ не е еднаква при всички хора и зависи от редица вътрешни и външни фактори:</p><ul><li><strong>Биологични особености:</strong> Хората със светла, влажна и добре кръвоснабдена кожа са по-чувствителни. Мъжете проявяват по-голяма чувствителност от жените, а възрастовият пик на чувствителност е между 20 и 50 години.</li><li><strong>Външна среда:</strong> Престоят на голяма надморска височина повишава чувствителността.</li><li><strong>Медикаменти и храна:</strong> Приемането на определени фотосенсибилизатори като риванол, йод, олово, живак, пеницилини и сулфонамиди значително повишава реактивността към лъчите.</li><li><strong>Заболявания:</strong> Чувствителността се повишава при хиперфункция на щитовидната жлеза, пневмонии, артрити, колагенози и интоксикации. Тя намалява при неврологични заболявания, инфекциозни процеси, анемия, кахексия и микседем.</li></ul><h3>Регионална чувствителност</h3><p>Различните части на тялото реагират с различна интензивност на една и съща доза УВЛ:</p><ul><li><strong>100%:</strong> Корем, гръб и лумбална област.</li><li><strong>75%:</strong> Гърди и лице.</li><li><strong>50%:</strong> Сгъвни и разгъвни повърхности на крайниците.</li><li><strong>25%:</strong> Длани и ходила.</li></ul><h3>Показания за УВЛ облъчване (УВО)</h3><p>УВО се прилага по различни методики в зависимост от търсения ефект:</p><ul><li><strong>Местно облъчване:</strong> Използва се при бронхити, пневмонии, бронхиална астма, гинекологични заболявания, рани, забавено калусообразуване и увреди на периферните нерви.</li><li><strong>Рефлекторно въздействие (еритемна яка и гащета):</strong> Цели блокиране на симпатикуса и се прилага при нощно напикаване (enuresis nocturna), стерилитет, гинекологични проблеми и заболявания на периферните съдове.</li><li><strong>Локално чрез тубус:</strong> Прилага се в носа и устата при синуити, тонзилити, фарингити и ринити.</li></ul><h3>Противопоказания</h3><p>Облъчването с УВЛ е противопоказано при следните състояния:</p><ul><li>Хиперфункция на щитовидната жлеза и надбъбреците.</li><li>Активна туберкулоза и туморни процеси.</li><li>Склонност към хеморагии и фебрилитет.</li><li>Остри инфекциозни състояния и колагенози.</li></ul><h3>Дозиране и биодоза </h3><p>Дозирането при светлолечението се определя от разстоянието на източника до тялото и времетраенето. При УВЛ дозирането е строго индивидуално и става чрез определяне на биодоза с биодозиметъра на Далфелд-Горбачов.</p><ul><li>Една биодоза е <strong><p>времето, за което се получава минимална еритема,</p><p>но с ясно очертани граници, при разстояние между горелката и телесната </p><p>повърхност 50 cm</p></strong>.</li><li>Резултатът се отчита след 12 или най-късно след 24 часа от облъчването.</li></ul><hr><h2 style="text-align: center">ЛАМПА СОЛУКС</h2><p>Лампата солукс е източник на инфрачервени (ИЧЛ) и видими лъчи (ВЛ). Физиологичното ѝ действие е предимно топлинно, като предизвиква образуването на топлинен еритем (erythema calorica) в облъчваните зони.</p><h3>Техника на приложение и филтри</h3><p>При провеждане на процедурата лампата се поставя косо на разстояние 70-100 см от мястото на въздействие. Косото разположение има за цел да намали риска от нараняване на пациента или персонала при евентуална авария. Апаратът може да работи с различни филтри, които променят диапазона на пропусканите лъчи:</p><ul><li><strong>Червен филтър:</strong> Пропуска предимно червената част на видимите лъчи и късовълновите инфрачервени лъчи. Тези лъчи оказват физиологично въздействие на по-голяма дълбочина в тъканите.</li><li><strong>Син филтър:</strong> Пропуска синята част от видимите лъчи и съвсем малко количество инфрачервени лъчи. Лъчистата енергия прониква на малка дълбочина, поради което действието е нежно, повърхностно топлинно и противовъзпалително.</li></ul><h3>Дозировка и времетраене</h3><p>Процедурите се провеждат ежедневно, като е възможно да се прилагат и два пъти дневно. Продължителността на една сесия варира от 10 до 30 минути. Пълният курс на лечение обикновено включва между 10 и 20 процедури.</p><h3>Показания и противопоказания</h3><p>Лампата солукс е показана за лечение на:</p><ul><li>Синуити, ринити и фарингити.</li><li>Пареза на лицевия нерв и невралгия на тригеминус.</li><li>Плексити, радикулити и миалгии.</li><li>Цистити и други възпалителни състояния.</li></ul><p>Противопоказанията включват наличие на тумори, кръвотечения, активна туберкулоза и фебрилни състояния (висока температура).</p><hr><h2 style="text-align: center">ЛАМПА ИНФРАРУЖ</h2><p>Лампата инфраруж е топлинен източник на лъчиста енергия, в чийто спектър преобладават предимно червените и инфрачервените лъчи. </p><h3>Физиологично действие и ефективност</h3><p>Основното действие на лампата е топлинно. Топлината прониква дълбоко в тъканите, където:</p><ul><li>Създава хиперемия и разширява кръвоносните съдове.</li><li>Отстранява спазмите на гладката и напречно набраздената мускулатура.</li></ul><p><strong>Топлинният еритем </strong>при инфраруж е с <strong>много по-голям интензитет в сравнение с този на солукса</strong>. Това прави лечебния ефект по-силен при заболявания на по-дълбоко разположени органи и тъкани.</p><h3>Методика на провеждане</h3><p>За разлика от солукса, тази лампа се поставя перпендикулярно на третираната зона на разстояние 70-100 см. Препоръчително е лицето и останалите части на тялото, които не се третират, да бъдат покрити с чаршаф. Процедурите са ежедневни (еднократно или двукратно) с времетраене 10-15 минути. Лечебният курс се състои от 10 до 20 процедури.</p><h3>Показания и противопоказания</h3><p>Индикациите за приложение включват:</p><ul><li>Плексити, радикулити и миалгии.</li><li>Хроничен хепатит и холецистит.</li><li>Нефролитиаза и цистит.</li><li>Хронични гинекологични възпаления и различни травми.</li></ul><p>Противопоказанията са същите като при лампа солукс: тумори, кръвотечения, туберкулоза и фебрилитет.</p><hr><h2 style="text-align: center">АРГОНО-ЖИВАЧНО-КВАРЦОВА ЛАМПА</h2><h3>Обща характеристика</h3><p>Аргоно-живачно-кварцовите лампи се разделят на стационарни и портативни според своята мобилност. Те излъчват ултравиолетови лъчи (УВЛ) с дължина на вълната от 380 до 180 nm, като най-висок е интензитетът на УВ-В лъчите. В процеса на работа се генерират и минимални количества видими и инфрачервени лъчи вследствие на нагряването на електродите, поради което при процедури от близко разстояние пациентът усеща лека топлина.</p><h3>Работа с кварцовата лампа</h3><p>При провеждане на процедурата е необходимо да се спазват следните правила:</p><ul><li>Пациентът заема удобно положение (на стол или кушетка).</li><li>Задължително е поставянето на тъмни очила на пациента и персонала за защита на зрението от преките УВЛ.</li><li>Полето около третираната зона се изолира с бели кърпи или чаршафи.</li><li>Лампата се насочва така, че лъчите да падат перпендикулярно върху кожата.</li><li>Времетраенето се определя индивидуално според предварително снетата биодоза.</li></ul><h3>Общо ултравиолетово облъчване</h3><p>Общото облъчване се прилага в суберитемни дози (от 1/4 до 2 биодози). При деца и пациенти с повишена чувствителност се започва с по-ниски нива — 1/6 или 1/8 от биодозата. Дозировката се увеличава постепенно с 1/4 биодоза на всеки 1 или 2 дни, като курсът обикновено включва 20—25 процедури.</p><p>Този метод се прилага за:</p><ul><li>Профилактика и лечение на рахит и остеопороза.</li><li>Закаляване на организма.</li><li>Лечение на катари на горните дихателни пътища и при грипни епидемии.</li><li>Костно-ставна, кожна и неактивна белодробна туберкулоза.</li></ul><h3>Местно ултравиолетово облъчване</h3><p>Местното облъчване се извършва предимно с еритемни дози, вариращи от 1 до 5 и повече биодози. Поради различната регионална чувствителност на кожата е необходимо биодозата да се определя отделно за всяко поле, подлежащо на третиране. </p><p>Размерите на еритемните полета са между 100 и 600 cm<sup>2</sup>. В рамките на един ден могат да се облъчват до две полета, при условие че общата им площ не надвишава 800 cm<sup>2</sup>.</p><hr><h2 style="text-align: center">ФОТАРИАЛНИ ЛАМПИ</h2><p>Фотариалните лампи се използват за масови профилактични облъчвания с ултравиолетови лъчи (УВЛ) на колективи в предприятия, училища, детски градини и други организации. Най-често те се поставят в специално пригодени помещения, наречени фотариуми.</p><p>Основни характеристики на фотариума:</p><ul><li>Лампата се разполага в центъра на помещение с площ от 24 до 40 m<sup>2</sup>.</li><li>Помещението трябва да бъде светло, с добро отопление и под, постлан с паркет.</li><li>Работното място на медицинския персонал е отделено от фотариума чрез прозорче за наблюдение и даване на указания.</li></ul><p>Тези лампи се използват основно за закаляване и за масова профилактика срещу грипни и простудни заболявания на горните дихателни пътища.</p><hr><h2 style="text-align: center">БАКТЕРИЦИДНИ ЛАМПИ</h2><p>Бактерицидните лампи са източник на УВЛ от група С с дължина на вълната от 275 до 180 nm. Техният ефект се основава на фотохимичното действие на лъчите върху протоплазмата и ензимите на бактериите и вирусите.</p><p>Приложение:</p><ul><li>Дезинфекция на въздух, вода и повърхности.</li><li>Обработка на операционни и родилни зали, детски стаи, микробиологични лаборатории и промишлени цехове със замърсена среда.</li></ul><p>Важно е да се отбележи, че това облъчване е само допълнение към санитарно-противоепидемичните мероприятия като краен етап от обработката. Директното облъчване на живи организми с УВ-С лъчи е опасно, тъй като предизвиква поражения върху кожата и очите.</p><hr><h2 style="text-align: center">АНТАГОНИЗЪМ И СИНЕРГИЗЪМ ПРИ СВЕТЛОЛЕЧЕНИЕТО</h2><p>Взаимодействието между различните видове светлинни лъчи може да доведе до засилване или отслабване на биологичния ефект:</p><ul><li><strong>Синергично действие:</strong> Наблюдава се при едновременно облъчване с трите вида лъчи (ИЧЛ, ВЛ и УВЛ) или при предварително облъчване с видими и инфрачервени лъчи. В тези случаи еритемната реакция се усилва поради сумиране на ефектите.</li><li><strong>Антагонизъм:</strong> Проявява се, ако инфрачервените и видимите лъчи се приложат по време на латентния период на ултравиолетовия еритем. Това води до отслабване на еритемната реакция.</li></ul><p>Причината за антагонизма е предварително интензифицираната обмяна на веществата и усилената микроциркулация. Това води до по-бързо изнасяне на междинните продукти още в латентния стадий, което намалява крайната сила на еритемната реакция.</p><hr data-separator-style="dashed" style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(88, 129, 87)"><p><br></p><p><br></p><hr data-separator-style="dashed" style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(88, 129, 87)"><h1 style="text-align: center">ЛАЗЕРТЕРАПИЯ</h1><h2>Определение и същност</h2><p>Лазертерапията се дефинира като усилване на светлината чрез стимулирана емисия на радиация (Light Amplification by Stimulated Emission of Radiation). Първият квантов оптичен генератор, известен като лазер (LASER), е създаден през 1960 г.. В широк смисъл светлината представлява електромагнитни вълни с различна честота, а в по-ограничен аспект тя е видимо излъчване, което предизвиква зрително усещане. Това явление има две страни: субективно-физиологична за облъчения индивид и обективно-физична, свързана с източника и средата на разпространение.</p><h2>Устройство на лазера</h2><p>Устройството на лазера включва няколко основни компонента: </p><ul><li><strong>Активна лазерна среда</strong> (работно вещество или медиум).</li><li><strong>Източник на енергия </strong>(електрически ток) за стимулиране и възбуждане на активната среда.</li><li><strong>Система от огледала</strong> (резонаторно и рефлектиращо)&nbsp;</li><li><strong>Световод</strong>, който отвежда лазерния сноп до наконечника.&nbsp;</li></ul><p>Генераторите се класифицират според агрегатното състояние на работната среда на:</p><ul><li><strong>Твърди:</strong> рубинови и полупроводникови.</li><li><strong>Течни:</strong> разтвори от органични багрила.</li><li><strong>Газови:</strong> хелий-неонов, аргон-криптонов и въгледвуокисов.</li></ul><h2>Принцип на действие и режими</h2><p>Стимулираната емисия възниква, когато под въздействие на погълната енергия от фотон, електронът прескача на по-ниско енергетично ниво, което е придружено с излъчване на нов фотон, идентичен по енергия с първоначалния. Усилването на светлината се постига чрез положителна обратна връзка, при която част от усиленото излъчване се връща обратно на входа за последващо усилване. </p><p>Лазерите работят в два основни режима:</p><ul><li><strong>Постоянен (непрекъснат) режим:</strong> Потокът на мощността се измерва във ватове на единица площ (<strong>W/cm<sup>2</sup></strong>).</li><li><strong>Импулсен режим:</strong> Интензитетът на лъчението се измерва чрез плътността на енергията върху единица площ, изразена в джаули (<strong>J/cm<sup>2</sup></strong>).</li></ul><p>Според изходната мощност лазерите биват <strong>нискоенергийни </strong>и <strong>високоенергийни </strong>(<strong>с мощност над 0,5W</strong>). При нискоенергийните модели дълбочината на проникване е само няколко милиметра поради пречупване, отражение и разсейване на лъчите на границата между оптично разнородните тъкани.</p><h2>Характеристики на лазерното лъчение</h2><p>Лазерното лъчение представлява електромагнитни вълни в светлинния диапазон със следните специфични свойства:</p><ul><li><strong>Монохроматичност:</strong> излъчване само с една дължина на вълната.</li><li><strong>Кохерентност:</strong> всички вълни се разпространяват в една и съща фаза.</li><li><strong>Насоченост:</strong> изключително малка дивергенция на лъчите.</li></ul><h2>Терапевтични ефекти</h2><ul><li>Противовъзпалителен.</li><li>Обезболяващ.</li><li>Регенеративен.</li><li>Съдоразширяващ.</li><li>Стимулиращ имунната защита.</li><li>Десенсибилизиращ.</li><li>Противомикробен.</li></ul><h2>Показания за лазертерапия</h2><p>Методът е показан при широк кръг от заболявания:</p><ul><li><strong>Заболявания на опорно-двигателния апарат:</strong> дегенеративни, възпалителни, травматични и професионални заболявания като артрози, артрити, периартрити, тендовагинити, епикондилити, дисторзии, контузии и състояния след фрактури.</li><li><strong>Заболявания на нервната система:</strong> плексити, радикулити, дископатии, неврити, херпес зостер и травматични лезии на периферни нерви.</li><li><strong>Кожни заболявания:</strong> уртикария, невродермит, сърбящи дерматози, херпес симплекс, бавно зарастващи язви, рани (включително следоперативни) и декубитуси.</li></ul><h2>Противопоказания</h2><p>Лазертерапията не трябва да се прилага в следните случаи:</p><ul><li>В областта около очите и в проекцията на растящи епифизи.</li><li>Наличие на тумори, бременност и хеморагии.</li><li>Инфекциозни болести и тиреотоксикоза.</li><li>Сърдечносъдова и белодробна недостатъчност (II-III степен) и декомпенсиран захарен диабет.</li></ul><h2>Изисквания за безопасност</h2><p>При работа с лазер е необходимо стриктно спазване на мерки за безопасност:</p><ul><li>Лазерът трябва да се монтира в отделно помещение или изолирана кабина, като на вратата се поставя <span class="editor-note" data-note="![Image](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn11.bigcommerce.com%2Fs-11317%2Fimages%2Fstencil%2F1280x1280%2Fproducts%2F689%2F3640%2FW24H__97610.1265111764.jpg%3Fc%3D2&amp;f=1&amp;nofb=1&amp;ipt=f6c9d78799e964ebf74894151868de46fb81abb00f38cb4db5e1959dd734af3c &quot;width=60%&quot;)" id="note-1775061969366-0">забранителен знак</span> за влизане по време на процедура.</li><li>При използване на хелий-неонов лазер (червена светлина) се изискват сини защитни очила за персонала и пациента, както и сини стени, завеси и облекло.</li><li>Лазерният лъч никога не трябва да се насочва директно към очите.</li><li>В кабинета не трябва да има отразяващи предмети или лични вещи (часовници, гривни, пръстени), които могат да предизвикат рефлексия.</li></ul><br><br><style></p><p>    body { </p><p>      font-family: "Open Sans", Arial, sans-serif; </p><p>      max-width: 1200px; </p><p>      margin: 2rem auto; </p><p>      padding: 0 1rem; </p><p>      line-height: 1.6; </p><p>      color: #1f2937; </p><p>    }</p><p>    h1 { </p><p>      font-weight: 600; </p><p>      font-size: 1.5em;</p><p>      margin-top: 1.5em;</p><p>      margin-bottom: 0.5em;</p><p>      color: #3a5a40;</p><p>      border-bottom: 2px dashed #a3b18a;</p><p>      padding-bottom: 5px;</p><p>    }</p><p>    p { </p><p>      margin: 0.7em 0 1.5em 0; </p><p>      white-space: pre-wrap;</p><p>    }</p><p>    @media (max-width: 768px) {</p><p>      body { font-size: 16px; }</p><p>      h1 { font-size: 1.3em; }</p><p>    }</p><p>  </style>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+<script>
+renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true},
+    {left: '$', right: '$', display: false},
+    {left: '\\[', right: '\\]', display: true},
+    {left: '\\(', right: '\\)', display: false}
+  ],
+  throwOnError: false
+});
+</script>
+</body>
+</html>

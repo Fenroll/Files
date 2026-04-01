@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <style>
+    body { 
+      font-family: "Open Sans", Arial, sans-serif; 
+      max-width: 1550px; 
+      margin: 0.5rem auto; 
+      padding: 0 1rem; 
+      line-height: 1.6; 
+      color: #1f2937; 
+    }
+    h1, h2, h3, h4 { 
+      font-weight: 600; 
+      margin-top: 0.7em;
+      margin-bottom: 0;
+      color: #588157;
+    }
+    h1 { font-size: 1.65em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; margin-bottom: 0; }
+    h4 { font-size: 1.05em; margin-bottom: 0; }
+    h1 + h2, h1 + h3, h1 + h4, h2 + h3, h2 + h4, h3 + h4 { margin-top: 0.1em; }
+    p { 
+      margin: 0.3em 0; 
+      white-space: pre-wrap;
+    }
+    hr {
+      margin: 0.45em 0 0.2em;
+    }
+    hr + h1,
+    hr + h2,
+    hr + h3,
+    hr + h4 {
+      margin-top: 0.2em;
+    }
+    hr + p,
+    hr + ul,
+    hr + ol,
+    hr + blockquote,
+    hr + pre,
+    hr + table {
+      margin-top: 0.08em;
+    }
+    p + ul, p + ol { margin-top: 0.2em; }
+    h1 + p, h2 + p, h3 + p, h4 + p,
+    h1 + ul, h2 + ul, h3 + ul, h4 + ul,
+    h1 + ol, h2 + ol, h3 + ol, h4 + ol { 
+      margin-top: 0; 
+    }
+    ul, ol { 
+      margin: 0.2em 0; 
+      padding-left: 1.5em; 
+      list-style-position: outside;
+    }
+    li { margin: 0.2em 0; }
+    li p {
+      margin: 0;
+      padding: 0;
+      display: inline;
+    }
+    li > ul, li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    ul ul, ul ol, ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    ul ul { list-style-type: circle; }
+    ul ul ul { list-style-type: square; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+    code { 
+      background: rgba(146, 64, 14, 0.1); 
+      padding: 2px 6px; 
+      border-radius: 3px; 
+      font-family: "Courier New", monospace; 
+      font-size: 0.9em; 
+    }
+    pre {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 12px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.5em 0;
+      font-family: "Courier New", monospace;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    blockquote {
+      border-left: 3px solid #588157;
+      padding-left: 1em;
+      margin: 0.5em 0;
+      font-style: italic;
+      color: #166534;
+    }
+    table { 
+      border-collapse: collapse; 
+      margin: 0.75em 0; 
+      width: 100%; 
+      table-layout: auto;
+    }
+    th, td { 
+      border: 1px solid rgba(2, 2, 2, 0.2);
+      padding: 6px 10px; 
+      text-align: left; 
+      vertical-align: top;
+      height: 24px;
+      line-height: 1.2;
+    }
+    thead th { 
+      background: rgba(88, 129, 87, 0.13); 
+      font-weight: 600; 
+    }
+    tbody tr:nth-child(odd) { 
+      background: rgba(88, 129, 87, 0.06); 
+    }
+    /* Image alignment rules for exported content and md-viewer */
+    img[data-align="left"] {
+      display: block;
+      margin: 8px auto 8px 0;
+    }
+    img[data-align="center"] {
+      display: block;
+      margin: 8px auto;
+    }
+    img[data-align="right"] {
+      display: block;
+      margin: 8px 0 8px auto;
+    }
+    .audio-link-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0.2em 0;
+      max-width: 100%;
+      vertical-align: middle;
+    }
+    .audio-link-icon {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #588157;
+      border-radius: 999px;
+      background: #f0f7f0;
+      color: #2f5d50;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+    .audio-link-inline audio {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .audio-link-icon img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    a {
+      color: inherit; /* Changed to inherit */
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #74b673;
+    }
+    /* Keep <p> tags inside list items on same line (as they appear in editor) */
+    li p {
+      margin: 0 !important;
+      padding: 0 !important;
+      display: inline !important;
+    }
+    /* Prevent nested list paragraph issues */
+    li > ul,
+    li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    /* Ensure list structure is clean */
+    ul ul, ul ol,
+    ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    @media (max-width: 768px) {
+      body {
+        margin: 0.5rem 0;
+        padding: 0 0.5rem;
+        font-size: 16px;
+      }
+      h1 { font-size: 1.65em; }
+      h2 { font-size: 1.3em; }
+      h3 { font-size: 1.1em; }
+      p { margin: 0.3em 0; }
+      ul, ol { padding-left: 1.5em; }
+      li { margin: 0.2em 0; }
+      table { font-size: 0.9em; }
+      th, td { padding: 6px 10px; }
+    }
+    .editor-note {
+      text-decoration: underline dotted #a3b18a;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      text-decoration-skip-ink: none;
+      cursor: help;
+      position: relative;
+    }
+    .note-tooltip {
+      display: none;
+      position: absolute;
+      background-color: #f0f7f0;
+      color: #1f2937;
+      border: 1px solid #588157;
+      border-radius: 4px;
+      padding: 8px 12px;
+      width: fit-content;
+      max-width: min(700px, calc(100vw - 20px));
+      max-height: calc(100vh - 20px);
+      overflow: auto;
+      box-sizing: border-box;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 10000;
+      font-size: 0.9em;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    .note-tooltip ul, .note-tooltip ol {
+      margin: 0 !important;
+      padding-left: 20px !important;
+    }
+    .note-tooltip li {
+      margin: 0 0 0.1em 0 !important;
+      padding: 0 !important;
+      line-height: 1.2 !important;
+    }
+    .note-tooltip li:last-child {
+      margin-bottom: 0 !important;
+    }
+    .note-tooltip .note-table-scroll {
+      overflow-x: auto;
+      margin: 0.3em 0;
+    }
+    .note-tooltip table {
+      border-collapse: collapse;
+      width: max-content;
+      max-width: 100%;
+      min-width: 220px;
+      background: #ffffff;
+    }
+    .note-tooltip th,
+    .note-tooltip td {
+      border: 1px solid rgba(88, 129, 87, 0.35);
+      padding: 4px 8px;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .note-tooltip thead th {
+      background: rgba(88, 129, 87, 0.12);
+      font-weight: 600;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'note-tooltip';
+      document.body.appendChild(tooltip);
+
+      function parseNoteMarkdown(text) {
+        if (!text) return '';
+        
+        const splitTableCells = function(line) {
+          return String(line || '')
+            .trim()
+            .replace(/^\|/, '')
+            .replace(/\|$/, '')
+            .split('|')
+            .map(function(cell) { return cell.trim(); });
+        };
+
+        const isTableSeparatorLine = function(line) {
+          const cells = splitTableCells(line);
+          return cells.length > 0 && cells.every(function(cell) {
+            return /^:?-{3,}:?$/.test(cell);
+          });
+        };
+
+        const getTableAlignment = function(cell) {
+          if (/^:-{3,}:$/.test(cell)) return 'center';
+          if (/^-{3,}:$/.test(cell)) return 'right';
+          if (/^:-{3,}$/.test(cell)) return 'left';
+          return '';
+        };
+
+        let lines = text.split('\n');
+        let html = [];
+        let stack = [];
+        
+        for (let i = 0; i < lines.length; i++) {
+          let line = lines[i];
+          
+          let indentMatch = line.match(/^(\s*)/);
+          let indent = indentMatch ? indentMatch[1].length : 0;
+          let content = line.trim();
+
+          const nextLine = i + 1 < lines.length ? lines[i + 1].trim() : '';
+          const maybeTableHeader = content.includes('|') && splitTableCells(content).length >= 2;
+          const maybeTableSeparator = nextLine.includes('|') && isTableSeparatorLine(nextLine);
+
+          if (maybeTableHeader && maybeTableSeparator) {
+            while (stack.length > 0) {
+              let closed = stack.pop();
+              html.push('</' + closed.type + '>');
+            }
+
+            const headerCells = splitTableCells(content);
+            const alignCells = splitTableCells(nextLine);
+
+            html.push('<div class="note-table-scroll"><table><thead><tr>');
+            headerCells.forEach(function(cell, idx) {
+              const align = getTableAlignment(alignCells[idx] || '');
+              const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+              html.push('<th' + alignAttr + '>' + cell + '</th>');
+            });
+            html.push('</tr></thead><tbody>');
+
+            i += 2;
+            while (i < lines.length) {
+              const rowLine = lines[i].trim();
+              if (!rowLine || !rowLine.includes('|')) break;
+              if (isTableSeparatorLine(rowLine)) {
+                i++;
+                continue;
+              }
+
+              const rowCells = splitTableCells(rowLine);
+              if (rowCells.length === 0) {
+                i++;
+                continue;
+              }
+
+              html.push('<tr>');
+              rowCells.forEach(function(cell, idx) {
+                const align = getTableAlignment(alignCells[idx] || '');
+                const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+                html.push('<td' + alignAttr + '>' + cell + '</td>');
+              });
+              html.push('</tr>');
+              i++;
+            }
+
+            html.push('</tbody></table></div>');
+            i--;
+            continue;
+          }
+          
+          let isUl = /^[-*]\s+(.+)/.test(content);
+          let isOl = /^\d+\.\s+(.+)/.test(content);
+          
+          if (isUl || isOl) {
+            let listType = isUl ? 'ul' : 'ol';
+            let match = isUl ? content.match(/^[-*]\s+(.+)/) : content.match(/^\d+\.\s+(.+)/);
+            let itemText = match[1];
+            
+            if (stack.length === 0) {
+              stack.push({ type: listType, indent: indent });
+              html.push('<' + listType + '>');
+            } else {
+              let last = stack[stack.length - 1];
+              
+              if (indent > last.indent) {
+                stack.push({ type: listType, indent: indent });
+                html.push('<' + listType + '>');
+              } else if (indent < last.indent) {
+                while (stack.length > 0 && stack[stack.length - 1].indent > indent) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                }
+                if (stack.length === 0 || stack[stack.length - 1].indent !== indent) {
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                } else if (stack[stack.length - 1].type !== listType) {
+                   let closed = stack.pop();
+                   html.push('</' + closed.type + '>');
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                }
+              } else {
+                if (last.type !== listType) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                  stack.push({ type: listType, indent: indent });
+                  html.push('<' + listType + '>');
+                }
+              }
+            }
+            html.push('<li>' + itemText + '</li>');
+          } else {
+            if (content !== '') {
+               while (stack.length > 0) {
+                 let closed = stack.pop();
+                 html.push('</' + closed.type + '>');
+               }
+            }
+            if (/^#{1,4}\s+/.test(content)) {
+              const headingMatch = content.match(/^(#{1,4})\s+(.+)$/);
+              if (headingMatch) {
+                const level = headingMatch[1].length;
+                html.push('<h' + level + '>' + headingMatch[2] + '</h' + level + '>');
+              }
+            } else if (content) {
+              html.push(content + '<br>');
+            } else {
+              html.push('<br>');
+            }
+          }
+        }
+        
+        while (stack.length > 0) {
+          let closed = stack.pop();
+          html.push('</' + closed.type + '>');
+        }
+        
+        let result = html.join('')
+          .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/__(.+?)__/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>')
+          .replace(/_(.+?)_/g, '<em>$1</em>')
+          .replace(/`(.+?)`/g, '<code>$1</code>')
+          .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
+        
+        result = result
+          .replace(/<br><ul>/g, '<ul>')
+          .replace(/<br><ol>/g, '<ol>')
+          .replace(/</ul><br>/g, '</ul>')
+          .replace(/</ol><br>/g, '</ol>');
+        
+        return result;
+      }
+
+      document.body.addEventListener('mouseover', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          const note = e.target.dataset.note;
+          if (note) {
+            tooltip.innerHTML = parseNoteMarkdown(note);
+            tooltip.style.display = 'block';
+            const rect = e.target.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+            const pageX = window.scrollX || window.pageXOffset;
+            const pageY = window.scrollY || window.pageYOffset;
+            const maxLeft = pageX + window.innerWidth - tooltipRect.width - 10;
+            const minLeft = pageX + 10;
+
+            let left = rect.left + pageX;
+            if (left > maxLeft) left = maxLeft;
+            if (left < minLeft) left = minLeft;
+
+            let top = rect.bottom + pageY + 6;
+            const maxTop = pageY + window.innerHeight - tooltipRect.height - 10;
+            if (top > maxTop) {
+              top = rect.top + pageY - tooltipRect.height - 6;
+            }
+            if (top < pageY + 10) top = pageY + 10;
+
+            tooltip.style.left = left + 'px';
+            tooltip.style.top = top + 'px';
+          }
+        }
+      });
+
+      document.body.addEventListener('mouseout', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          setTimeout(() => {
+            if (!tooltip.matches(':hover')) {
+              tooltip.style.display = 'none';
+            }
+          }, 100);
+        }
+      });
+
+      tooltip.addEventListener('mouseleave', function() {
+        tooltip.style.display = 'none';
+      });
+    });
+  </script>
+</head>
+<body>
+<blockquote></blockquote><h1 style="text-align: center">Белодробна ехинококоза (Echinococcosis Pulmonis)</h1><h2>Същност</h2><p>Белодробната ехинококоза е тежка <strong>антропозооноза</strong> (заболяване, общо за хората и животните), която се развива в резултат на инфектиране с ларвната форма на кучешката тения. Характеризира се с образуването на ехинококови кисти в белодробния паренхим, които могат да нарастват бавно в продължение на десетилетия.</p><hr><h2>Причинители</h2><p>Заболяването се причинява от различни видове цестоди (плоски червеи) от род <em>Echinococcus</em>:</p><ul><li><strong>Echinococcus granulosus</strong> (най-често срещаният, наричан още <em>Echinococcus unilocularis</em>).</li><li><strong>Alveococcus multilocularis</strong> (причинител на алвеоларна ехинококоза).</li><li><strong>Echinococcus vogeli</strong>.</li><li><strong>Echinococcus oligarthus</strong>.</li></ul><hr><h2>Заболеваемост</h2><p>Статистическите данни показват значимо присъствие на заболяването в България:</p><ul><li><strong>Обща заболеваемост:</strong> Около <strong>6,95 на 100 000</strong> души.</li><li><strong>Локализация:</strong> Белият дроб е второто най-често ангажирано място след черния дроб, като заема между <strong>20% и 35%</strong> от всички случаи на ехинококоза.</li></ul><hr><h2>Разпространение</h2><p>Заболяването е тясно свързано с климатичните условия и развитото животновъдство.</p><ul><li><strong>Ендемични райони:</strong></li><ul><li><strong>Балкански полуостров:</strong> България, Гърция, Турция.</li><li><strong>Средиземноморски басейн:</strong> Италия, Испания.</li><li><strong>Южна Америка:</strong> Уругвай, Аржентина, Чили.</li><li><strong>Други:</strong> Австралия, Нова Зеландия, Северна Африка, Близкия изток и Средна Азия.</li></ul><li><strong>Рискови фактори:</strong> Сух и топъл климат, интензивно скотовъдство и ниски нива на санитарно-хигиенна култура в селските райони.</li></ul><hr><h2>Етиология и морфология на зародиша (Онкосфера)</h2><p>Преди навлизането в организма, паразитът съществува под формата на яйце (онкосфера), притежаващо следните характеристики:</p><ul><li><strong>Структура:</strong></li><ol><li>Хитинова обвивка</li><li>Герминативна обвивка</li><li>Зародиш (Онкосфера)</li></ol></ul><p><img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775062753400-image.png" alt="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775062753400-image.png" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775062753400-image.png" data-width="80" data-align="left" style="width: 402.4px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto 8px 0px" data-broken-cleanup-bound="1"></p><ul><li><strong>Устойчивост:</strong></li><ul><li>Във вода или на слънце: <strong>12 дни</strong>.</li><li>При 0℃ преживяват до <strong>116 дни</strong>.</li></ul></ul><hr><h2><span class="editor-note" data-note="![Image](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.lecturio.com%2Fassets%2FEchinococcus-granulosus-Life-Cycle-Echinococcosis.jpg&amp;f=1&amp;nofb=1&amp;ipt=f2cd952e499387d20d93e12e17e12981cc443bda7cf65f38ee4a283b27a42a8f &quot;width=100%&quot;)" id="note-1775062824608-1">Биологичен цикъл</span></h2><p>Белодробната ехинококоза е паразитно заболяване, причинено от ларвната форма на тенията <strong>Echinococcus granulosus</strong>. Човекът се включва в цикъла като "случаен" и "терминален" междинен гостоприемник.</p><ul><li><strong>Краен (дефинитивен) гостоприемник:</strong> Месоядни животни (куче, вълк, чакал). Половозрелите форми (3–6 мм) живеят в техните тънки черва.</li><li><strong>Междинен гостоприемник:</strong> Над 60 вида бозайници (едър и дребен рогат добитък, свине, елени, маймуни) и <strong>Човек</strong>.</li></ul><h4>Пътища на заразяване</h4><ul><li><p><strong>Стомашно-чревен (Перорален) – основен:</strong></p></li><ul><li><p>Консумация на немити плодове/зеленчуци и замърсена вода.</p></li><li><p>Директен контакт (галене) с опаразитени кучета.</p></li></ul><li><strong>Дихателен път (Аерогенен):</strong> Вдишване на прах, съдържащ ехинококови яйца.</li></ul><ul><li><p><strong>Директен път:</strong> Попадане на яйца директно в ранева повърхност.</p></li></ul><h3>Миграция в организма (Пътят до Белия дроб)</h3><p>След поглъщане, обвивката на яйцето се смила от стомашните и жлъчните ензими, освобождавайки хексакантния ембрион.</p><p><strong>А. Хематогенен път</strong></p><ul><li><strong>I Филът (Черен дроб): </strong>Ларвата прониква в чревната стена и чрез Vena Portae попада в черния дроб. Тук се спират <strong>75–80% </strong>от онкосферите.</li><li><strong>II Филтър (Бял дроб): </strong>Оцелелите ларви преминават през чернодробните вени -&gt; Vena Cava Inferior -&gt; дясно сърце -&gt; Белодробна артерия. Тук се фиксират <strong>20–35%</strong> от случаите.</li><li><strong>III Филтър (Системно разпространение):</strong> Ако преминат белодробните капиляри, попадат в лявото сърце и аортата (мозък, бъбреци, кости).</li></ul><p><strong>Б. Алтернативни пътища (Заобикаляне на черния дроб)</strong></p><ul><li><strong>Лимфогенен:</strong> <p>Ларвата прониква в лимфните съдове на червата -&gt; <strong>ductus thoracicus</strong> -&gt; v. subclavia -&gt; дясно сърце -&gt; бял дроб.</p></li><li><strong>Порто-кавални анастомози: </strong><p>Преминаване през венозни връзки, заобикалящи порталната система.</p></li><li><strong>Трансдиафрагмален:</strong> <p>Директна миграция от черния дроб към белия дроб при тясно съседство през диафрагмата.</p></li></ul><hr><h2>Структура на ехинококовата киста (Личинков стадий)</h2><p>Веднъж фиксирана в паренхима, онкосферата образува киста, състояща се от:</p><ul><li><strong>Кутикулярна (хитинова) мембрана:</strong> Предпазва паразита.</li><li><strong>Герминативна мембрана:</strong> Вътрешен слой, който произвежда зародишните елементи.</li><li><strong>Ехинококова течност:</strong> Прозрачна, под високо налягане.</li><li><strong>Елементи на „пясъка“:</strong> Зародишеви мехури, сколекси и дъщерни клетки.</li><li><strong>Важно:</strong> Растежът в белия дроб е по-бърз (<strong>1–3 см/година</strong>) поради еластичността на тъканта. Средната продължителност на живот на кистата е <strong>10–20 години</strong>.</li></ul><hr><h2>Особености на белодробната ехинококоза</h2><ul><li><strong>Честота:</strong> 20 – 35% от всички случаи на ехинококоза.</li><li><strong>Брой кисти:</strong> Най-често се среща <strong>солитарна</strong> (единична) киста.</li><ul><li>Множествена ехинококоза: 10 – 40%.</li><li>Двустранна локализация: 10 – 20%.</li></ul><li><strong>Съчетана (полиорганна) ехинококоза:</strong> 6,6 – 21% (най-често с черния дроб).</li><li><strong>Локализация:</strong> По-често в <strong>десния бял дроб</strong>, периферно разположение и в <strong>долните сегменти</strong>.</li></ul><hr><h2>Клиника</h2><p>Развитието на заболяването преминава през четири основни стадия:</p><h4>I. Латентен стадий</h4><ul><li><strong>Период:</strong> От инвазията на онкосферата до първите клинични прояви.</li><li><strong>Характеристика:</strong> Продължителен (години), особено при централно разположени кисти.</li><li><strong>Диагностика:</strong> Обикновено се открива случайно при рентгеново изследване (10-25% от болните).</li></ul><h4>II. Стадий на начални клинични прояви</h4><p>Симптомите са неспецифични и наподобяват лека респираторна инфекция:</p><ul><li>Суха кашлица или с оскъдна експекторация.</li><li>Гръдна болка (от чувство за тежест до невралгична болка).</li><li>Субфебрилитет, обща отпадналост и изпотяване.</li><li><strong>Алергични прояви:</strong> Уртикариален обрив.</li><li>Дискретна хемофтиза (кръвохрачене).</li></ul><h4>III. Стадий на изявени клинични прояви</h4><p>Кистата е достигнала големи размери и притиска околните структури:</p><ul><li>Постоянна кашлица и задух (прогресираща диспнея).</li><li>Усилване на болката и кръвохраченето.</li><li><strong>Хемодинамични разстройства:</strong> Дължат се на изместване на медиастинума.</li><li><strong>Локален статус:</strong>&nbsp;</li><ul><li>Асиметрия на гръдния кош (при деца и слаби хора).</li><li>Изгладени междуребрия.</li><li>Изоставане на съответната гръдна половина при дишане.</li><li>Перкуторно притъпление и отслабено дишане.&nbsp;</li><li>При възпаление на околния паренхим се чуват крепитации и дребни влажни хрипове.</li></ul></ul><h3>IV. Стадий на усложненията</h3><p>Това е най-опасният етап, свързан с разрушаване целостта на кистата:</p><h4>А. Пробив към бронхиалното дърво (20 – 40%)</h4><p>По-често се наблюдава при централно разположените кисти.</p><ul><li><strong>Отхрачване на:</strong> </li><ul><li><strong>С</strong><strong>олено-горчива течност</strong>. Може да бъде фудроянтно (масивно) с риск от асфиксия.</li><li><strong>Находка в храчката:</strong> Изкашляне на хитинови мембрани и дъщерни кисти.</li><li><strong>Зловонна гной (при абсцедиране)</strong></li><li><strong>Кръвохрак.</strong></li></ul><li><strong>Усложнение:</strong> Може да доведе до опаразитяване на двата бели дроба или вторичен белодробен абсцес (при нагнояване).</li><li><strong>Клинична картина на белодробен абсцес</strong>.</li></ul><h4>Б. Пробив към плевралната кухина (2 – 5%)</h4><p>Води до драматична клинична картина:</p><ul><li>Хидатиден хидропневмоторакс.</li><li>Емпием или пиопневмоторакс (ако кистата е била нагноила).</li><li>Риск от анафилактичен шок.</li></ul><h4>В. Други усложнения</h4><ul><li><strong>Пробив към перикарда:</strong> Рядко, води до тампонада и смърт.</li><li><strong>Нагнояване на ехинококовата киста:</strong> Клиника на недрениран белодробен абсцес.</li><li><strong>Дегенеративни промени в кистата:</strong> Самоизлекуване чрез колоидна дегенерация и калцифициране на кистата.</li></ul><h3>Специфични форми</h3><ul><li><strong>Множествена ехинококоза:</strong>&nbsp;Едностранна или двустранна с по-кратък латентен период, тежка клиника и чести усложнения.</li><li><strong>Съчетана ехинококоза:</strong> Клиничната картина се владее от най-голямата или усложнена киста (напр. в черния дроб или мозъка).</li></ul><p><img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775063434830-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775063434830-image.png" data-width="100" data-align="center" style="width: 907px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto" data-broken-cleanup-bound="1"></p><hr><h2>Диагноза</h2><p>Диагнозата се поставя чрез комплексен подход, обединяващ клиничната картина, високоспециализирани образни изследвания и специфични серологични тестове.</p><h3>1. Образна диагностика</h3><p>Образните методи са водещи за локализирането и определянето на състоянието на кистата (жива, нагноила или пукната).</p><h4>А. <span class="editor-note" data-note="![Image](https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775063772729-image.png &quot;width=100%&quot;)" id="note-1775063782084-3">Рентгеново изследване (Ro)</span></h4><p>Това е основният метод, приложим при кисти с размер над 15–20 мм. Може да се наблюдават следните рентгенови белези:</p><ul><li><strong><span class="editor-note" data-note="![Image](https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775063595965-image.png &quot;width=100%&quot;)" id="note-1775063598160-2">Граничен симптом</span>:</strong> Интензивността на сянката на кистата е по-малка в сравнение със сенките на съседните ребра.</li><li><strong>Симптом на Неменов ("Дишане на кистата"):</strong> Промяна във формата на кистата (от кръгла в елипсовидна) при дълбоко вдишване и издишване поради еластичността на стените ѝ.</li><li><strong>Симптом на Дилон (Краеви симптом):</strong> Характерни очертания при периферно разположени кисти.</li><li><strong>Симптом на Щерн ("Удвояване на контура"):</strong> Визуализира се поради разликата в плътността между перикистата (обвивката от гостоприемника) и хитиновата мембрана.</li><li><strong>Симптом на Schlanger ("На хващащата тумора ръка"):</strong> Специфично обхващане на формацията от съседни структури.</li><li><strong>Симптом на "Въздушната шапка" (на полумесеца):</strong> Рано отлепване на хитиновата мембрана, при което между нея и перикистата прониква въздух.</li><li><strong><span class="editor-note" data-note="![Image](https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775063893044-image.png &quot;width=100%&quot;)
+![Image](https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775063884140-image.png &quot;width=100%&quot;)" id="note-1775063894681-4">Симптом на "Водната лилия" </span>:</strong> Наблюдава се след пробив на кистата в бронх. Хитиновата мембрана колабира и "плува" върху остатъчната течност в кухината.</li><li><strong>Симптом на петрификация:</strong> Вижда се при калцифициране на кистата след смърт на паразита (рядко при белодробна локализация).</li></ul><p><br></p><h4>Б. КАТ (Компютърна аксиална томография) и ЯМР</h4><p>Прилагат се основно при трудности в диференциалната диагноза. КАТ позволява прецизна оценка на плътността на течността и откриване на малки дъщерни кисти.</p><h4>В. Други образни методи</h4><ul><li><strong>Ултрасонография (Ехография):</strong> Полезна при периферни кисти и за изключване на съпътстваща чернодробна ехинококоза.</li><li><strong>Перфузионна сцинтиграфия:</strong> За оценка на функционалния капацитет на белия дроб около кистата.</li></ul><h3>2. Лабораторни и имунологични изследвания</h3><p>Серологичните тестове помагат за потвърждаване на паразитарния произход, но имат по-ниска чувствителност при белодробна локализация (60-65%) в сравнение с чернодробната (80-90%).</p><ul><li><strong>Класически тестове:</strong></li><ul><li><strong>Казони (Casoni):</strong> Интрадермален тест (кожна проба). Понастоящем се използва по-рядко поради риск от алергични реакции.</li><li><strong>Вайнберг (Weinberg):</strong> Реакция за свързване на комплемента (РСК).</li></ul><li><strong>Съвременни серологични реакции:</strong></li><ul><li><strong>ELISA:</strong> Счита се за един от най-чувствителните и специфични методи.</li><li><strong>Реакция индиректна хемаглутинация (РИХА)</strong>.<strong></strong></li><li><strong>Реакция пасивна хемаглутинация (РПХА)</strong>.</li><li><strong>Реакция индиректна имунофлуоресценция (РИФ)</strong>.</li><li><strong>Латекс аглутинация</strong> и <strong>Бентонит флуоресценция</strong>.</li></ul></ul><hr><h2>Диференциална диагноза</h2><p>Поради своята рентгенологична характеристика (кръгла сянка или кухина с нива), ехинококовата киста трябва да бъде отграничена от широк кръг заболявания:</p><ul><li><strong>Белодробни тумори:</strong></li><ul><li><strong>Доброкачествени тумори:</strong> Често имат подобна правилна форма, но по-голяма плътност.</li><li><strong>Периферен белодробен карцином:</strong> Обикновено е с по-неравни контури и по-бърза динамика.</li><li><strong>Белодробни метастази:</strong> Често са множество.</li></ul><li><strong>Възпалителни и специфични заболявания:</strong></li><ul><li><strong>Белодробен абсцес:</strong> Протича с тежка клинична картина (температура, гнойни храчки) и дебели стени на кухината.</li><li><strong>Белодробна туберкулоза:</strong> Търсят се специфични огнища и БК в храчката.</li></ul><li><strong>Плеврални и съдови процеси:</strong></li><ul><li><strong>Ограничени изливи и емпиеми:</strong> Променят се при смяна на положението на тялото.</li><li><strong>Аневризми на аортата:</strong> Изискват КТ с контраст или ангиография за изключване.</li></ul><li><strong>Други локализации:</strong></li><ul><li><strong>Тумори на медиастинума.</strong></li><li><strong>Целомни кисти (на перикарда).</strong></li><li><strong>Релаксация на диафрагмата:</strong> Може да имитира формация в долните белодробни отдели.</li></ul></ul><hr><h2>Профилактика</h2><p>Профилактиката е ключова за ограничаване на разпространението на ехинококозата и включва лични и обществени мерки:</p><h4>Лична профилактика:</h4><ul><li><strong>Хигиена:</strong> Строго спазване на елементарни хигиенни норми (миене на ръцете след контакт с животни).</li><li><strong>Хранене:</strong> Консумиране на нискорастящи плодове (ягоди) и зеленчуци (марули, лук) само след <strong>обилно и добро измиване</strong> под течаща вода.</li><li><strong>Контакт с животни:</strong> Ограничаване на прекия контакт с кучета с неясен здравен статус.</li></ul><h4>Обществена и ветеринарна профилактика:</h4><ul><li><strong>Контрол над скитащите кучета:</strong> Намаляване на популацията и редовен надзор.</li><li><strong>Дехелминтоза:</strong> Редовно обезпаразитяване на домашните и овчарските кучета.</li><li><strong>Ветеринарен контрол:</strong> Недопускане на кучета до кланици и забрана за храненето им със сурови вътрешности (черен и бял дроб) на заклани животни.</li><li><strong>Здравна просвета:</strong> Информиране на населението в ендемичните райони за пътищата на заразяване.</li></ul><hr><h2>Лечение на белодробна ехинококоза</h2><p>Лечението на белодробната ехинококоза е комплексно, като водещо е хирургичното отстраняване на паразита, често съчетано с постоперативна химиотерапия.</p><h3>1. Хирургическо лечение</h3><p>Основните цели на операцията са отстраняване на паразита, антисептична обработка и ликвидиране на остатъчната кухина.</p><h4>А. Методи за отстраняване на паразита</h4><ul><li><strong>Открита ехинококектомия:</strong> Извършва се пункция и евакуация на съдържимото, инстилиране на сколициден разтвор (за убиване на зародишите) и след това отстраняване на кистата.</li><li><strong>Закрита ехинококектомия:</strong> Фиброзната капсула се надрязва внимателно и кистата се изважда <strong>интактна</strong>, без да се разкъсва.</li></ul><h4>Б. <span class="editor-note" data-note="![Image](https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775063950836-image.png &quot;width=100%&quot;)" id="note-1775064076861-6">Третиране на остатъчната фиброзна кухина</span></h4><p>След отстраняване на кистата кухината се обработва със сколицидни разтвори (<strong>хипертоничен NaCl, спирт или йод</strong>). Дрениращите бронхи се зашиват, а кухината се ликвидира чрез:</p><ul><li><strong>Капитонаж:</strong> Зашиване на стените на кухината една към друга.</li><li><strong>Метод на Delbet:</strong> Налагане на кесийни шевове (спираловидно или шахматно).</li><li><strong>Метод на Вишневски:</strong> Изрязване на фиброзните ръбове и превръщане на дъното на кухината в повърхност на белия дроб (при периферни кисти).</li><li><strong>Лепилни или шевно-лепилни методи.</strong></li></ul><h3>В. Резекционни методи</h3><p>Прилагат се при тежки поражения на белодробния паренхим:</p><ul><li><strong>Атипична резекция:</strong> При периферни кисти без загуба на паренхим.</li><li><strong>Анатомична резекция (<span class="editor-note" data-note="![Image](https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775064051915-image.png &quot;width=100%&quot;)" id="note-1775064062249-5">Лобектомия</span>):</strong> При изконсумиран или необратими тежки промени в околния паренхим.</li><li><strong>Операция на Перец-Фонтана:</strong> Ехинококектомия заедно с фиброзната капсула (рядко, при малки перифенни кисти).</li></ul><h3>2. Хирургично поведение при специфични форми</h3><ul><li><strong>Усложнени форми (<span class="editor-note" data-note="![Image](https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775064104036-image.png &quot;width=100%&quot;)" id="note-1775064105109-7">пробив в плеврата</span>):</strong> <em> </em></li><ul><li><i>Ранна операция</i>: Ехинококектомия, третиране на остатъчната кухина и сколицидна обработка на плеврата.</li><li><em>Късна операция:</em>&nbsp;Ехинококектмоя, третиране на остатъчната кухина и се налага&nbsp;<strong>декортикация с плевректомия</strong>.</li></ul><li><strong><span class="editor-note" data-note="![Image](https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775064115543-image.png &quot;width=100%&quot;)" id="note-1775064116931-8">Двустранна локализация</span>:</strong>&nbsp;</li><ul><li><strong>E</strong><strong>дноетапна:&nbsp;</strong>чрез стернотомия или двустранна торакотомия.</li><li><strong>Dвуетапна</strong><strong>:</strong> първо се оперира по-голямата или усложнена киста, а след 1-3 месеца – другата.</li></ul><li><strong>Съчетана ехинококоза (бял дроб + коремни органи):</strong>&nbsp;</li><ul><li><strong>Едноетапна</strong>: тораколапаротомия или торакофренотомия</li><li><strong>Двуетапна</strong>: <p>последователни операции на торакотомия и лапаротомия.</p></li></ul></ul><h3>3. Консервативно лечение (Химиотерапия)</h3><p><strong>Показания:</strong> </p><ul><li>Малки единични кисти (до 3-4 см).</li><li>Неоперабилни болни.</li><li>Полиорганна авансирала ехинококоза.</li><li>Предоперативно при усложнени форми.</li><li>В следоперативния период при усложнени форми или съмнения за опаразитяване. </li></ul><p><strong>Препарати:</strong></p><ul><li><strong>Vermox:</strong> 50 – 60 mg/kg дневно за 6 месеца.</li><li><strong>Zentel (Albendazole):</strong> 10 mg/kg дневно за 4 месеца (с интервали от 15 дни).</li></ul><h3>4. Диспансеризация и Прогноза</h3><ul><li><strong>Диспансеризация:</strong>&nbsp;<strong>!Задължителна! </strong>за период от <strong>10 – 15 години</strong>.</li><li><strong>Проследяване:</strong> Периодични серологични изследвания и рентгенов контрол.</li><li><strong>Рецидиви:</strong> Наблюдават се при около <strong>6%</strong> от случаите.</li></ul><hr><h2>Билиобронхиални фистули</h2><p>Това е едно от най-тежките усложнения при съчетана ехинококоза на черния и белия дроб.</p><ul><li><strong>Механизъм:</strong> Развива се при пробив на чернодробна ехинококова киста през диафрагмата директно в бронхиалното дърво.</li><li><strong>Патогномоничен симптом (Билиоптиза):</strong> Изкашляне на <strong>жлъчка</strong> (жълто-зеленикави, горчиви храчки).</li><li><strong>Диагностика:</strong></li><ul><li><strong>КТ:</strong> Златен стандарт за доказване на фистулния ход между двата органа.</li><li><strong>Бронхоскопия:</strong> Визуализира наличие на жлъчка в бронхите.</li></ul><li><strong>Лечение:</strong> Винаги оперативно.</li><ul><li><strong>Достъп:</strong> Торакофренолапаротомия (комбиниран достъп).</li><li><strong>Цел:</strong> Ликвидиране на кистите, зашиване на фистулния канал и пластика (възстановяване) на дефекта на диафрагмата.</li></ul></ul><img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775064381999-image.png" alt="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775064381999-image.png" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775064381999-image.png" data-width="100" data-align="center" style="width: 968px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto" data-broken-cleanup-bound="1"><br><br><h3><br></h3><p><br></p><br><br><style></p><p>    body { </p><p>      font-family: "Open Sans", Arial, sans-serif; </p><p>      max-width: 1200px; </p><p>      margin: 2rem auto; </p><p>      padding: 0 1rem; </p><p>      line-height: 1.6; </p><p>      color: #1f2937; </p><p>    }</p><p>    h1 { </p><p>      font-weight: 600; </p><p>      font-size: 1.5em;</p><p>      margin-top: 1.5em;</p><p>      margin-bottom: 0.5em;</p><p>      color: #3a5a40;</p><p>      border-bottom: 2px dashed #a3b18a;</p><p>      padding-bottom: 5px;</p><p>    }</p><p>    p { </p><p>      margin: 0.7em 0 1.5em 0; </p><p>      white-space: pre-wrap;</p><p>    }</p><p>    @media (max-width: 768px) {</p><p>      body { font-size: 16px; }</p><p>      h1 { font-size: 1.3em; }</p><p>    }</p><p>  </style>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+<script>
+renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true},
+    {left: '$', right: '$', display: false},
+    {left: '\\[', right: '\\]', display: true},
+    {left: '\\(', right: '\\)', display: false}
+  ],
+  throwOnError: false
+});
+</script>
+</body>
+</html>

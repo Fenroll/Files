@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тема 3.  Диадинамични токове</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <style>
+    body { 
+      font-family: "Open Sans", Arial, sans-serif; 
+      max-width: 1550px; 
+      margin: 0.5rem auto; 
+      padding: 0 1rem; 
+      line-height: 1.6; 
+      color: #1f2937; 
+    }
+    h1, h2, h3, h4 { 
+      font-weight: 600; 
+      margin-top: 0.7em;
+      margin-bottom: 0;
+      color: #588157;
+    }
+    h1 { font-size: 1.65em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; margin-bottom: 0; }
+    h4 { font-size: 1.05em; margin-bottom: 0; }
+    h1 + h2, h1 + h3, h1 + h4, h2 + h3, h2 + h4, h3 + h4 { margin-top: 0.1em; }
+    p { 
+      margin: 0.3em 0; 
+      white-space: pre-wrap;
+    }
+    hr {
+      margin: 0.45em 0 0.2em;
+    }
+    hr + h1,
+    hr + h2,
+    hr + h3,
+    hr + h4 {
+      margin-top: 0.2em;
+    }
+    hr + p,
+    hr + ul,
+    hr + ol,
+    hr + blockquote,
+    hr + pre,
+    hr + table {
+      margin-top: 0.08em;
+    }
+    p + ul, p + ol { margin-top: 0.2em; }
+    h1 + p, h2 + p, h3 + p, h4 + p,
+    h1 + ul, h2 + ul, h3 + ul, h4 + ul,
+    h1 + ol, h2 + ol, h3 + ol, h4 + ol { 
+      margin-top: 0; 
+    }
+    ul, ol { 
+      margin: 0.2em 0; 
+      padding-left: 1.5em; 
+      list-style-position: outside;
+    }
+    li { margin: 0.2em 0; }
+    li p {
+      margin: 0;
+      padding: 0;
+      display: inline;
+    }
+    li > ul, li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    ul ul, ul ol, ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    ul ul { list-style-type: circle; }
+    ul ul ul { list-style-type: square; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+    code { 
+      background: rgba(146, 64, 14, 0.1); 
+      padding: 2px 6px; 
+      border-radius: 3px; 
+      font-family: "Courier New", monospace; 
+      font-size: 0.9em; 
+    }
+    pre {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 12px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.5em 0;
+      font-family: "Courier New", monospace;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    blockquote {
+      border-left: 3px solid #588157;
+      padding-left: 1em;
+      margin: 0.5em 0;
+      font-style: italic;
+      color: #166534;
+    }
+    table { 
+      border-collapse: collapse; 
+      margin: 0.75em 0; 
+      width: 100%; 
+      table-layout: auto;
+    }
+    th, td { 
+      border: 1px solid rgba(2, 2, 2, 0.2);
+      padding: 6px 10px; 
+      text-align: left; 
+      vertical-align: top;
+      height: 24px;
+      line-height: 1.2;
+    }
+    thead th { 
+      background: rgba(88, 129, 87, 0.13); 
+      font-weight: 600; 
+    }
+    tbody tr:nth-child(odd) { 
+      background: rgba(88, 129, 87, 0.06); 
+    }
+    /* Image alignment rules for exported content and md-viewer */
+    img[data-align="left"] {
+      display: block;
+      margin: 8px auto 8px 0;
+    }
+    img[data-align="center"] {
+      display: block;
+      margin: 8px auto;
+    }
+    img[data-align="right"] {
+      display: block;
+      margin: 8px 0 8px auto;
+    }
+    .audio-link-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0.2em 0;
+      max-width: 100%;
+      vertical-align: middle;
+    }
+    .audio-link-icon {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #588157;
+      border-radius: 999px;
+      background: #f0f7f0;
+      color: #2f5d50;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+    .audio-link-inline audio {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .audio-link-icon img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    a {
+      color: inherit; /* Changed to inherit */
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #74b673;
+    }
+    /* Keep <p> tags inside list items on same line (as they appear in editor) */
+    li p {
+      margin: 0 !important;
+      padding: 0 !important;
+      display: inline !important;
+    }
+    /* Prevent nested list paragraph issues */
+    li > ul,
+    li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    /* Ensure list structure is clean */
+    ul ul, ul ol,
+    ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    @media (max-width: 768px) {
+      body {
+        margin: 0.5rem 0;
+        padding: 0 0.5rem;
+        font-size: 16px;
+      }
+      h1 { font-size: 1.65em; }
+      h2 { font-size: 1.3em; }
+      h3 { font-size: 1.1em; }
+      p { margin: 0.3em 0; }
+      ul, ol { padding-left: 1.5em; }
+      li { margin: 0.2em 0; }
+      table { font-size: 0.9em; }
+      th, td { padding: 6px 10px; }
+    }
+    .editor-note {
+      text-decoration: underline dotted #a3b18a;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      text-decoration-skip-ink: none;
+      cursor: help;
+      position: relative;
+    }
+    .note-tooltip {
+      display: none;
+      position: absolute;
+      background-color: #f0f7f0;
+      color: #1f2937;
+      border: 1px solid #588157;
+      border-radius: 4px;
+      padding: 8px 12px;
+      width: fit-content;
+      max-width: min(700px, calc(100vw - 20px));
+      max-height: calc(100vh - 20px);
+      overflow: auto;
+      box-sizing: border-box;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 10000;
+      font-size: 0.9em;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    .note-tooltip ul, .note-tooltip ol {
+      margin: 0 !important;
+      padding-left: 20px !important;
+    }
+    .note-tooltip li {
+      margin: 0 0 0.1em 0 !important;
+      padding: 0 !important;
+      line-height: 1.2 !important;
+    }
+    .note-tooltip li:last-child {
+      margin-bottom: 0 !important;
+    }
+    .note-tooltip .note-table-scroll {
+      overflow-x: auto;
+      margin: 0.3em 0;
+    }
+    .note-tooltip table {
+      border-collapse: collapse;
+      width: max-content;
+      max-width: 100%;
+      min-width: 220px;
+      background: #ffffff;
+    }
+    .note-tooltip th,
+    .note-tooltip td {
+      border: 1px solid rgba(88, 129, 87, 0.35);
+      padding: 4px 8px;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .note-tooltip thead th {
+      background: rgba(88, 129, 87, 0.12);
+      font-weight: 600;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'note-tooltip';
+      document.body.appendChild(tooltip);
+
+      function parseNoteMarkdown(text) {
+        if (!text) return '';
+        
+        const splitTableCells = function(line) {
+          return String(line || '')
+            .trim()
+            .replace(/^\|/, '')
+            .replace(/\|$/, '')
+            .split('|')
+            .map(function(cell) { return cell.trim(); });
+        };
+
+        const isTableSeparatorLine = function(line) {
+          const cells = splitTableCells(line);
+          return cells.length > 0 && cells.every(function(cell) {
+            return /^:?-{3,}:?$/.test(cell);
+          });
+        };
+
+        const getTableAlignment = function(cell) {
+          if (/^:-{3,}:$/.test(cell)) return 'center';
+          if (/^-{3,}:$/.test(cell)) return 'right';
+          if (/^:-{3,}$/.test(cell)) return 'left';
+          return '';
+        };
+
+        let lines = text.split('\n');
+        let html = [];
+        let stack = [];
+        
+        for (let i = 0; i < lines.length; i++) {
+          let line = lines[i];
+          
+          let indentMatch = line.match(/^(\s*)/);
+          let indent = indentMatch ? indentMatch[1].length : 0;
+          let content = line.trim();
+
+          const nextLine = i + 1 < lines.length ? lines[i + 1].trim() : '';
+          const maybeTableHeader = content.includes('|') && splitTableCells(content).length >= 2;
+          const maybeTableSeparator = nextLine.includes('|') && isTableSeparatorLine(nextLine);
+
+          if (maybeTableHeader && maybeTableSeparator) {
+            while (stack.length > 0) {
+              let closed = stack.pop();
+              html.push('</' + closed.type + '>');
+            }
+
+            const headerCells = splitTableCells(content);
+            const alignCells = splitTableCells(nextLine);
+
+            html.push('<div class="note-table-scroll"><table><thead><tr>');
+            headerCells.forEach(function(cell, idx) {
+              const align = getTableAlignment(alignCells[idx] || '');
+              const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+              html.push('<th' + alignAttr + '>' + cell + '</th>');
+            });
+            html.push('</tr></thead><tbody>');
+
+            i += 2;
+            while (i < lines.length) {
+              const rowLine = lines[i].trim();
+              if (!rowLine || !rowLine.includes('|')) break;
+              if (isTableSeparatorLine(rowLine)) {
+                i++;
+                continue;
+              }
+
+              const rowCells = splitTableCells(rowLine);
+              if (rowCells.length === 0) {
+                i++;
+                continue;
+              }
+
+              html.push('<tr>');
+              rowCells.forEach(function(cell, idx) {
+                const align = getTableAlignment(alignCells[idx] || '');
+                const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+                html.push('<td' + alignAttr + '>' + cell + '</td>');
+              });
+              html.push('</tr>');
+              i++;
+            }
+
+            html.push('</tbody></table></div>');
+            i--;
+            continue;
+          }
+          
+          let isUl = /^[-*]\s+(.+)/.test(content);
+          let isOl = /^\d+\.\s+(.+)/.test(content);
+          
+          if (isUl || isOl) {
+            let listType = isUl ? 'ul' : 'ol';
+            let match = isUl ? content.match(/^[-*]\s+(.+)/) : content.match(/^\d+\.\s+(.+)/);
+            let itemText = match[1];
+            
+            if (stack.length === 0) {
+              stack.push({ type: listType, indent: indent });
+              html.push('<' + listType + '>');
+            } else {
+              let last = stack[stack.length - 1];
+              
+              if (indent > last.indent) {
+                stack.push({ type: listType, indent: indent });
+                html.push('<' + listType + '>');
+              } else if (indent < last.indent) {
+                while (stack.length > 0 && stack[stack.length - 1].indent > indent) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                }
+                if (stack.length === 0 || stack[stack.length - 1].indent !== indent) {
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                } else if (stack[stack.length - 1].type !== listType) {
+                   let closed = stack.pop();
+                   html.push('</' + closed.type + '>');
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                }
+              } else {
+                if (last.type !== listType) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                  stack.push({ type: listType, indent: indent });
+                  html.push('<' + listType + '>');
+                }
+              }
+            }
+            html.push('<li>' + itemText + '</li>');
+          } else {
+            if (content !== '') {
+               while (stack.length > 0) {
+                 let closed = stack.pop();
+                 html.push('</' + closed.type + '>');
+               }
+            }
+            if (/^#{1,4}\s+/.test(content)) {
+              const headingMatch = content.match(/^(#{1,4})\s+(.+)$/);
+              if (headingMatch) {
+                const level = headingMatch[1].length;
+                html.push('<h' + level + '>' + headingMatch[2] + '</h' + level + '>');
+              }
+            } else if (content) {
+              html.push(content + '<br>');
+            } else {
+              html.push('<br>');
+            }
+          }
+        }
+        
+        while (stack.length > 0) {
+          let closed = stack.pop();
+          html.push('</' + closed.type + '>');
+        }
+        
+        let result = html.join('')
+          .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/__(.+?)__/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>')
+          .replace(/_(.+?)_/g, '<em>$1</em>')
+          .replace(/`(.+?)`/g, '<code>$1</code>')
+          .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
+        
+        result = result
+          .replace(/<br><ul>/g, '<ul>')
+          .replace(/<br><ol>/g, '<ol>')
+          .replace(/</ul><br>/g, '</ul>')
+          .replace(/</ol><br>/g, '</ol>');
+        
+        return result;
+      }
+
+      document.body.addEventListener('mouseover', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          const note = e.target.dataset.note;
+          if (note) {
+            tooltip.innerHTML = parseNoteMarkdown(note);
+            tooltip.style.display = 'block';
+            const rect = e.target.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+            const pageX = window.scrollX || window.pageXOffset;
+            const pageY = window.scrollY || window.pageYOffset;
+            const maxLeft = pageX + window.innerWidth - tooltipRect.width - 10;
+            const minLeft = pageX + 10;
+
+            let left = rect.left + pageX;
+            if (left > maxLeft) left = maxLeft;
+            if (left < minLeft) left = minLeft;
+
+            let top = rect.bottom + pageY + 6;
+            const maxTop = pageY + window.innerHeight - tooltipRect.height - 10;
+            if (top > maxTop) {
+              top = rect.top + pageY - tooltipRect.height - 6;
+            }
+            if (top < pageY + 10) top = pageY + 10;
+
+            tooltip.style.left = left + 'px';
+            tooltip.style.top = top + 'px';
+          }
+        }
+      });
+
+      document.body.addEventListener('mouseout', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          setTimeout(() => {
+            if (!tooltip.matches(':hover')) {
+              tooltip.style.display = 'none';
+            }
+          }, 100);
+        }
+      });
+
+      tooltip.addEventListener('mouseleave', function() {
+        tooltip.style.display = 'none';
+      });
+    });
+  </script>
+</head>
+<body>
+<h1 style="text-align: center">ДИАДИНАМИЧНИ ТОКОВЕ</h1><h2>Определение и физична характеристика</h2><p>Диадинамичните токове са въведени в медицинската практика от френския стоматолог Пиер Бернар. Те представляват монополярни импулсни токове с полусинусоидална форма на импулса. Получават се чрез еднопътно или двупътно изправяне на синусоидалния променлив ток от електрическата мрежа.</p><p>В клиничната практика тези токове много често се наслояват върху галванична основа. Галваничната компонента служи като база, която подобрява електропроводимостта на тъканите и потенцира ефекта на импулсната съставка. В зависимост от конструкцията на апаратурата, галваничната компонента може да бъде фиксирана или да се регулира в степени, като чистата пулсираща компонента се приема за 100%, а нулевата стойност съответства на чист галваничен ток.</p><h2>Видове модулации на диадинамичните токове</h2><p>В съвременната диадинамотерапия се използват няколко основни модулации, които се различават по честота и ритъм на подаване:</p><ul><li><strong>Двуфазно фиксиран ток (DF):</strong> Получава се при двупътно изправяне на синусоидалния ток, в резултат на което се генерира непрекъснат монополярен ток с честота 100 Hz.</li></ul><p><img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775038851317-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775038851317-image.png" data-width="100" data-align="center" style="width: 410px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><ul><li><strong>Монофазно фиксиран ток (MF):</strong> Представлява еднопътно изправен ток с честота 50 Hz, при който продължителността на импулса е 10 ms, последвана от пауза със същата продължителност (10 ms).</li></ul><p><img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775038909046-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775038909046-image.png" data-width="100" data-align="center" style="width: 410px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><ul><li><strong>Къси серии (CP):</strong> Тази модулация представлява равномерно и ритмично редуване на монофазно фиксиран (MF) и двуфазно фиксиран (DF) ток, като всеки от тях протича с еднаква продължителност от 1 секунда.</li></ul><p><img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775038986056-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775038986056-image.png" data-width="100" data-align="center" style="width: 512px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><ul><li><strong>Дълги серии (LP):</strong> Състои се от последователно редуване на MF и DF ток, но в съотношение, което е в полза на двуфазния ток. Примерно съотношение е 6 секунди за MF и 10 секунди за DF.</li></ul><p><img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775039164506-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775039164506-image.png" data-width="100" data-align="center" style="width: 512px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><ul><li><strong>Ритъм синкоп (RS):</strong> Представлява редуване на монофазно фиксиран ток (MF) за 1 секунда, последван от пауза с продължителност 1 секунда.</li></ul><p><img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775039434274-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775039434274-image.png" data-width="100" data-align="center" style="width: 512px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><ul><li><strong>Монофазно модулиран ток (MM):</strong> Включва амплитудно модулиран монофазно фиксиран ток, който протича в продължение на 7 секунди, след което следва пълна пауза от още 7 секунди.</li></ul><p><img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775039830608-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775039830608-image.png" data-width="100" data-align="center" style="width: 701px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><h2>Терапевтични ефекти и приложение на модулациите</h2><p>Всяка от модулациите на Бернар притежава специфично физиологично действие, което определя избора ѝ при различните патологични състояния:</p><ul><li><p><strong>Монофазно фиксиран ток (MF):</strong> Характеризира се с първичен <strong>ексцитомоторен ефект </strong>(предизвиква мускулна контракция с малка сила) и последващ, по-късно настъпващ потискащ ефект. Привикването при него настъпва по-късно в сравнение с DF. </p><p>Прилага се при болкови синдроми, обикновено след двуфазно</p><p>фиксираната модулация. Предимството му е, че съчетава обезболяващия с</p><p>трофичен ефект;</p></li><li><strong>Двуфазно фиксиран ток (DF):</strong> Притежава изразен <strong>симпатиколитичен ефект </strong>и <strong>аналгетично действие</strong>, базирано на повишаване на сетивния праг. При по-висок интензитет на тока може да се наблюдава и <strong>ексцитомоторен ефект</strong>. Използва се предимно при болкови синдроми, причинени от вазоконстрикция, свързана с вегетативната нервна система.&nbsp;<p>Важно е да се отбележи, че при DF привикването настъпва бързо — само 4-5 секунди след началото на процедурата. </p><p>За да се избегне това се използва редуване на двата </p><p>основни тока DF и MF в определени интервали от време, като така се </p><p>получават останалите модалности;</p></li><li><strong>Къси серии (CP):</strong> Комбинира обезболяващото действие с ефект на разнасяне на отоци и хематоми. Подпомага релаксацията на напречнонабраздената мускулатура и е метод на избор при болки от травматичен произход.</li><li><strong>Дълги серии (LP):</strong> Осигурява силен и дълготраен аналгетичен ефект. Често се прилага в комбинация с къси серии (CP) за успешно лечение на невралгии.</li><li><strong>Ритъм синкоп (RS):</strong> Използва се за електростимулация на гладката и напречнонабраздената мускулатура при условие, че инервацията им е запазена.</li></ul><h2>Показания за лечение с ДДТ</h2><p>Диадинамичните токове имат широк спектър от клинични индикации:</p><ul><li><strong>Заболявания на периферната нервна система:</strong> Неврити, невралгии, радикулити, полиневропатии, дискова херния, парализи и мускулни атрофии.</li><li><strong>Заболявания на вегетативната нервна система и съдови нарушения:</strong> Мигрена, синдром на Рейно, акроцианоза, болест на Бюргер и атонични рани.</li><li><strong>Заболявания на опорно-двигателния апарат:</strong> Артрозна болест, миалгии, миозити, тендовагинити, бурсити, състояния след фрактури и дисторзии.</li><li><strong>Бронхиална астма</strong> - чрез паравертебрално въздействие с адреналин в цервико-торакалната област</li><li><p><strong>Enuresis nocturna</strong> - </p><p>с DF и RS, води до повишаване на снижения тонус </p><p>на детрузора и сфинктера на пикочния мехур.</p><br></li><li><p><strong>Намаляване на артериалното налягане</strong> при въздействие върху шийните симпатикусови ганглии.</p></li></ul><h2>Класически методики и електрофореза</h2><p>Една от най-използваните схеми за обезболяване в клиничната практика е класическата формула на Бернар. Тя включва последователно прилагане на:</p><ol><li><strong>DF (Двуфазно фиксиран ток)</strong> — 1 минута;</li><li><strong>CP (Къси серии)</strong> — от 3 до 5 минути;</li><li><strong>LP (Дълги серии)</strong> — от 5 до 7 минути.</li></ol><p>Освен като самостоятелен терапевтичен метод, диадинамичните токове се използват и за електрофореза, процес известен като <strong>диадинамофореза</strong>.</p><h2>Противопоказания</h2><p>Прилагането на ДДТ е абсолютно противопоказано при следните състояния:</p><ul><li>Туморни процеси и наличие на гнойни огнища.</li><li>Остър тромбофлебит, хеморагии и активни инфекциозни заболявания.</li><li>Наличие на метални импланти в зоната на третиране и наличие на пейсмейкър.</li><li>Бременност и фебрилни състояния.</li><li>Силно изразени мускулни контрактури.</li></ul><br><style></p><p>    body { </p><p>      font-family: "Open Sans", Arial, sans-serif; </p><p>      max-width: 1200px; </p><p>      margin: 2rem auto; </p><p>      padding: 0 1rem; </p><p>      line-height: 1.6; </p><p>      color: #1f2937; </p><p>    }</p><p>    h1 { </p><p>      font-weight: 600; </p><p>      font-size: 1.5em;</p><p>      margin-top: 1.5em;</p><p>      margin-bottom: 0.5em;</p><p>      color: #3a5a40;</p><p>      border-bottom: 2px dashed #a3b18a;</p><p>      padding-bottom: 5px;</p><p>    }</p><p>    p { </p><p>      margin: 0.7em 0 1.5em 0; </p><p>      white-space: pre-wrap;</p><p>    }</p><p>    @media (max-width: 768px) {</p><p>      body { font-size: 16px; }</p><p>      h1 { font-size: 1.3em; }</p><p>    }</p><p>  </style>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+<script>
+renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true},
+    {left: '$', right: '$', display: false},
+    {left: '\\[', right: '\\]', display: true},
+    {left: '\\(', right: '\\)', display: false}
+  ],
+  throwOnError: false
+});
+</script>
+</body>
+</html>

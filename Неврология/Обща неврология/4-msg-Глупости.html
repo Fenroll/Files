@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Глупости</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <style>
+    body { 
+      font-family: "Open Sans", Arial, sans-serif; 
+      max-width: 1550px; 
+      margin: 0.5rem auto; 
+      padding: 0 1rem; 
+      line-height: 1.6; 
+      color: #1f2937; 
+    }
+    h1, h2, h3, h4 { 
+      font-weight: 600; 
+      margin-top: 0.8em;
+      margin-bottom: 0;
+      color: #588157;
+    }
+    h1 { font-size: 1.65em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; margin-bottom: 0; }
+    h4 { font-size: 1.05em; margin-bottom: 0; }
+    h1 + h2, h1 + h3, h1 + h4, h2 + h3, h2 + h4, h3 + h4 { margin-top: 0.2em; }
+    p { 
+      margin: 0.3em 0; 
+      white-space: pre-wrap;
+    }
+    hr {
+      margin: 0.45em 0 0.2em;
+    }
+    hr + h1,
+    hr + h2,
+    hr + h3,
+    hr + h4 {
+      margin-top: 0.2em;
+    }
+    hr + p,
+    hr + ul,
+    hr + ol,
+    hr + blockquote,
+    hr + pre,
+    hr + table {
+      margin-top: 0.08em;
+    }
+    p + ul, p + ol { margin-top: 0.2em; }
+    h1 + p, h2 + p, h3 + p, h4 + p,
+    h1 + ul, h2 + ul, h3 + ul, h4 + ul,
+    h1 + ol, h2 + ol, h3 + ol, h4 + ol { 
+      margin-top: 0; 
+    }
+    ul, ol { 
+      margin: 0.2em 0; 
+      padding-left: 1.5em; 
+      list-style-position: outside;
+    }
+    li { margin: 0.2em 0; }
+    li p {
+      margin: 0;
+      padding: 0;
+      display: inline;
+    }
+    li > ul, li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    ul ul, ul ol, ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    ul ul { list-style-type: circle; }
+    ul ul ul { list-style-type: square; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+    code { 
+      background: rgba(146, 64, 14, 0.1); 
+      padding: 2px 6px; 
+      border-radius: 3px; 
+      font-family: "Courier New", monospace; 
+      font-size: 0.9em; 
+    }
+    pre {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 12px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.5em 0;
+      font-family: "Courier New", monospace;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    blockquote {
+      border-left: 3px solid #588157;
+      padding-left: 1em;
+      margin: 0.5em 0;
+      font-style: italic;
+      color: #166534;
+    }
+    table { 
+      border-collapse: collapse; 
+      margin: 0.75em 0; 
+      width: 100%; 
+      table-layout: auto;
+    }
+    th, td { 
+      border: 1px solid rgba(2, 2, 2, 0.2);
+      padding: 6px 10px; 
+      text-align: left; 
+      vertical-align: top;
+      height: 24px;
+      line-height: 1.2;
+    }
+    thead th { 
+      background: rgba(88, 129, 87, 0.13); 
+      font-weight: 600; 
+    }
+    tbody tr:nth-child(odd) { 
+      background: rgba(88, 129, 87, 0.06); 
+    }
+    /* Image styles are handled by inline styles and data-width attributes */
+    a {
+      color: inherit; /* Changed to inherit */
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #74b673;
+    }
+    /* Keep <p> tags inside list items on same line (as they appear in editor) */
+    li p {
+      margin: 0 !important;
+      padding: 0 !important;
+      display: inline !important;
+    }
+    /* Prevent nested list paragraph issues */
+    li > ul,
+    li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    /* Ensure list structure is clean */
+    ul ul, ul ol,
+    ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    @media (max-width: 768px) {
+      body {
+        margin: 0.5rem 0;
+        padding: 0 0.5rem;
+        font-size: 16px;
+      }
+      h1 { font-size: 1.65em; }
+      h2 { font-size: 1.3em; }
+      h3 { font-size: 1.1em; }
+      p { margin: 0.3em 0; }
+      ul, ol { padding-left: 1.5em; }
+      li { margin: 0.2em 0; }
+      table { font-size: 0.9em; }
+      th, td { padding: 6px 10px; }
+    }
+    .editor-note {
+      text-decoration: underline dotted #a3b18a;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      text-decoration-skip-ink: none;
+      cursor: help;
+      position: relative;
+    }
+    .note-tooltip {
+      display: none;
+      position: absolute;
+      background-color: #f0f7f0;
+      color: #1f2937;
+      border: 1px solid #588157;
+      border-radius: 4px;
+      padding: 8px 12px;
+      width: fit-content;
+      max-width: min(700px, calc(100vw - 20px));
+      max-height: calc(100vh - 20px);
+      overflow: auto;
+      box-sizing: border-box;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 10000;
+      font-size: 0.9em;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    .note-tooltip ul, .note-tooltip ol {
+      margin: 0 !important;
+      padding-left: 20px !important;
+    }
+    .note-tooltip li {
+      margin: 0 0 0.1em 0 !important;
+      padding: 0 !important;
+      line-height: 1.2 !important;
+    }
+    .note-tooltip li:last-child {
+      margin-bottom: 0 !important;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'note-tooltip';
+      document.body.appendChild(tooltip);
+
+      function parseNoteMarkdown(text) {
+        if (!text) return '';
+        
+        let lines = text.split('\n');
+        let html = [];
+        let stack = [];
+        
+        for (let i = 0; i < lines.length; i++) {
+          let line = lines[i];
+          
+          let indentMatch = line.match(/^(\s*)/);
+          let indent = indentMatch ? indentMatch[1].length : 0;
+          let content = line.trim();
+          
+          let isUl = /^[-*]\s+(.+)/.test(content);
+          let isOl = /^\d+\.\s+(.+)/.test(content);
+          
+          if (isUl || isOl) {
+            let listType = isUl ? 'ul' : 'ol';
+            let match = isUl ? content.match(/^[-*]\s+(.+)/) : content.match(/^\d+\.\s+(.+)/);
+            let itemText = match[1];
+            
+            if (stack.length === 0) {
+              stack.push({ type: listType, indent: indent });
+              html.push('<' + listType + '>');
+            } else {
+              let last = stack[stack.length - 1];
+              
+              if (indent > last.indent) {
+                stack.push({ type: listType, indent: indent });
+                html.push('<' + listType + '>');
+              } else if (indent < last.indent) {
+                while (stack.length > 0 && stack[stack.length - 1].indent > indent) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                }
+                if (stack.length === 0 || stack[stack.length - 1].indent !== indent) {
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                } else if (stack[stack.length - 1].type !== listType) {
+                   let closed = stack.pop();
+                   html.push('</' + closed.type + '>');
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                }
+              } else {
+                if (last.type !== listType) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                  stack.push({ type: listType, indent: indent });
+                  html.push('<' + listType + '>');
+                }
+              }
+            }
+            html.push('<li>' + itemText + '</li>');
+          } else {
+            if (content !== '') {
+               while (stack.length > 0) {
+                 let closed = stack.pop();
+                 html.push('</' + closed.type + '>');
+               }
+            }
+            if (/^#{1,4}\s+/.test(content)) {
+              const headingMatch = content.match(/^(#{1,4})\s+(.+)$/);
+              if (headingMatch) {
+                const level = headingMatch[1].length;
+                html.push('<h' + level + '>' + headingMatch[2] + '</h' + level + '>');
+              }
+            } else if (content) {
+              html.push(content + '<br>');
+            } else {
+              html.push('<br>');
+            }
+          }
+        }
+        
+        while (stack.length > 0) {
+          let closed = stack.pop();
+          html.push('</' + closed.type + '>');
+        }
+        
+        let result = html.join('')
+          .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/__(.+?)__/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>')
+          .replace(/_(.+?)_/g, '<em>$1</em>')
+          .replace(/`(.+?)`/g, '<code>$1</code>')
+          .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
+        
+        result = result
+          .replace(/<br><ul>/g, '<ul>')
+          .replace(/<br><ol>/g, '<ol>')
+          .replace(/</ul><br>/g, '</ul>')
+          .replace(/</ol><br>/g, '</ol>');
+        
+        return result;
+      }
+
+      document.body.addEventListener('mouseover', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          const note = e.target.dataset.note;
+          if (note) {
+            tooltip.innerHTML = parseNoteMarkdown(note);
+            tooltip.style.display = 'block';
+            const rect = e.target.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+            const pageX = window.scrollX || window.pageXOffset;
+            const pageY = window.scrollY || window.pageYOffset;
+            const maxLeft = pageX + window.innerWidth - tooltipRect.width - 10;
+            const minLeft = pageX + 10;
+
+            let left = rect.left + pageX;
+            if (left > maxLeft) left = maxLeft;
+            if (left < minLeft) left = minLeft;
+
+            let top = rect.bottom + pageY + 6;
+            const maxTop = pageY + window.innerHeight - tooltipRect.height - 10;
+            if (top > maxTop) {
+              top = rect.top + pageY - tooltipRect.height - 6;
+            }
+            if (top < pageY + 10) top = pageY + 10;
+
+            tooltip.style.left = left + 'px';
+            tooltip.style.top = top + 'px';
+          }
+        }
+      });
+
+      document.body.addEventListener('mouseout', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          setTimeout(() => {
+            if (!tooltip.matches(':hover')) {
+              tooltip.style.display = 'none';
+            }
+          }, 100);
+        }
+      });
+
+      tooltip.addEventListener('mouseleave', function() {
+        tooltip.style.display = 'none';
+      });
+    });
+  </script>
+</head>
+<body>
+<blockquote style="text-align: left">Непроверени, взети от съкратени теми</blockquote><h1 style="text-align: center">55. Енцефалити и енцефаломиелити. Класификация.</h1><h2>Обща характеристика и терминология</h2><p>Възпалителните заболявания на главния мозък представляват група нозологични единици с разнообразна етиология, обединени с наименованието <strong>енцефалити</strong>. Когато процесът обхваща гръбначния мозък, говорим за <strong>миелити</strong>, а при едновременно засягане на главния и гръбначния мозък – <strong>енцефаломиелити</strong>.</p><p>Често възпалителният процес не се ограничава само до мозъчната тъкан, а въвлича и съседни структури:</p><ul><li><strong>Менингоенцефалити</strong> – ангажиране на менингите.</li><li><strong>Менингоенцефаломиелополирадикулоневрити (невраксити)</strong> – обхващане и на периферните нерви.</li><li><strong>Церебелит</strong> – рядка форма, ограничена само в малкия мозък.</li></ul><h3>Класификация на енцефалитите</h3><p>Класифицирането се основава на няколко основни принципа, като <strong>етиологичният</strong> се счита за най-важен.</p><h4>Според типа увредено мозъчно вещество:</h4><ol><li><strong>Полиоенцефалити / Полиомиелити</strong> – засягат сивото вещество.</li><li><strong>Левкоенцефалити</strong> – засягат бялото вещество.</li><li><strong>Паненцефалити</strong> – едновременно засягане на бялото и сивото вещество.</li></ol><h4>Според етиологията (причинителя):</h4><p>Инфекциозните агенти могат да бъдат <strong>вируси, бактерии, гъбички или паразити</strong>. Най-чести са <strong>вирусните енцефалити</strong>, които се отличават с епидемичност, контагиозност, сезонност и специфично климатогеографско разпространение.</p><h4>Според начина на заразяване:</h4><ul><li><strong>Първични:</strong> Причинени от <strong>невротропни агенти</strong>, които директно атакуват мозъчната тъкан.</li><li><strong>Вторични:</strong> Развиват се, когато причинителят първоначално засяга други органи и системи и впоследствие обхваща мозъка.</li></ul><h4>Според хода на протичане:</h4><p>В зависимост от бързината на развитие, биват <strong>остри, подостри и хронични</strong>. Трябва да се прави разлика с термина <strong>енцефалопатия</strong>, който се използва, когато промените не са възпалителни, а първично дистрофични.</p><h3>Клинична картина (Енцефалитен синдром)</h3><p>Клиничната картина е съчетание от <strong>общоинфекциозен синдром</strong> и специфични неврологични нарушения, разделени в няколко подсиндрома:</p><ol><li><strong>Огнищен синдром:</strong> Проявява се с централни парези, парализи и сетивни нарушения.</li><li><strong>Хипертензионен синдром:</strong> Дължи се на мозъчен оток и повишено вътречерепно налягане. Включва <strong>силно главоболие, повръщане, брадикардия</strong> и нарушения на съзнанието.</li><li><strong>Менингорадикуларен синдром.</strong></li><li><strong>Ликворен синдром:</strong> Отразява възпалителните промени в ликвора.</li></ol><hr><h2>Poliomyelitis anterior acuta (Полиомиелит, детски паралич, болест на Heine - Medin)</h2><p><strong>Полиомиелитът</strong> е остро инфекциозно заболяване, причинено от вирус със специфичен тропизъм към <strong>мотоневроните в предните рога</strong> на гръбначния мозък и двигателните ядра на краниалните нерви в мозъчния ствол. Клинично се характеризира с развитието на <strong>асиметрични вяли мускулни парези и парализи</strong>. 
+
+В региони с ефективна ваксинационна програма, подобен синдром на остър преден полиомиелит може да бъде причинен от други ентеровируси (<strong>Coxsackie групи А и B</strong>, <strong>ECHO-вируси</strong>), като при тях протичането обикновено е по-доброкачествено.</p><h3>Патоморфология</h3><p>Процесът засяга предимно <strong>сивото вещество</strong> на предните и странични рога на гръбначния мозък (особено в шийната и поясната интумесценция). Засягат се и моторните ядра на черепно-мозъчните нерви: <strong>n. facialis, n. vagus, n. glossopharyngeus, n. hypoglossus</strong> и ретикуларната формация.
+
+Основни патологични промени:</p><ul><li><strong>Възпалителна левкоцитна инфилтрация</strong> (преминаваща в мононуклеарни периваскуларни струпвания).</li><li><strong>Централна до тежка хроматолиза</strong> на нервните клетки.</li><li><strong>Микроглиална инфилтрация и невронофагия</strong>.</li></ul><h3>Клинични прояви и стадии</h3><p>Инкубационният период варира между <strong>1 и 3 седмици</strong>. Заболяването може да протече безсимптомно, като лека инфекция, в менингитна форма или с пълно развитие на паралитичната картина.</p><h4>Стадии на развитие:</h4><ol><li><strong>Общоинфекциозен стадий:</strong> Висока температура (38 - 40°C), главоболие, болки в гърлото, мускулите и ставите. Наблюдават се адинамия, анорексия, гадене и повръщане. Продължава няколко дни.</li><li><strong>Препаралитичен стадий:</strong> Повторно повишаване на температурата, главоболие и изразен <strong>менингорадикуларен синдром</strong> (вратна ригидност, симптом на Брудзински). Характерни са обща възбудимост и хиперестезия.</li><li><strong>Паралитичен стадий:</strong> Остро развитие на <strong>периферни несиметрични парализи</strong>, ангажиращи предимно проксималните мускулни групи на долните крайници. Сухожилните рефлекси отслабват или изчезват. При засягане на ЧМН ядрата се развива <strong>булбарна парализа</strong>. Възможни са т.нар. <strong>"сутрешни парализи"</strong> при малки деца.</li><li><strong>Възстановителен стадий:</strong> Започва 10-15 дни след началото на парализите. Процесът е бавен и зависи от броя на оцелелите мотоневрони (продължава до 2-3 години).</li><li><strong>Резидуален стадий:</strong> Настъпва след третата година. Остатъчните парези са трайни, съпроводени от <strong>мускулна атрофия</strong> и трофични нарушения в костите и ставите.</li></ol><h3>Диагноза и Лечение</h3><p><strong>Диагнозата</strong> се верифицира чрез:</p><ul><li>Клинична картина (асиметрични парализи + менингеален синдром).</li><li>Епидемиологична обстановка.</li><li><strong>Вирусологично изследване</strong> на фекални проби или смив от носоглътката.</li></ul><p><strong>Медикаментозна терапия:</strong></p><ul><li><strong>Симптоматични средства:</strong> Антипиретици, витамини от група В и Е.</li><li><strong>Патогенетични средства:</strong> Кортикостероиди (противовъзпалително и противооточно действие), дехидратираща терапия.</li><li><strong>Специфични и възстановителни средства:</strong> Имунни антивирусни препарати, антихолинестеразни средства (<strong>Nivalin</strong>).</li></ul><hr><h2>Бяс (Lyssa, Rabies)</h2><h3>Етиология и патогенеза</h3><p><strong>Бясът</strong> е тежък вирусен полиоенцефалит (антропозооноза), характеризиращ се с дълъг инкубационен период, специфична клинична картина и почти винаги летален изход.</p><ul><li><strong>Причинител:</strong> Rabies-вирус.</li><li><strong>Начин на заразяване:</strong> Трансдермално, чрез ухапване от болно животно (диво – лисици, вълци; или домашно – кучета, котки).</li><li><strong>Разпространение:</strong> Вирусът се придвижва по <strong>периферните нерви</strong> в посока към централната нервна система (ЦНС).</li></ul><h3>Патоморфология</h3><p>Процесът засяга най-вече <strong>булбарните сиви ядра</strong> и ядрата на средния мозък около третия вентрикул. Възпалителната реакция е най-силно изразена в мозъчния ствол с лимфоцитни инфилтрати и малки фокуси на възпалителна некроза.</p><p>Патогномоничен белег са <strong>телцата на Негри</strong> – специфични интрацелуларни цитоплазмени еозинофилни включвания в нервните клетки.</p><h3>Клинични прояви</h3><p>Инкубационният период обикновено е между <strong>20 и 60 дни</strong>, но може да бъде и по-кратък в зависимост от мястото на ухапване. Заболяването протича в три стадия:</p><h4>1. Продромален стадий (2-4 дни)</h4><p>Започва с повишена температура, главоболие и общо неразположение. Характерни са безсъние, емоционална нестабилност, както и <strong>изтръпване и болки в мястото на ухапване</strong>.</p><h4>2. Възбуден стадий</h4><p>Характеризира се с тежка <strong>психомоторна възбуда</strong>, страхова напрегнатост и безпокойство. Наблюдава се свръхвъзбудимост на булбарните нерви, водеща до спазми на ларингеалната, фарингеалната и дихателната мускулатура. Проявяват се:</p><ul><li><strong>Хидрофобия</strong> (страх от вода при опит за пиене).</li><li><strong>Аерофобия</strong> и <strong>фотофобия</strong>.</li></ul><h4>3. Паралитичен стадий</h4><p>Булбарната възбуда преминава в <strong>булбарна парализа</strong>. Наблюдават се:</p><ul><li>Дизартрия и дисфагия.</li><li><strong>Хиперсаливация</strong> (обилно слюноотделяне) и поява на "пяна на устата".</li></ul><p>Завършва с дихателна парализа, кома и <strong>смърт</strong> в рамките на 5-10 дни.</p><h3>Профилактика</h3><p>Профилактиката трябва да започне незабавно след експозиция:</p><ol><li><strong>Пасивна имунизация:</strong> Прилага се човешки <strong>противобесен имуноглобулин</strong> в доза <strong>20 Е/кг</strong>. Половината доза се инфилтрира около раната, а останалата част се инжектира интрамускулно.</li><li><strong>Активна имунизация:</strong> Следва пасивната имунизация след интервал от 10 - 20 дни.</li></ol><hr><h2>Кърлежови паненцефалити</h2><h3>Етиология и основни форми</h3><p>Кърлежовите паненцефалити представляват група инфекциозни заболявания, пренасяни чрез кърлежи. Основните клинични варианти включват:</p><ul><li><strong>Пролетно-летен кърлежов паненцефалит</strong>.</li><li><strong>Средноевропейски вариант</strong>.</li><li><strong>Двувълнов менингоенцефалит</strong>.</li></ul><h3>Патоморфология</h3><p>Заболяването засяга <strong>сивото вещество</strong> на главния мозък. Патологоанатомично се установява <strong>дифузен възпалително-дегенеративен процес</strong>, който включва:</p><ul><li><strong>Периваскуларни инфилтрати</strong> и деструктивен васкулит.</li><li><strong>Невронофагия</strong> и образуване на некротични огнища.</li><li>Наличие на <strong>микрохеморагии</strong> (малки кръвоизливи).</li></ul><h3>Клинична картина</h3><p>Най-характерна за тези форми е <strong>полиоенцефаломиелитната симптоматика</strong>. Клиничните прояви включват:</p><ul><li><strong>Вяла парализа на шийната мускулатура:</strong> Специфичен симптом, водещ до типичното <strong>увисване на главата</strong>.</li><li><strong>Общомозъчни симптоми:</strong> Нарушение на съзнанието и възможни епилептични пристъпи.</li><li><strong>Менингеален синдром:</strong> Придружен от промени в ликвора – предимно <strong>лимфоцитарна плеоцитоза</strong>.</li></ul><h3>Диагноза и особености</h3><p>Диагностичният процес се опира на комбинацията от неврологичните симптоми (парализи на шията) и анамнестични данни за ухапване от кърлеж в съответния сезон. Ликворното изследване верифицира възпалителния характер на процеса.</p><hr style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(115, 163, 114)"><br><hr style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(115, 163, 114)"><h1 style="text-align: center">56. Остри вторични вирусни енцефалити: постинфекциозни и постваксинални.</h1><h2>Етиология и патогенеза</h2><p>Постинфекциозните и постваксиналните вторични вирусни енцефаломиелити са рядко, но сериозно усложнение на остри вирусни инфекции или имунизации.</p><p><strong>Основни причинители:</strong></p><ul><li><strong>Инфекции:</strong> Морбили, варицела, рубеола, паротит, грип и др.</li><li><strong>Ваксинации:</strong> Предимно след ваксинация срещу вариола и бяс.</li></ul><p><strong>Патогенеза:</strong></p><p>За разлика от първичните енцефалити, тук липсва директна вирусна инвазия в ЦНС. Заболяванията имат <strong>обща автоимунна патогенеза</strong> – имунномедиирано възпаление, което се отключва от предхождащата инфекция.</p><hr><h2>Патоморфология</h2><p>Промените са характерни за <strong>перивенозен демиелинизиращ левкоенцефалит</strong>. Основните характеристики включват:</p><ul><li><strong>Демиелинизация:</strong> Многобройни огнища с различна големина, разположени около малките и средни вени в главния и гръбначния мозък.</li><li><strong>Перивенозна възпалителна реакция.</strong></li><li><strong>Хеморагии:</strong> При тежки токсични прояви (особено при морбили и грип) се наблюдават и перивенозни кръвоизливи.</li></ul><hr><h2>Клинични прояви</h2><p>Симптомите обикновено се развиват <strong>след най-острата фаза</strong> на основната инфекция. В зависимост от локализацията на процеса се наблюдават следните форми:</p><h3>1. Енцефалитна форма</h3><ul><li>Остро начало с висок фебрилитет и главоболие.</li><li>Нарушения на съзнанието: дезориентираност, сомнолентност, а в тежки случаи – <strong>кома</strong>.</li><li><strong>Епилептични пристъпи</strong> (парциални или генерализирани).</li><li>Огнищна неврологична симптоматика: пирамидна и екстрапирамидна прояви.</li></ul><h3>2. Миелитна форма</h3><ul><li>Паретични прояви: от параплегия до <strong>квадриплегия</strong>.</li><li>Сетивни нарушения от <strong>проводников тип</strong>.</li><li>Тазово-резервоарни нарушения (смущения в уринирането и дефекацията).</li></ul><h3>3. Церебеларна форма</h3><ul><li>При ангажиране на малкия мозък преобладават симптомите на <strong>церебеларна атаксия</strong>.</li></ul><hr><h2>Лечение и профилактика</h2><p><strong>Лечение:</strong></p><ul><li><strong>Кортикостероиди:</strong> Основно средство за овладяване на имунния отговор.</li><li><strong>Плазмафереза и интравенозен имуноглобулин:</strong> Прилагат се при фулминантни (светкавични) случаи с благоприятен ефект.</li></ul><p><strong>Профилактика:</strong></p><p>Честотата на тези усложнения е значително намалена през последните десетилетия благодарение на:</p><ol><li>Широкото използване на <strong>имунизация срещу морбили</strong>.</li><li>Прекратяване на ваксинацията срещу вариола.</li><li>Използване на ваксини против бяс, които <strong>не съдържат нервна тъкан</strong>.</li></ol><hr style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(115, 163, 114)"><hr style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(115, 163, 114)"><h1 style="text-align: center">57. Хиперкинетичен прогресиращ (Субакутен склерозиращ) паненцефалит (ССПЕ)</h1><h2>Етиология</h2><p><strong>ССПЕ</strong> е резултат от <strong>бавновирусна персистираща морбилозна инфекция</strong>. Заболяването се развива години след боледуване от морбили в много ранна детска възраст.</p><ul><li><strong>Механизъм:</strong> Вирусът персистира дългогодишно в организма, претърпява генетични промени и формира т.нар. <strong>"дефектни форми"</strong>. </li><li><strong>Имунен отговор:</strong> Тези дефектни форми не могат да бъдат ефективно атакувани от имунната система. Заедно с непроменените вируси те образуват <strong>имунни комплекси</strong>, които провокират дифузен възпалителен процес (енцефалит).</li></ul><hr><h2>Патоморфология</h2><p>Заболяването има характер на <strong>паненцефалит</strong> (засяга и сивото, и бялото вещество) с дифузно разпространение:</p><ul><li><strong>Сиво вещество:</strong> Обхваща мозъчната кора (особено челния и тилния дял), таламуса, хипоталамуса и ядрата в основата на понса. Наблюдава се деструкция на нервни клетки.</li><li><strong>Бяло вещество:</strong> Дегенерация на нервните влакна.</li><li><strong>Инфилтрация:</strong> Наличие на лимфоцити и мононуклеарни клетки в засегнатите зони.</li></ul><hr><h2>Клинични прояви</h2><p>Типичният сценарий включва прекарани морбили в ранно детство, последвани от <strong>6-7 години асимптоматичен период</strong>. Заболяването започва субакутно и прогресира бавно (от 2 месеца до няколко години).</p><h3>Основни синдроми:</h3><ol><li><strong>Деменция:</strong> Често е начален симптом. Започва с уморяемост, променливо настроение и понижен успех в училище, прогресирайки до дълбока личностова деградация.</li><li><strong>Хиперкинези (Водещ симптом):</strong> Неволеви движения, често миоклонични или балистични. Описват се като:</li><ul><li>Резки движения като "удар от електрически ток".</li><li><strong>"Внезапни поклони"</strong> на тялото напред.</li><li>Широко отваряне на устата (<strong>"като риба на сухо"</strong>).</li><li>Издаване на звуци, приличащи на <strong>"крясък на чайка"</strong>.</li></ul><li><strong>Тонусови промени:</strong> Първоначална хипотония, която постепенно преминава в <strong>прогресираща ригидна хипертония</strong>.</li><li><strong>Епилептични пристъпи:</strong> Парциални или генерализирани тонично-клонични припадъци.</li><li><strong>Хипоталамичен синдром:</strong> Вегетативни кризи (хиперхидроза, саливация), булимия/анорексия, екстремна хипертермия (до 42°С) и кахексия.</li><li><strong>Други (редки):</strong> Корова слепота, дизартрия, пирамидни и тазово-резервоарни нарушения.</li></ol><hr><h2>Изследвания и ЕЕГ</h2><p>Най-специфичното изследване е <strong>Електроенцефалографията (ЕЕГ)</strong>. Тя показва:</p><ul><li>Множество бавни делта- и тета-вълни.</li><li><strong>Радермекерови комплекси:</strong> Типични периодични генерализирани разряди от остри вълни, последвани от поредица бавни вълни.</li></ul><hr><h2>Лечение и прогноза</h2><ul><li><strong>Лечение:</strong> Към момента е <strong>безрезултатно</strong>. Правени са опити с <em>Amantadin</em>, <em>Alfa-interferon</em> и други препарати, но без съществен успех.</li><li><strong>Прогноза:</strong> Изключително <strong>лоша</strong>. Заболяването е с прогресиращ ход и неизбежен <strong>фатален изход</strong>.</li></ul><hr style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(115, 163, 114)"><br><hr style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(115, 163, 114)"><h1 style="text-align: center">58. Енцефалити при персистиращи и рекурентни херпесни вирусни инфекции. Херпес симплекс и херпес зостер менингоенцефалити.</h1><h2>Herpes simplex вирусен енцефалит (HSV-1)</h2><p><strong>Етиологията</strong> определя HSV енцефалита като най-честия спорадичен остър вирусен енцефалит. Може да засегне лица във всяка възраст.</p><ul><li><strong>Причинители:</strong> Почти винаги <strong>HSV тип 1</strong> (свързан с орални лезии). <strong>HSV тип 2</strong> се среща предимно в неонатална възраст при заразяване от майката.</li></ul><h3>Патоморфология</h3><p>Характерни са изразени <strong>хеморагично-некротични лезии</strong>, локализирани в:</p><ul><li><strong>Темпоробазалните</strong> и <strong>фронто-орбиталните</strong> отдели на мозъка.</li><li>Силно се уврежда <strong>лимбичната система</strong>.</li></ul><p>Тази специфична локализация е патогномонична и насочва към диагнозата още при огледа на макроскопските препарати.</p><h3>Клинични прояви</h3><p>Началото е <strong>остро</strong> (в рамките на няколко дни) със следната динамика:</p><ol><li><strong>Общи симптоми:</strong> Хиперпирексия, силно главоболие и дезориентация.</li><li><strong>Специфични прояви:</strong> Обонятелни и вкусови халюцинации, аносмия (загуба на обоняние).</li><li><strong>Психични промени:</strong> Кратък период на промяна на личността, делир или психотично поведение.</li><li><strong>Неврологичен дефицит:</strong> Афатични нарушения, епилептични пристъпи, пирамидна симптоматика.</li><li><strong>Терминална фаза:</strong> Масивен мозъчен оток и <strong>темпорално вклиняване</strong>, водещи до кома и респираторен арест.</li></ol><h3>Изследвания и Лечение</h3><ul><li><strong>Ликвор:</strong> Повишено налягане, плеоцитоза (10–500.10⁶/l), лимфоцити, понякога еритроцити ("кървав" ликвор при некроза).</li><li><strong>Диагностика:</strong> <strong>PCR</strong> за ДНК в ликвора (най-чувствителен метод) и МРТ (визуализира кортикални нарушения).</li><li><strong>Лечение:</strong> Спешно венозно приложение на <strong>Acyclovir (30 mg/kg дневно)</strong> за 10–14 дни. Прилагат се и противооточни средства.</li></ul><hr><h2>Herpes zoster вирусен енцефалит</h2><h3>Патогенеза и патоморфология</h3><p>Вирусът на варицелата (<strong>Varicella-zoster</strong>) персистира в латентно състояние в <strong>невроните на сетивните ганглии</strong>. При имунен дефицит той се реактивира.</p><ul><li><strong>Локализация:</strong> Възпаление до некроза в краниалните и спиналните сетивни ганглии.</li></ul><h3>Клинична картина</h3><p>Най-често се изявява като <strong>ганглиорадикулит</strong> или <strong>ганглионеврит</strong>:</p><ul><li>Радикулерна болка и типични <strong>кожни везикулни ерупции</strong>.</li><li>Сегментни сетивни и двигателни нарушения.</li></ul><p><strong>Усложнения:</strong></p><ol><li><strong>Миелит:</strong> Рядко усложнение на торакалния зостер; изразява се с асиметрична парапареза и тазово-резервоарни нарушения.</li><li><strong>Зостеров енцефалит:</strong> Среща се предимно при <strong>имуносупресирани болни</strong>. Проявява се с дезориентираност, сънливост, нисък фебрилитет и лек менингеален синдром. Прогнозата за възстановяване при леките форми е добра.</li></ol><h3>Диагноза и Лечение</h3><ul><li><strong>Диагноза:</strong> Директна имунофлуоресценция или намиране на <strong>мултинуклеарни гигантски клетки</strong> в натривка от кожна лезия.</li><li><strong>Лечение:</strong> Интравенозен <strong>Acyclovir</strong> при поява на усложнения.</li></ul><hr style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(115, 163, 114)"><hr style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(115, 163, 114)"><h1 style="text-align: center">59. Трансмисивни спонгиформени енцефалопатии (Прионови болести)</h1><h2>Обща характеристика на прионите</h2><p><strong>Прионът</strong> е уникален инфекциозен агент, изграден единствено от <strong>протеин</strong>, без наличие на нуклеинова киселина. </p><ul><li><strong>Конфигурации на прионовия протеин (PrP):</strong></li><ul><li><strong>PrPn (нормална):</strong> Открива се по повърхността на невроните в здравия организъм.</li><li><strong>PrPs (патологична - "scrapie"):</strong> Резултат от специфични генетични мутации. Тя е изключително стабилна и резистентна на външни влияния.</li></ul><li><strong>Механизъм:</strong> Мутиралата форма (PrPs) трансформира нормалните протеини в патологични, които се натрупват и увреждат мозъчната тъкан. Имунната система не реагира, тъй като ги разпознава като естествени протеини.</li></ul><hr><h2>Патоморфология</h2><p>Характерни са специфични невъзпалителни промени, известни като <strong>status spongiosus</strong> (гъбест вид):</p><ul><li>Вакуолизация на цитоплазмата на невроните.</li><li>Невронална загуба.</li><li>Астроглиоза (пролиферация на глиални клетки).</li></ul><hr><h2>Субакутна спонгиформена енцефалопатия (Болест на Creutzfeldt - Jakob)</h2><p>Това е най-честата прионова болест при хората. Абнормният протеин се кодира от гена <strong>PRNP</strong> на 20-а хромозома.</p><h3>Етиологични форми:</h3><ol><li><strong>Спорадична (85%):</strong> Спонтанна мутация.</li><li><strong>Фамилна (10%):</strong> Наследствена трансмисия.</li><li><strong>Ятрогенна:</strong> Чрез корнеална трансплантация или присаждане на dura mater.</li><li><strong>Нов вариант (vCJD):</strong> Пренасяне от говеда на хора (чрез консумация на заразен мозък).</li></ol><h3>Клинични прояви:</h3><p>Заболяването засяга предимно късната средна възраст. Характеризира се с бърза прогресия:</p><ul><li><strong>Продромални симптоми:</strong> Умора, загуба на тегло, депресия, нарушения на съня.</li><li><strong>Неврологична картина:</strong> * Бързо прогресираща <strong>деменция</strong>.</li><ul><li><strong>Миоклонии</strong> (в почти 100% от случаите).</li><li>Церебеларна атаксия, афазия, зрителни халюцинации и корова слепота.</li><li>Ригидно повишен мускулен тонус и крайни стадии с <strong>акинетичен мутизъм</strong>.</li></ul><li><strong>Ход:</strong> Обикновено фатален край в рамките на 6 месеца (рядко до 2 години).</li></ul><h3>Изследвания:</h3><ul><li><strong>ЕЕГ:</strong> Специфични периодични комплекси.</li><li><strong>Ликвор:</strong> Наличие на специфични протеинови маркери (белтък 14-3-3).</li><li><strong>КТ/МРТ:</strong> Корова атрофия в напреднали стадии.</li></ul><hr><h2>Синдром на Gerstmann - Straussler - Scheinker</h2><p>Рядко <strong>автозомно-доминантно</strong> наследствено заболяване (мутация на PrP гена). </p><ul><li><strong>Клинична картина:</strong> Започва в средна възраст. Протича по-хронично (2–6 години). </li><li><strong>Водещи симптоми:</strong> Прогресивна церебеларна атаксия, дизартрия, нистагъм и сравнително лека деменция. </li><li><strong>Морфология:</strong> Множество <strong>амилоидни плаки</strong> в мозъчната тъкан.</li></ul><hr><h2>Kuru (Куру)</h2><p>Разпространена в миналото сред племето Форе в Нова Гвинея поради ритуален канибализъм.</p><ul><li><strong>Инкубационен период:</strong> Изключително дълъг (от 5 до 30 години).</li><li><strong>Клинични прояви:</strong> Наричана "малкомозъчна спонгиформена енцефалопатия". Преобладава <strong>тежка атаксия при ходене</strong>, интенционен тремор, прогресираща слабост до пълна имобилизация и смърт за 3 до 12 месеца. </li><li><strong>Патоморфология:</strong> Характерни "Куру плаки" (амилоидни плаки) в церебеларната кора.</li></ul><p><strong>Прогноза и лечение:</strong> За всички прионови болести <strong>няма етиологично лечение</strong>. Прогнозата е абсолютно неблагоприятна с фатален изход.</p><hr style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(115, 163, 114)"><hr style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(115, 163, 114)"><h1 style="text-align: center">Невроборелиоза и Невролуес</h1><h2>Лаймска болест (Невроборелиоза)</h2><p><strong>Етиология:</strong> Причинява се от спирохетата <strong>Borrelia burgdorferi</strong>.</p><p><strong>Епидемиология:</strong> Антропозооноза с резервоар гризачи и диви/домашни животни. Преносители са кърлежи от рода <strong>Ixodes</strong>.</p><h3>Патогенеза и патоанатомия</h3><ul><li><strong>Механизъм:</strong> Директна тъканна инвазия и индиректни имунопатологични механизми (демиелинизация в ЦНС и ПНС).</li><li><strong>Локализация:</strong> Дистрофични промени и наличие на причинителя в кожа, лимфни възли, менинги, миокард, синовиална течност и др.</li></ul><h3>Клинична картина (Три стадия)</h3><ol><li><strong>Първи стадий (3–30 дни след ухапване):</strong> * Характерен <strong>Erythema chronicum migrans</strong> – еритем на мястото на ухапването, който нараства периферно и избледнява централно (пръстеновидна лезия). </li><ul><li>Лек общоинфекциозен синдром: фебрилитет, миалгии, лимфаденопатия.</li></ul><li><strong>Втори стадий (седмици до месеци по-късно):</strong> * Засягане на сърцето (миокардит с ритъмни нарушения). </li><ul><li><strong>Класическа неврологична триада:</strong> Серозен менингит, краниална невропатия и радикулоневропатия.</li></ul><li><strong>Трети стадий (месеци до години по-късно):</strong> * Хроничен прогресивен енцефаломиелит, фокален енцефалит и лека дифузна енцефалопатия.</li><ul><li>Ставна патология и психиатрични синдроми.</li></ul></ol><h3>Лечение</h3><ul><li><strong>I стадий:</strong> Перорален <strong>Amoxicillin</strong> (500–1000 mg на всеки 6 часа) за 2–4 седмици.</li><li><strong>II и III стадий:</strong> Цефалоспорини III поколение (интравенозно).</li></ul><hr><h2>Невролуес (Невросифилис)</h2><p><strong>Етиология:</strong> Причинява се от <strong>Treponema pallidum</strong>. Заразяването е по полов път или чрез кръв. ЦНС може да бъде засегната във всеки стадий на инфекцията.</p><h3>Клинични форми на невросифилиса</h3><table><tbody><tr><td><strong><span style="color: rgb(88, 129, 87)">Форма</span></strong></td><td><strong><span style="color: rgb(88, 129, 87)">Начало</span></strong></td><td><strong><span style="color: rgb(88, 129, 87)">Патоанатомия</span></strong></td><td><strong><span style="color: rgb(88, 129, 87)">Клинична картина</span></strong></td></tr><tr><td><strong>Ранен (Асимптоматичен)</strong></td><td>До 1 год.</td><td>Ексудативни промени по менингите</td><td>Ликворен синдром без тежка клиника</td></tr><tr><td><strong>Остър сифилитичен менингит</strong></td><td>До 1 год.</td><td>Хидроцефалия</td><td>Изразен менингеален синдром</td></tr><tr><td><strong>Менинговаскуларен луес</strong></td><td>4–10 год.</td><td>Ендартериит, мозъчни инфаркти, менингомиелит</td><td>Исхемични инсулти, Паркинсонов синдром, парези</td></tr><tr><td><strong>Сифилитична гума</strong></td><td>Късен стадий</td><td>Хроничен гранулом с некроза</td><td>Симптоми на заемащ пространство процес (тумор-подобно)</td></tr><tr><td><strong>Tabes dorsalis</strong></td><td>15–20 год.</td><td>Алтерация на задни коренчета и задна стълбцова система</td><td><strong>Сензорна атаксия</strong>, болкови кризи, зенични разстройства, тазово-резервоарни нарушения</td></tr><tr><td><strong>Paralysis progressiva</strong></td><td>15–20 год.</td><td>Корова атрофия, хроничен менингоенцефалит</td><td>Тежка <strong>деменция</strong> и психична симптоматика</td></tr></tbody></table><hr><p><strong>Забележка:</strong> При Tabes dorsalis се засягат специфично задните ганглии и фуникули на гръбначния мозък, което води до загуба на дълбока сетивност.</p><hr style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(115, 163, 114)"><br><hr style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(115, 163, 114)"><br><br><br><br>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+<script>
+renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true},
+    {left: '$', right: '$', display: false},
+    {left: '\\[', right: '\\]', display: true},
+    {left: '\\(', right: '\\)', display: false}
+  ],
+  throwOnError: false
+});
+</script>
+</body>
+</html>

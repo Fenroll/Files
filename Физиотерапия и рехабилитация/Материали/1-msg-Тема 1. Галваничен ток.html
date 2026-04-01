@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <style>
+    body { 
+      font-family: "Open Sans", Arial, sans-serif; 
+      max-width: 1550px; 
+      margin: 0.5rem auto; 
+      padding: 0 1rem; 
+      line-height: 1.6; 
+      color: #1f2937; 
+    }
+    h1, h2, h3, h4 { 
+      font-weight: 600; 
+      margin-top: 0.7em;
+      margin-bottom: 0;
+      color: #588157;
+    }
+    h1 { font-size: 1.65em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; margin-bottom: 0; }
+    h4 { font-size: 1.05em; margin-bottom: 0; }
+    h1 + h2, h1 + h3, h1 + h4, h2 + h3, h2 + h4, h3 + h4 { margin-top: 0.1em; }
+    p { 
+      margin: 0.3em 0; 
+      white-space: pre-wrap;
+    }
+    hr {
+      margin: 0.45em 0 0.2em;
+    }
+    hr + h1,
+    hr + h2,
+    hr + h3,
+    hr + h4 {
+      margin-top: 0.2em;
+    }
+    hr + p,
+    hr + ul,
+    hr + ol,
+    hr + blockquote,
+    hr + pre,
+    hr + table {
+      margin-top: 0.08em;
+    }
+    p + ul, p + ol { margin-top: 0.2em; }
+    h1 + p, h2 + p, h3 + p, h4 + p,
+    h1 + ul, h2 + ul, h3 + ul, h4 + ul,
+    h1 + ol, h2 + ol, h3 + ol, h4 + ol { 
+      margin-top: 0; 
+    }
+    ul, ol { 
+      margin: 0.2em 0; 
+      padding-left: 1.5em; 
+      list-style-position: outside;
+    }
+    li { margin: 0.2em 0; }
+    li p {
+      margin: 0;
+      padding: 0;
+      display: inline;
+    }
+    li > ul, li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    ul ul, ul ol, ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    ul ul { list-style-type: circle; }
+    ul ul ul { list-style-type: square; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+    code { 
+      background: rgba(146, 64, 14, 0.1); 
+      padding: 2px 6px; 
+      border-radius: 3px; 
+      font-family: "Courier New", monospace; 
+      font-size: 0.9em; 
+    }
+    pre {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 12px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.5em 0;
+      font-family: "Courier New", monospace;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    blockquote {
+      border-left: 3px solid #588157;
+      padding-left: 1em;
+      margin: 0.5em 0;
+      font-style: italic;
+      color: #166534;
+    }
+    table { 
+      border-collapse: collapse; 
+      margin: 0.75em 0; 
+      width: 100%; 
+      table-layout: auto;
+    }
+    th, td { 
+      border: 1px solid rgba(2, 2, 2, 0.2);
+      padding: 6px 10px; 
+      text-align: left; 
+      vertical-align: top;
+      height: 24px;
+      line-height: 1.2;
+    }
+    thead th { 
+      background: rgba(88, 129, 87, 0.13); 
+      font-weight: 600; 
+    }
+    tbody tr:nth-child(odd) { 
+      background: rgba(88, 129, 87, 0.06); 
+    }
+    /* Image alignment rules for exported content and md-viewer */
+    img[data-align="left"] {
+      display: block;
+      margin: 8px auto 8px 0;
+    }
+    img[data-align="center"] {
+      display: block;
+      margin: 8px auto;
+    }
+    img[data-align="right"] {
+      display: block;
+      margin: 8px 0 8px auto;
+    }
+    .audio-link-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0.2em 0;
+      max-width: 100%;
+      vertical-align: middle;
+    }
+    .audio-link-icon {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #588157;
+      border-radius: 999px;
+      background: #f0f7f0;
+      color: #2f5d50;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+    .audio-link-inline audio {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .audio-link-icon img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    a {
+      color: inherit; /* Changed to inherit */
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #74b673;
+    }
+    /* Keep <p> tags inside list items on same line (as they appear in editor) */
+    li p {
+      margin: 0 !important;
+      padding: 0 !important;
+      display: inline !important;
+    }
+    /* Prevent nested list paragraph issues */
+    li > ul,
+    li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    /* Ensure list structure is clean */
+    ul ul, ul ol,
+    ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    @media (max-width: 768px) {
+      body {
+        margin: 0.5rem 0;
+        padding: 0 0.5rem;
+        font-size: 16px;
+      }
+      h1 { font-size: 1.65em; }
+      h2 { font-size: 1.3em; }
+      h3 { font-size: 1.1em; }
+      p { margin: 0.3em 0; }
+      ul, ol { padding-left: 1.5em; }
+      li { margin: 0.2em 0; }
+      table { font-size: 0.9em; }
+      th, td { padding: 6px 10px; }
+    }
+    .editor-note {
+      text-decoration: underline dotted #a3b18a;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      text-decoration-skip-ink: none;
+      cursor: help;
+      position: relative;
+    }
+    .note-tooltip {
+      display: none;
+      position: absolute;
+      background-color: #f0f7f0;
+      color: #1f2937;
+      border: 1px solid #588157;
+      border-radius: 4px;
+      padding: 8px 12px;
+      width: fit-content;
+      max-width: min(700px, calc(100vw - 20px));
+      max-height: calc(100vh - 20px);
+      overflow: auto;
+      box-sizing: border-box;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 10000;
+      font-size: 0.9em;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    .note-tooltip ul, .note-tooltip ol {
+      margin: 0 !important;
+      padding-left: 20px !important;
+    }
+    .note-tooltip li {
+      margin: 0 0 0.1em 0 !important;
+      padding: 0 !important;
+      line-height: 1.2 !important;
+    }
+    .note-tooltip li:last-child {
+      margin-bottom: 0 !important;
+    }
+    .note-tooltip .note-table-scroll {
+      overflow-x: auto;
+      margin: 0.3em 0;
+    }
+    .note-tooltip table {
+      border-collapse: collapse;
+      width: max-content;
+      max-width: 100%;
+      min-width: 220px;
+      background: #ffffff;
+    }
+    .note-tooltip th,
+    .note-tooltip td {
+      border: 1px solid rgba(88, 129, 87, 0.35);
+      padding: 4px 8px;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .note-tooltip thead th {
+      background: rgba(88, 129, 87, 0.12);
+      font-weight: 600;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'note-tooltip';
+      document.body.appendChild(tooltip);
+
+      function parseNoteMarkdown(text) {
+        if (!text) return '';
+        
+        const splitTableCells = function(line) {
+          return String(line || '')
+            .trim()
+            .replace(/^\|/, '')
+            .replace(/\|$/, '')
+            .split('|')
+            .map(function(cell) { return cell.trim(); });
+        };
+
+        const isTableSeparatorLine = function(line) {
+          const cells = splitTableCells(line);
+          return cells.length > 0 && cells.every(function(cell) {
+            return /^:?-{3,}:?$/.test(cell);
+          });
+        };
+
+        const getTableAlignment = function(cell) {
+          if (/^:-{3,}:$/.test(cell)) return 'center';
+          if (/^-{3,}:$/.test(cell)) return 'right';
+          if (/^:-{3,}$/.test(cell)) return 'left';
+          return '';
+        };
+
+        let lines = text.split('\n');
+        let html = [];
+        let stack = [];
+        
+        for (let i = 0; i < lines.length; i++) {
+          let line = lines[i];
+          
+          let indentMatch = line.match(/^(\s*)/);
+          let indent = indentMatch ? indentMatch[1].length : 0;
+          let content = line.trim();
+
+          const nextLine = i + 1 < lines.length ? lines[i + 1].trim() : '';
+          const maybeTableHeader = content.includes('|') && splitTableCells(content).length >= 2;
+          const maybeTableSeparator = nextLine.includes('|') && isTableSeparatorLine(nextLine);
+
+          if (maybeTableHeader && maybeTableSeparator) {
+            while (stack.length > 0) {
+              let closed = stack.pop();
+              html.push('</' + closed.type + '>');
+            }
+
+            const headerCells = splitTableCells(content);
+            const alignCells = splitTableCells(nextLine);
+
+            html.push('<div class="note-table-scroll"><table><thead><tr>');
+            headerCells.forEach(function(cell, idx) {
+              const align = getTableAlignment(alignCells[idx] || '');
+              const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+              html.push('<th' + alignAttr + '>' + cell + '</th>');
+            });
+            html.push('</tr></thead><tbody>');
+
+            i += 2;
+            while (i < lines.length) {
+              const rowLine = lines[i].trim();
+              if (!rowLine || !rowLine.includes('|')) break;
+              if (isTableSeparatorLine(rowLine)) {
+                i++;
+                continue;
+              }
+
+              const rowCells = splitTableCells(rowLine);
+              if (rowCells.length === 0) {
+                i++;
+                continue;
+              }
+
+              html.push('<tr>');
+              rowCells.forEach(function(cell, idx) {
+                const align = getTableAlignment(alignCells[idx] || '');
+                const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+                html.push('<td' + alignAttr + '>' + cell + '</td>');
+              });
+              html.push('</tr>');
+              i++;
+            }
+
+            html.push('</tbody></table></div>');
+            i--;
+            continue;
+          }
+          
+          let isUl = /^[-*]\s+(.+)/.test(content);
+          let isOl = /^\d+\.\s+(.+)/.test(content);
+          
+          if (isUl || isOl) {
+            let listType = isUl ? 'ul' : 'ol';
+            let match = isUl ? content.match(/^[-*]\s+(.+)/) : content.match(/^\d+\.\s+(.+)/);
+            let itemText = match[1];
+            
+            if (stack.length === 0) {
+              stack.push({ type: listType, indent: indent });
+              html.push('<' + listType + '>');
+            } else {
+              let last = stack[stack.length - 1];
+              
+              if (indent > last.indent) {
+                stack.push({ type: listType, indent: indent });
+                html.push('<' + listType + '>');
+              } else if (indent < last.indent) {
+                while (stack.length > 0 && stack[stack.length - 1].indent > indent) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                }
+                if (stack.length === 0 || stack[stack.length - 1].indent !== indent) {
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                } else if (stack[stack.length - 1].type !== listType) {
+                   let closed = stack.pop();
+                   html.push('</' + closed.type + '>');
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                }
+              } else {
+                if (last.type !== listType) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                  stack.push({ type: listType, indent: indent });
+                  html.push('<' + listType + '>');
+                }
+              }
+            }
+            html.push('<li>' + itemText + '</li>');
+          } else {
+            if (content !== '') {
+               while (stack.length > 0) {
+                 let closed = stack.pop();
+                 html.push('</' + closed.type + '>');
+               }
+            }
+            if (/^#{1,4}\s+/.test(content)) {
+              const headingMatch = content.match(/^(#{1,4})\s+(.+)$/);
+              if (headingMatch) {
+                const level = headingMatch[1].length;
+                html.push('<h' + level + '>' + headingMatch[2] + '</h' + level + '>');
+              }
+            } else if (content) {
+              html.push(content + '<br>');
+            } else {
+              html.push('<br>');
+            }
+          }
+        }
+        
+        while (stack.length > 0) {
+          let closed = stack.pop();
+          html.push('</' + closed.type + '>');
+        }
+        
+        let result = html.join('')
+          .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/__(.+?)__/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>')
+          .replace(/_(.+?)_/g, '<em>$1</em>')
+          .replace(/`(.+?)`/g, '<code>$1</code>')
+          .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
+        
+        result = result
+          .replace(/<br><ul>/g, '<ul>')
+          .replace(/<br><ol>/g, '<ol>')
+          .replace(/</ul><br>/g, '</ul>')
+          .replace(/</ol><br>/g, '</ol>');
+        
+        return result;
+      }
+
+      document.body.addEventListener('mouseover', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          const note = e.target.dataset.note;
+          if (note) {
+            tooltip.innerHTML = parseNoteMarkdown(note);
+            tooltip.style.display = 'block';
+            const rect = e.target.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+            const pageX = window.scrollX || window.pageXOffset;
+            const pageY = window.scrollY || window.pageYOffset;
+            const maxLeft = pageX + window.innerWidth - tooltipRect.width - 10;
+            const minLeft = pageX + 10;
+
+            let left = rect.left + pageX;
+            if (left > maxLeft) left = maxLeft;
+            if (left < minLeft) left = minLeft;
+
+            let top = rect.bottom + pageY + 6;
+            const maxTop = pageY + window.innerHeight - tooltipRect.height - 10;
+            if (top > maxTop) {
+              top = rect.top + pageY - tooltipRect.height - 6;
+            }
+            if (top < pageY + 10) top = pageY + 10;
+
+            tooltip.style.left = left + 'px';
+            tooltip.style.top = top + 'px';
+          }
+        }
+      });
+
+      document.body.addEventListener('mouseout', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          setTimeout(() => {
+            if (!tooltip.matches(':hover')) {
+              tooltip.style.display = 'none';
+            }
+          }, 100);
+        }
+      });
+
+      tooltip.addEventListener('mouseleave', function() {
+        tooltip.style.display = 'none';
+      });
+    });
+  </script>
+</head>
+<body>
+<h1 style="text-align: center">ВИДОВЕ ЕЛЕКТРИЧЕСКИ ТОКОВЕ И ГАЛВАНИЗАЦИЯ</h1><h2>ВИДОВЕ ЕЛЕКТРИЧЕСКИ ТОКОВЕ ИЗПОЛЗВАНИ В ЕЛЕКТРОЛЕЧЕНИЕТО</h2><p>Електрическите токове се делят на два основни вида: постоянни (прави) и променливи.</p><h3>ПОСТОЯННИ ТОКОВЕ</h3><p><strong>Постоянни токове</strong> са тези, при които електроните или йоните се движат постъпателно само в една посока. В зависимост от промените в напрежението и силата им, те се класифицират като:</p><ul><li><strong>Галваничен ток:</strong> При него електроните или йоните се движат постъпателно в една постоянна посока и поддържат постоянно напрежение.</li><li><strong>Пулсиращ ток:</strong> Електроните или йоните се движат постъпателно в една постоянна посока, но менят закономерно своето напрежение, без то да спада до нулева стойност.</li><li><strong>Прекъснат ток:</strong> Електроните или йоните се движат постъпателно в една постоянна посока, но напрежението им се мени така, че след достигане на своя максимум спада до нулева стойност, след което следва пауза и нов импулс.</li></ul><p><img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775035280709-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775035280709-image.png" data-width="100" data-align="center" style="width: 1024px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><h3>ПРОМЕНЛИВИ ТОКОВЕ</h3><p>Променливи са токовете, при които напрежението, силата и посоката се променят с времето. Те могат да имат симетрична или несиметрична графика. При синусовия ток графиката е симетрична, докато при фарадичния ток тя е асиметрична.</p><p>Кривата, описваща тока над абсцисната ос, е приета условно за положителна полувълна, а под нея — за отрицателна полувълна. Двете полувълни заедно образуват една вълна. Времето, за което протича една цяла вълна, се нарича период (Т) или трептене. Броят на трептенията в една секунда се определя като честота, чиято мерна единица е 1 херц (Hz), съответстващ на 1 колебание в секунда.<img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775035461570-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775035461570-image.png" data-width="100" data-align="center" style="width: 1024px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><hr><h2>КЛАСИФИКАЦИЯ НА ГИЛДЕМАЙСТЕР (GILDEMEISTER)</h2><p>Според своята честота електрическите токове се разделят на три основни групи:</p><ul><li><strong>Нискочестотни токове:</strong> от 0 до 1000 Hz.</li><li><strong>Средночестотни токове:</strong> от 1000 до 100 000 Hz.</li><li><strong>Високочестотни токове:</strong> над 100 000 Hz.</li></ul><hr><h2 style="text-align: center">ГАЛВАНИЧЕН ТОК&nbsp;</h2><h3>ХАРАКТЕРИСТИКА И РАЗПРОСТРАНЕНИЕ</h3><p>Галваничният ток е <strong>постоянен</strong>, <strong>прав </strong>ток с ниско напрежение (30-80 V) и неголяма сила (до 50 mА). Понеже не мени посоката и силата си, неговото графично изображение е права линия, успоредна на абсцисата.</p><p>Действието му върху организма се определя от неговото проникване в тъканите. В биологичните среди той се разпространява най-добре там, където има малко омично съпротивление — в кръвоносните и лимфните съдове, мускулите и междуклетъчните пространства. Поради значителното омично съпротивление на кожата, голяма част от енергията при галванизация се поглъща от нея. Част от тази енергия се превръща в топлина, а друга част отключва първични електрохимични процеси. Количеството на генерираната топлина е незначително и без практическа стойност поради малката сила на тока.</p><h3>ФИЗИКО-ХИМИЧНИ ПРОЦЕСИ ПРИ ГАЛВАНИЗАЦИЯ</h3><p>При включване на галваничната верига настъпва ориентация на йоните: отрицателните се насочват към анода, а положителните катиони — към катода. Достигайки полярните зони (електродите), те отдават своя пълнеж и се превръщат в електрически неактивни вещества с нови химични качества. Специфичното действие на галваничния ток се състои именно в промяната на съотношението на йонния състав в тъканите. В резултат на електролитната дисоциация се отключват следните физико-химични процеси:</p><h3>Поляризация</h3><p>Върху мембраните и клетъчните обвивки се натрупват противоположно заредени йони от двете им страни. Това създава потенциална разлика и поражда поляризационен ток, който е обратен на приложения. Този ток изчезва часове след апликацията. Счита се, че тези участъци са местата с най-голяма активност на тока (след епидермиса).</p><h3>Йонна асиметрия</h3><p>Представлява изменение на количественото и качественото съотношение на йоните в тъканите вследствие на преразпределението им към катода и анода. Като резултат от натрупването на катиони при катода и аниони при анода, настъпва промяна на кожното pH под електродите:</p><ul><li><strong>Под катода:</strong> образуват се <strong>основи </strong>и се увеличава количеството на <strong>ацетилхолина</strong>.</li><li><strong>Под анода:</strong> образуват се <strong>киселини </strong>и се засилва <strong>холинестеразната активност</strong>.</li></ul><p>При въздействие с анода нервната мембрана се хиперполяризира (външната ѝ страна се натоварва с излишък от положителни йони), което води до потискане на възбуждението — състояние, известно като <strong>анелектротонус</strong>. При дразнене с катода нервната мембрана се деполяризира — <strong>кателектротонус</strong>.</p><h3>ЗОНИ НА ВЪЗДЕЙСТВИЕ ПРИ ГАЛВАНИЗАЦИЯ</h3><p>Под въздействието на галваничния ток в третираните тъкани се оформят три основни зони. </p><ul><li>Първата включва <strong>полярните зони</strong>, разположени непосредствено под електродите, където се наблюдават предимно явления на електролиза. </li><li>Втората зона са <strong>периполярните зони</strong>, които се характеризират с проява на хиперемия. </li><li>Третата зона обхваща <strong>интерполярните зони</strong>, разположени между електродите, при които е характерно <strong>повишаване на обмяната на веществата</strong>, подобряване на <strong>тъканната трофика </strong>и повишаване на <strong>клетъчния метаболизъм</strong>.</li></ul><h3>ФИЗИОЛОГИЧНИ ЕФЕКТИ</h3><p>Галваничният ток притежава няколко основни физиологични ефекта, които определят неговото терапевтично приложение:</p><ul><li><strong>Ексцитомоторен ефект:</strong> Предизвиква мускулна контракция чрез деполяризация на мускулното влакно или моторния нерв. Този ефект се проявява само при бърза промяна в силата на тока — при включване и изключване на веригата, но не и при постоянното му протичане.</li><li><strong>Аналгетичен ефект:</strong> Наблюдава се основно под положителния електрод (анода). Продължителното приложение на тока води до понижаване на тактилната и болева чувствителност на кожата.</li><li><strong>Хиперемия и трофичен ефект:</strong> Предизвиква повърхностна хиперемия, която е по-силно изразена под отрицателния електрод (катода), което подобрява храненето на тъканите.</li><li><strong>Термичен ефект:</strong> Поради използването на ток с много малка големина, генерираната топлина е слаба и не е водещ лечебен фактор.</li></ul><h3>АПЛИКАЦИОННА ТЕХНИКА И ПОДГОТОВКА</h3><p>За правилното провеждане на процедурата е необходимо използването на електроди в добро състояние (изработени от цинк, калай или каучук), които трябва да са <strong>идеално плоски </strong>за осигуряване на плътен контакт. Електродите задължително се поставят в <strong>хидрофилни бархетни възглавнички</strong>, които са предварително намокрени и изцедени. Тези възглавнички трябва да са с малко по-голям размер от електродите и да се изпират след всяка употреба за отстраняване на продуктите от електролизата. Проводниците на апарата са цветово означени: <span style="color: rgb(255, 0, 0)"><strong>плюс </strong></span>(<span style="color: rgb(255, 0, 0)"><strong>анод</strong></span>) в <span style="color: rgb(255, 0, 0)"><strong>червено </strong></span>и <strong>минус </strong>(<strong>катод</strong>) в <strong>черно</strong>.</p><p>Преди процедурата кожата на пациента се почиства от мазнини и потна секреция със слаб спиртен разтвор. Областта на апликация се оглежда за екскориации или други афекции, които трябва задължително да бъдат покрити с изолираща материя, за да се предотврати концентрация на тока в тези  области и последващо химично изгаряне.</p><h3>ПАРАМЕТРИ НА ПРОЦЕДУРАТА</h3><p>При определяне на рецептурата са важни два основни параметъра:</p><ol><li><strong>Доза:</strong> Препоръчителната плътност на тока не трябва да надвишава 0,1 mA/cm<sup>2</sup>. Интензитетът се покачва постепенно в началото на процедурата, като се <strong>ръководим от усещанията на пациента</strong>. След няколко минути е възможно леко повишаване на силата на тока поради намаляващото съпротивление на кожата.</li><li><strong>Продължителност:</strong> Обикновено една процедура трае между 20 и 30 минути, като са необходими няколко минути в началото, за да може правият ток да преодолее кожната бариера.</li></ol><h3>ПОКАЗАНИЯ И ПРОТИВОПОКАЗАНИЯ</h3><h4>Показания </h4><p>Галванизацията има обширни показания поради своите аналгетични, трофични и противовъзпалителни ефекти.</p><h4>Противопоказания</h4><p>Процедурата обаче е противопоказана при наличие на метал в тъканите, фебрилни състояния, хеморагии, гнойни процеси, бременност, наличие на пейсмейкър или тумори. Анестезията или хипестезията в третираната зона се считат за относителни противопоказания поради риск от изгаряне.</p><blockquote><p>ВНИМАНИЕ! ОПАСНОСТ ОТ ИЗГАРЯНЕ!</p></blockquote><h3>НАЧИНИ НА ПРИЛОЖЕНИЕ И МЕТОДИКИ</h3><p>Галваничният ток може да се прилага по три начина: </p><ul><li><strong>Стабилна галванизация</strong> -<strong> </strong><p>електродите са фиксирани върху тялото, токът </p><p>протича непрекъснато.</p></li><li><strong>Ритмична галванизация  </strong>-<strong> </strong><p>електродите са фиксирани върху тялото, токът се </p><p>подава ритмично през определени паузи.</p></li><li><strong>Лабилна галванизация </strong>-<strong> </strong><p>от източника протича непрекъснат ток, но активният </p><p>електрод е подвижен.</p></li></ul><p>Според разположението на електродите се различават <strong>напречна</strong>, <strong>напречно</strong>-<strong>диагонална </strong>или <strong>надлъжна методика</strong>. </p><p>Когато електродите са с различна големина, за <strong>активен електрод</strong> се счита по-малкият, тъй като в него се концентрират силовите линии. Той се поставя върху зоната, изискваща най-силно въздействие, докато по-големият (<strong>индиферентен</strong>) електрод се позиционира на неутрално място.</p><h2>Методики за общо въздействие</h2><h3>Методика на Вермел</h3><p>Тя намира широко приложение при състояния на невроза, прогресивна мускулна дистрофия и рахит. Методиката е особено ефективна и в периода на възстановяване след различни видове интоксикации.<img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036331473-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036331473-image.png" data-width="100" data-align="center" style="width: 183px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><h3>Галванична вана</h3><p>Галваничната вана е изключително подходяща при лечение на периферни парализи, дегенеративни ставни заболявания или хронични възпалителни процеси на ставите, като осигурява цялостно и равномерно въздействие върху засегнатите области.<img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036364912-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036364912-image.png" data-width="100" data-align="center" style="width: 262px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><h2>Рефлекторни методики</h2><h3>Яка на Щербак</h3><p>Тази специфична методика съчетава местно и мощно рефлекторно въздействие върху организма. Прилага се при състояния на невроза, хипертонична болест, мигрена и язвена болест. В областта на неврологията се използва активно за третиране на остеохондроза и радикулопатии в цервикалния отдел на гръбначния стълб.<img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036478777-image.png" alt="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036478777-image.png" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036478777-image.png" data-width="100" data-align="center" style="width: 225px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><h3>Гащета на Щербак</h3><p>Прилага се при лечение на нощно напикаване (енуреза) при деца, както и при цистити и простатити. Прилага се също при възпалителни процеси на яйчниците и тръбите (аднексити), а при мъжете — в случаи на импотентност.<img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036485500-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036485500-image.png" data-width="100" data-align="center" style="width: 286px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><h3>Интраназална галванизация</h3><p>Използва се за целенасочено повлияване на инервацията и подобряване на кръвоснабдяването в областта на бронхите, като достъпът се осъществява чрез лигавицата на носа.<img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036506102-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036506102-image.png" data-width="100" data-align="center" style="width: 340px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><h3>Галванизация на млечните жлези</h3><p>Тази методика има за цел да стимулира секреторната функция на жлезите, както и за отдалечени ефекти върху половите органи в малкия таз, като помага при лечение на метрорагии, менорагии и импотентност.<img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036516610-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036516610-image.png" data-width="100" data-align="center" style="width: 283px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><h2>Локални методики</h2><h3>Полумаска на Бергоние</h3><p>Тя е основно средство при неврит на n. facialis и n. trigeminus. Намира приложение и при лечение на артропатия на темпоромандибуларната става.<img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036557010-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036557010-image.png" data-width="100" data-align="center" style="width: 308px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><h3>Трансцеребрална галванизация по Бургиньон</h3><p>Използва се при комплексното лечение на болест на Паркинсон, състояния след прекарани инсулти, енцефалити и менингити. Ефективна е и при терапията на хронични главоболия от различен произход.<img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036587161-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036587161-image.png" data-width="100" data-align="center" style="width: 359px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><h3>Методика за въздействие върху определена става</h3><p>При локално въздействие върху ставите по принцип се използват електроди с еднакви размери, които се разполагат напречно на ставата. За по-прецизно лечение на малките стави на крайниците (китки, глезени, стъпала) е изключително целесъобразно използването на камерни вани.<img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036618382-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036618382-image.png" data-width="100" data-align="center" style="width: 246px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><h3>Методика за въздействие върху определен нерв</h3><p>При тази методика електродите се разполагат надлъжно по анатомичното протежение на съответния нерв. Например, за n. ischiadicus съществуват следните варианти на приложение:</p><ul><li>Единият електрод се поставя в поясно-кръстната област (на страната на увреждането), а вторият се позиционира върху проекцията на нерва в седалищната гънка.</li><li>Единият електрод се поставя на предната повърхност на бедрото, а вторият — на задната повърхност.</li><li>Единият електрод се разполага в областта на седалищната гънка, а вторият — в задколянната ямка.</li></ul><p>По аналогичен начин се изграждат схемите за въздействие и върху други нерви като n. femoralis, n. tibialis и n. peroneus.</p><img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036642184-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775036642184-image.png" data-width="100" data-align="center" style="width: 267px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"><hr><h1 style="text-align: center">ЕЛЕКТРОФОРЕЗА</h1><p>Електрофорезата е електролечебен метод, при който в организма се въвеждат лекарствени вещества чрез използването на галваничен ток. За да бъде успешно реализиран този процес, основно изискване е лекарственото вещество да бъде <strong>електролитно дисоциирано</strong>. При преминаването на постоянен ток през електролитен разтвор йоните започват насочено движение — положително заредените йони се насочват към катода, а отрицателно заредените към анода. Основното правило при апликацията е, че <strong>с всеки електрод се въвеждат само еднозначни на поляритета му йони</strong>.</p><h3>ПРОНИКВАНЕ И ДЕПОНИРАНЕ В ОРГАНИЗМА</h3><p>Лекарствените вещества проникват в тялото предимно през каналите на потните и мастните жлези. Първоначално те се отлагат основно в епидермиса и дермата, като достигат максимум до подкожната мастна тъкан. В тези слоеве се формират локални кожни депа, в които лекарството се задържа за различен период — от няколко денонощия (например при адреналин) до 15 дни. От тези депа медикаментът постепенно дифундира по лимфен и кръвен път, разнасяйки се в целия организъм. </p><p>Проницаемостта на тъканите е различна, като най-висока е тя при лигавиците. Следват кожата на корема, гърдите, раменния пояс, бедрата, подбедриците, китките и ходилата.</p><h3>ФАКТОРИ, ВЛИЯЕЩИ ВЪРХУ КОЛИЧЕСТВОТО НА ВЪВЕДЕНОТО ВЕЩЕСТВО</h3><p>Ефективността на въвеждането зависи от няколко ключови фактора:</p><ul><li><strong>pH на кожата:</strong> Киселата реакция на кожата намалява проницаемостта за катиони и улеснява проникването на аниони, докато алкалната реакция има обратен ефект.</li><li><strong>Разтворител:</strong> Най-подходящият разтворител за приготвяне на лекарствените разтвори е дестилираната вода.</li><li><strong>Концентрация:</strong> Количеството на въведените йони е правопропорционално на абсолютното съдържание на йони в разтвора, а не на степента на дисоциация.</li><li><strong>Сила на тока и време (Правило на Ипсер):</strong> Количеството вкарано вещество зависи от силата на тока и времето на действие. Важно е да се отбележи, че след 15-ата минута количеството на вкарваното вещество започва да намалява поради натрупването на „паразитни“ йони (водородни на анода и хидроксилни на катода).</li></ul><h3>ПРЕДИМСТВА ПРЕД ТРАДИЦИОННАТА ТЕРАПИЯ</h3><p>Електрофорезата предлага редица предимства в сравнение със стандартния прием на медикаменти:</p><ul><li><strong>Дълготрайно действие:</strong> Формирането на кожно депо осигурява бавно и равномерно усвояване на медикамента в продължение на няколко дни.</li><li><strong>Локално и рефлекторно въздействие:</strong> Лекарството може да се приложи директно в патологичното огнище, осигурявайки висока концентрация там, без да се натоварва целия организъм.</li><li><strong>Чистота на въздействието:</strong> Въвеждат се само активните йони, на които се разчита за терапевтичен ефект, като се избягват съпътстващите съставки на лекарството.</li><li><strong>Потенциран ефект:</strong> Лекарственото вещество действа на фона на физиологичните ефекти на галваничния ток, които засилват неговото действие.</li><li><strong>Защита на ГИТ:</strong> Избягва се преминаването на медикамента през стомашно-чревния тракт, което предотвратява неговото увреждане.</li></ul><h3>АПЛИКАЦИОННА ТЕХНИКА И ПРИМЕРИ</h3><p>Техниката на апликация е аналогична на тази при галванизацията. Разликата е, че върху хидрофилната възглавничка се поставя воден разтвор на медикамента или филтърна хартия, напоена с него. </p><p>Примери за приложение:</p><ul><li><strong>Бромна яка:</strong> Прилага се при неврастения.</li><li><strong>Йодна яка</strong>: Прилага се при неврастения и&nbsp;<p>при дисфункция на щитовидната жлеза.</p></li><li><strong>Новокаин или Лидокаин:</strong> При болкови синдроми.</li><li><strong>Калций (Ca++):</strong> При забавено образуване на калус след фрактури.</li><li><strong>Нивалин:</strong> При отпадна перифернонервна симптоматика.</li></ul><h3>ПОКАЗАНИЯ И ПРОТИВОПОКАЗАНИЯ</h3><p>Показанията за електрофореза произтичат от тези за галванизация, като се добавя фармакологичното действие на избраното лекарство. </p><p>Противопоказанията включват всички ограничения за галванизация (метали в тъканите, пейсмейкър, тумори, бременност, гнойни процеси и др.), като към тях се добавя и индивидуалната непоносимост или алергия към съответното лекарствено вещество.</p><style></p><p>    body { </p><p>      font-family: "Open Sans", Arial, sans-serif; </p><p>      max-width: 1200px; </p><p>      margin: 2rem auto; </p><p>      padding: 0 1rem; </p><p>      line-height: 1.6; </p><p>      color: #1f2937; </p><p>    }</p><p>    h1 { </p><p>      font-weight: 600; </p><p>      font-size: 1.5em;</p><p>      margin-top: 1.5em;</p><p>      margin-bottom: 0.5em;</p><p>      color: #3a5a40;</p><p>      border-bottom: 2px dashed #a3b18a;</p><p>      padding-bottom: 5px;</p><p>    }</p><p>    p { </p><p>      margin: 0.7em 0 1.5em 0; </p><p>      white-space: pre-wrap;</p><p>    }</p><p>    @media (max-width: 768px) {</p><p>      body { font-size: 16px; }</p><p>      h1 { font-size: 1.3em; }</p><p>    }</p><p>  </style>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+<script>
+renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true},
+    {left: '$', right: '$', display: false},
+    {left: '\\[', right: '\\]', display: true},
+    {left: '\\(', right: '\\)', display: false}
+  ],
+  throwOnError: false
+});
+</script>
+</body>
+</html>

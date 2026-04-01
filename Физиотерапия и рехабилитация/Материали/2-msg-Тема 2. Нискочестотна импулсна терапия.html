@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тема 2. Нискочестотна импулсна терапия</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <style>
+    body { 
+      font-family: "Open Sans", Arial, sans-serif; 
+      max-width: 1550px; 
+      margin: 0.5rem auto; 
+      padding: 0 1rem; 
+      line-height: 1.6; 
+      color: #1f2937; 
+    }
+    h1, h2, h3, h4 { 
+      font-weight: 600; 
+      margin-top: 0.7em;
+      margin-bottom: 0;
+      color: #588157;
+    }
+    h1 { font-size: 1.65em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; margin-bottom: 0; }
+    h4 { font-size: 1.05em; margin-bottom: 0; }
+    h1 + h2, h1 + h3, h1 + h4, h2 + h3, h2 + h4, h3 + h4 { margin-top: 0.1em; }
+    p { 
+      margin: 0.3em 0; 
+      white-space: pre-wrap;
+    }
+    hr {
+      margin: 0.45em 0 0.2em;
+    }
+    hr + h1,
+    hr + h2,
+    hr + h3,
+    hr + h4 {
+      margin-top: 0.2em;
+    }
+    hr + p,
+    hr + ul,
+    hr + ol,
+    hr + blockquote,
+    hr + pre,
+    hr + table {
+      margin-top: 0.08em;
+    }
+    p + ul, p + ol { margin-top: 0.2em; }
+    h1 + p, h2 + p, h3 + p, h4 + p,
+    h1 + ul, h2 + ul, h3 + ul, h4 + ul,
+    h1 + ol, h2 + ol, h3 + ol, h4 + ol { 
+      margin-top: 0; 
+    }
+    ul, ol { 
+      margin: 0.2em 0; 
+      padding-left: 1.5em; 
+      list-style-position: outside;
+    }
+    li { margin: 0.2em 0; }
+    li p {
+      margin: 0;
+      padding: 0;
+      display: inline;
+    }
+    li > ul, li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    ul ul, ul ol, ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    ul ul { list-style-type: circle; }
+    ul ul ul { list-style-type: square; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+    code { 
+      background: rgba(146, 64, 14, 0.1); 
+      padding: 2px 6px; 
+      border-radius: 3px; 
+      font-family: "Courier New", monospace; 
+      font-size: 0.9em; 
+    }
+    pre {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 12px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.5em 0;
+      font-family: "Courier New", monospace;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    blockquote {
+      border-left: 3px solid #588157;
+      padding-left: 1em;
+      margin: 0.5em 0;
+      font-style: italic;
+      color: #166534;
+    }
+    table { 
+      border-collapse: collapse; 
+      margin: 0.75em 0; 
+      width: 100%; 
+      table-layout: auto;
+    }
+    th, td { 
+      border: 1px solid rgba(2, 2, 2, 0.2);
+      padding: 6px 10px; 
+      text-align: left; 
+      vertical-align: top;
+      height: 24px;
+      line-height: 1.2;
+    }
+    thead th { 
+      background: rgba(88, 129, 87, 0.13); 
+      font-weight: 600; 
+    }
+    tbody tr:nth-child(odd) { 
+      background: rgba(88, 129, 87, 0.06); 
+    }
+    /* Image alignment rules for exported content and md-viewer */
+    img[data-align="left"] {
+      display: block;
+      margin: 8px auto 8px 0;
+    }
+    img[data-align="center"] {
+      display: block;
+      margin: 8px auto;
+    }
+    img[data-align="right"] {
+      display: block;
+      margin: 8px 0 8px auto;
+    }
+    .audio-link-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0.2em 0;
+      max-width: 100%;
+      vertical-align: middle;
+    }
+    .audio-link-icon {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #588157;
+      border-radius: 999px;
+      background: #f0f7f0;
+      color: #2f5d50;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+    .audio-link-inline audio {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .audio-link-icon img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    a {
+      color: inherit; /* Changed to inherit */
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #74b673;
+    }
+    /* Keep <p> tags inside list items on same line (as they appear in editor) */
+    li p {
+      margin: 0 !important;
+      padding: 0 !important;
+      display: inline !important;
+    }
+    /* Prevent nested list paragraph issues */
+    li > ul,
+    li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    /* Ensure list structure is clean */
+    ul ul, ul ol,
+    ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    @media (max-width: 768px) {
+      body {
+        margin: 0.5rem 0;
+        padding: 0 0.5rem;
+        font-size: 16px;
+      }
+      h1 { font-size: 1.65em; }
+      h2 { font-size: 1.3em; }
+      h3 { font-size: 1.1em; }
+      p { margin: 0.3em 0; }
+      ul, ol { padding-left: 1.5em; }
+      li { margin: 0.2em 0; }
+      table { font-size: 0.9em; }
+      th, td { padding: 6px 10px; }
+    }
+    .editor-note {
+      text-decoration: underline dotted #a3b18a;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      text-decoration-skip-ink: none;
+      cursor: help;
+      position: relative;
+    }
+    .note-tooltip {
+      display: none;
+      position: absolute;
+      background-color: #f0f7f0;
+      color: #1f2937;
+      border: 1px solid #588157;
+      border-radius: 4px;
+      padding: 8px 12px;
+      width: fit-content;
+      max-width: min(700px, calc(100vw - 20px));
+      max-height: calc(100vh - 20px);
+      overflow: auto;
+      box-sizing: border-box;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 10000;
+      font-size: 0.9em;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    .note-tooltip ul, .note-tooltip ol {
+      margin: 0 !important;
+      padding-left: 20px !important;
+    }
+    .note-tooltip li {
+      margin: 0 0 0.1em 0 !important;
+      padding: 0 !important;
+      line-height: 1.2 !important;
+    }
+    .note-tooltip li:last-child {
+      margin-bottom: 0 !important;
+    }
+    .note-tooltip .note-table-scroll {
+      overflow-x: auto;
+      margin: 0.3em 0;
+    }
+    .note-tooltip table {
+      border-collapse: collapse;
+      width: max-content;
+      max-width: 100%;
+      min-width: 220px;
+      background: #ffffff;
+    }
+    .note-tooltip th,
+    .note-tooltip td {
+      border: 1px solid rgba(88, 129, 87, 0.35);
+      padding: 4px 8px;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .note-tooltip thead th {
+      background: rgba(88, 129, 87, 0.12);
+      font-weight: 600;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'note-tooltip';
+      document.body.appendChild(tooltip);
+
+      function parseNoteMarkdown(text) {
+        if (!text) return '';
+        
+        const splitTableCells = function(line) {
+          return String(line || '')
+            .trim()
+            .replace(/^\|/, '')
+            .replace(/\|$/, '')
+            .split('|')
+            .map(function(cell) { return cell.trim(); });
+        };
+
+        const isTableSeparatorLine = function(line) {
+          const cells = splitTableCells(line);
+          return cells.length > 0 && cells.every(function(cell) {
+            return /^:?-{3,}:?$/.test(cell);
+          });
+        };
+
+        const getTableAlignment = function(cell) {
+          if (/^:-{3,}:$/.test(cell)) return 'center';
+          if (/^-{3,}:$/.test(cell)) return 'right';
+          if (/^:-{3,}$/.test(cell)) return 'left';
+          return '';
+        };
+
+        let lines = text.split('\n');
+        let html = [];
+        let stack = [];
+        
+        for (let i = 0; i < lines.length; i++) {
+          let line = lines[i];
+          
+          let indentMatch = line.match(/^(\s*)/);
+          let indent = indentMatch ? indentMatch[1].length : 0;
+          let content = line.trim();
+
+          const nextLine = i + 1 < lines.length ? lines[i + 1].trim() : '';
+          const maybeTableHeader = content.includes('|') && splitTableCells(content).length >= 2;
+          const maybeTableSeparator = nextLine.includes('|') && isTableSeparatorLine(nextLine);
+
+          if (maybeTableHeader && maybeTableSeparator) {
+            while (stack.length > 0) {
+              let closed = stack.pop();
+              html.push('</' + closed.type + '>');
+            }
+
+            const headerCells = splitTableCells(content);
+            const alignCells = splitTableCells(nextLine);
+
+            html.push('<div class="note-table-scroll"><table><thead><tr>');
+            headerCells.forEach(function(cell, idx) {
+              const align = getTableAlignment(alignCells[idx] || '');
+              const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+              html.push('<th' + alignAttr + '>' + cell + '</th>');
+            });
+            html.push('</tr></thead><tbody>');
+
+            i += 2;
+            while (i < lines.length) {
+              const rowLine = lines[i].trim();
+              if (!rowLine || !rowLine.includes('|')) break;
+              if (isTableSeparatorLine(rowLine)) {
+                i++;
+                continue;
+              }
+
+              const rowCells = splitTableCells(rowLine);
+              if (rowCells.length === 0) {
+                i++;
+                continue;
+              }
+
+              html.push('<tr>');
+              rowCells.forEach(function(cell, idx) {
+                const align = getTableAlignment(alignCells[idx] || '');
+                const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+                html.push('<td' + alignAttr + '>' + cell + '</td>');
+              });
+              html.push('</tr>');
+              i++;
+            }
+
+            html.push('</tbody></table></div>');
+            i--;
+            continue;
+          }
+          
+          let isUl = /^[-*]\s+(.+)/.test(content);
+          let isOl = /^\d+\.\s+(.+)/.test(content);
+          
+          if (isUl || isOl) {
+            let listType = isUl ? 'ul' : 'ol';
+            let match = isUl ? content.match(/^[-*]\s+(.+)/) : content.match(/^\d+\.\s+(.+)/);
+            let itemText = match[1];
+            
+            if (stack.length === 0) {
+              stack.push({ type: listType, indent: indent });
+              html.push('<' + listType + '>');
+            } else {
+              let last = stack[stack.length - 1];
+              
+              if (indent > last.indent) {
+                stack.push({ type: listType, indent: indent });
+                html.push('<' + listType + '>');
+              } else if (indent < last.indent) {
+                while (stack.length > 0 && stack[stack.length - 1].indent > indent) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                }
+                if (stack.length === 0 || stack[stack.length - 1].indent !== indent) {
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                } else if (stack[stack.length - 1].type !== listType) {
+                   let closed = stack.pop();
+                   html.push('</' + closed.type + '>');
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                }
+              } else {
+                if (last.type !== listType) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                  stack.push({ type: listType, indent: indent });
+                  html.push('<' + listType + '>');
+                }
+              }
+            }
+            html.push('<li>' + itemText + '</li>');
+          } else {
+            if (content !== '') {
+               while (stack.length > 0) {
+                 let closed = stack.pop();
+                 html.push('</' + closed.type + '>');
+               }
+            }
+            if (/^#{1,4}\s+/.test(content)) {
+              const headingMatch = content.match(/^(#{1,4})\s+(.+)$/);
+              if (headingMatch) {
+                const level = headingMatch[1].length;
+                html.push('<h' + level + '>' + headingMatch[2] + '</h' + level + '>');
+              }
+            } else if (content) {
+              html.push(content + '<br>');
+            } else {
+              html.push('<br>');
+            }
+          }
+        }
+        
+        while (stack.length > 0) {
+          let closed = stack.pop();
+          html.push('</' + closed.type + '>');
+        }
+        
+        let result = html.join('')
+          .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/__(.+?)__/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>')
+          .replace(/_(.+?)_/g, '<em>$1</em>')
+          .replace(/`(.+?)`/g, '<code>$1</code>')
+          .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
+        
+        result = result
+          .replace(/<br><ul>/g, '<ul>')
+          .replace(/<br><ol>/g, '<ol>')
+          .replace(/</ul><br>/g, '</ul>')
+          .replace(/</ol><br>/g, '</ol>');
+        
+        return result;
+      }
+
+      document.body.addEventListener('mouseover', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          const note = e.target.dataset.note;
+          if (note) {
+            tooltip.innerHTML = parseNoteMarkdown(note);
+            tooltip.style.display = 'block';
+            const rect = e.target.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+            const pageX = window.scrollX || window.pageXOffset;
+            const pageY = window.scrollY || window.pageYOffset;
+            const maxLeft = pageX + window.innerWidth - tooltipRect.width - 10;
+            const minLeft = pageX + 10;
+
+            let left = rect.left + pageX;
+            if (left > maxLeft) left = maxLeft;
+            if (left < minLeft) left = minLeft;
+
+            let top = rect.bottom + pageY + 6;
+            const maxTop = pageY + window.innerHeight - tooltipRect.height - 10;
+            if (top > maxTop) {
+              top = rect.top + pageY - tooltipRect.height - 6;
+            }
+            if (top < pageY + 10) top = pageY + 10;
+
+            tooltip.style.left = left + 'px';
+            tooltip.style.top = top + 'px';
+          }
+        }
+      });
+
+      document.body.addEventListener('mouseout', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          setTimeout(() => {
+            if (!tooltip.matches(':hover')) {
+              tooltip.style.display = 'none';
+            }
+          }, 100);
+        }
+      });
+
+      tooltip.addEventListener('mouseleave', function() {
+        tooltip.style.display = 'none';
+      });
+    });
+  </script>
+</head>
+<body>
+<h1 style="text-align: center">НИСКОЧЕСТОТНА ИМПУЛСНА ТЕРАПИЯ</h1><h2>ОБЩА ХАРАКТЕРИСТИКА И ВИДОВЕ ТОКОВЕ</h2><p>Нискочестотните импулсни токове се характеризират с честота от 1 до 800 Hz и могат да бъдат моно- или биполярни с различна форма на импулса. Монополярните токове променят напрежението си периодично, но запазват постоянна посока. Класически прототип на тези токове е фарадичният ток — биполярен ток с малка продължителност (1 ms), островърха форма и честота между 50 и 100 Hz. При преминаване през тъканите той не предизвиква електролиза, а неговият основен ефект е дразнещото действие върху нервно-мускулния апарат. За разлика от галваничния ток, при който мускулното съкращение става при включване и изключване, при фарадичния ток то се осъществява през цялото време на протичането му.</p><h2>РЕАКЦИИ ПРИ ДРАЗНЕНЕ И ЧЕСТОТНИ ДИАПАЗОНИ</h2><p>Реакциите на мускула зависят пряко от честотата на приложеното дразнене:</p><ul><li><strong>1-10 Hz:</strong> Наблюдават се единични клонични съкращения, като след всяко от тях следва фаза на пълна релаксация.</li><li><strong>10-30 Hz:</strong> Проявяват се клонични съкращения, при които всеки следващ импулс настъпва преди мускулът да се е отпуснал напълно.</li><li><strong>50-100 Hz:</strong> Постига се трайно тетанично съкращение, при което мускулът остава в състояние на тетанус през цялото време на въздействието.</li></ul><p>Съвременната практика използва неофарадични токове, чиито параметри могат да бъдат прецизно регулирани според нуждите на пациента.</p><h2>КЛИНИЧНИ ПАРАМЕТРИ ПРИ ПРИЛАГАНЕ</h2><p>При провеждането на нискочестотна импулсна терапия се подбират специфични параметри, съобразени с индивидуалното състояние на пациента и състоянието на неговия нервно-мускулен апарат:</p><ul><li><strong>Големина (сила) на тока:</strong> Измерва се в милиампери (mА) и се определя спрямо <strong>реобазата </strong>на тъканите. Силата на тока трябва да бъде в оптимални граници. <p>Когато се цели потискащ ефект върху моторна, сетивна и </p><p>вегетативна възбудимост, силата на тока трябва да бъде прагова по </p><p>отношение на кожните рецептори (усет за леко боцкане) и подпрагова </p><p>по отношение на мускулното съкращение.</p></li><li><strong>Форма на тока:</strong> Може да бъде правоъгълна, триъгълна или експоненциална. Изборът зависи от способността за <p><strong>акомодационната способност</strong> на нервномускулния апарат</p>, която представлява "акт на свеждане на действащия дразнител към нула". <p>Акомодацията е характерна за миелиновите влакна.</p>  <p>При </p><p>лезия с последваща денервация, нервът загубва способността си да се </p><p>акомодира към бавно покачващи се импулси, т. е. изпада във </p><p>възбуждение, от което следва контракция на паретичния мускул, докато </p><p>близко разположените здрави мускули, при същия интензитет на тока </p><p>остават неактивни. От това следва важен за практиката извод, че </p><p>токовете с експоненциална и триъгълна форма, с голяма </p><p>продължителност и продължителен преден фронт, предизвикват </p><p>избирателно дразнене върху денервираните мускули, като </p><p>същевременно здравите остават неактивирани.</p></li></ul><ul><li><strong>Продължителност на импулса:</strong> Измерва се в милисекунди (ms) и се съобразява с <strong>хронаксията </strong>— времето, необходимо за предизвикване на прагов ефект при сила на тока от две реобази. При здрав човек това време е много кратко, но при увреждания на нерва се удължава значително. При състояния с повишена възбудимост се използват кратки импулси (0,05 до 0,50 ms), докато при отпадна симптоматика продължителността трябва да бъде увеличена.</li><li><strong>Продължителност на паузата:</strong> Този параметър е свързан с <strong>рефрактерната фаза</strong>, която е абсолютно необходима за протичането на химичните възстановителни процеси в мускула след всеки импулс. <p>Ако импулс попадне в </p><p>абсолютната рефрактерна фаза, той не отключва възбуждение. </p>При увреждане на нерва е необходим по-дълъг период за енергетично възстановяване, поради което се използват по-големи паузи между отделните импулси. Обикновено съотношението импулс към пауза варира от 1:2 до 1:6.</li><li><strong>Модулация:</strong> Позволява ритмичното извършване на електростимулациите в серии от импулси, като броят им може да варира от 5 до 30 в минута. Колкото<strong> по-тежка е увредата, толкова по-малък трябва да бъде броят на модулациите</strong>. <p>Когато </p><p>импулсите, включени в една серия не променят амплитудата си се касае за </p><p>групова модулация. Ако в една серия амплитудния пик варира от 0 до </p><p>даден максимум на напрежението и отново до 0 – амплитудна </p><p>модулация.</p></li></ul><p><img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775038037019-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775038037019-image.png" data-width="100" data-align="center" style="width: 901px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"></p><h2>ОСНОВНИ ФИЗИОЛОГИЧНИ ЕФЕКТИ НА НИСКОЧЕСТОТНИТЕ ИМПУЛСНИ ТОКОВЕ</h2><p>Основните физиологични ефекти, на чието лечебно действие се разчита при прилагането на нискочестотни импулсни токове, се изразяват в два основни аспекта: </p><h3>1. СТИМУЛИРАЩ ЕФЕКТ</h3><p>Стимулиращият ефект се проявява чрез няколко ключови механизма върху тъканите и системите на организма:</p><ul><li><strong>Ексцитомоторен ефект:</strong> Предизвиква се върху напречнонабраздената и гладката мускулатура.</li><li><strong>Ревулзивен и трофичен ефект:</strong> Подобрява трофиката на тъканите и улеснява венозния отток.</li><li><strong>Секреторен ефект:</strong> Стимулира секреторната функция на жлезите с вътрешна секреция.</li></ul><h4>Приложение при увреда на периферните нерви</h4><p>При тези състояния електростимулациите подобряват кръво- и лимфообращението на мускулите и тяхната трофика, като същевременно поддържат възбудимостта на дисталния участък на засегнатия нерв и стимулират регенерацията. Прилагат се <strong>импулси с малка честота</strong> /0,25 до 0,75 Hz при тотална денервация и 1-5-10 до 20-30 Hz при частична/, <strong>голяма продължителност</strong> /20-50-100-200ms, а при тотална денервация 300-600ms/, <strong>голяма пауза</strong> /2-3 пъти по-дълга от импулса, а при тотална денервация 4 до 6 пъти/ и <strong>експоненциална форма</strong>. </p><h4>Приложение при хипотрофии и атонии</h4><ul><li><strong>Инактивитетни хипотрофии:</strong> Рецептурата съдържа <strong>правоъгълни импулси с кратка продължителност </strong>(1-10 ms) и <strong>по-голяма честота</strong> (30-50 Hz).</li><li><strong>Атонии на гладката мускулатура:</strong> Електростимулациите се използват широко при постоперационни чревни атонии, атония на пикочния мехур, както и при атония на сфинктери и детрузори при инконтиненция на урината.</li></ul><h4>Специфични приложения и методики</h4><ul><li><strong>Слединсултни състояния:</strong> Извършва се електростимулация на релативно слабите мускули (антагонисти на спастичните) — екстензори на китката и пръстите, четириглав мускул на крака, фибуларна група и екстензори на пръстите. <p>Разчита се на </p><p>реципрочния механизъм, чрез който, стимулирайки слабите мускули на </p><p>паретичната страна, ще постигнем релаксация на спастичните им антагонисти.</p></li><li><strong>Сетивна симптоматика:</strong> Дразнещият ефект се използва при отпадна повърхностна и дълбока сетивност.</li><li><strong>Тъканни изменения:</strong> Поради ревулзивния и разнасящ ефект, токовете са показани при миогелози, посттравматични едеми, дегенеративни изменения в периферните стави и гръбначния стълб.</li><li><strong>Съдови заболявания:</strong> При облитериращи заболявания на периферните съдове стимулацията се прилага надлъжно на мускула в съответната област.</li></ul><h3>2. ИНХИБИРАЩ ЕФЕКТ</h3><p>Вторият основен ефект на нискочестотните импулсни токове е инхибиращият. Той намира най-голямо приложение в следните направления:</p><h4>По отношение на болката (Аналгезиращ ефект)</h4><p>Този ефект представлява процес на потискане, който се получава при ритмични въздействия с малка продължителност и честота в диапазона 80—100—250 Hz. Феноменът намира своята теоретична обосновка в <strong>Gate-теорията</strong> на Melzack и Wall (1965 г.):</p><ul><li><strong><span style="color: rgb(88, 129, 87)">Специфични влакна:</span></strong> Болковото усещане се пренася от тънки <strong>миелинизирани влакна </strong>(<strong>А-делта за остра болка</strong>) и <strong>немиелинизирани влакна </strong>(<strong>C за термална, механична изгаряща болка</strong>).</li><li><strong><span style="color: rgb(88, 129, 87)">Потискащи влакна:</span></strong> <strong>Дебелите миелинизирани влакна </strong>(<strong>А-бета</strong>) са в състояние да потиснат предаването на болковия импулс.</li><li><span style="color: rgb(88, 129, 87)"><strong>Substantia gelatinosa:</strong> </span>Двете групи влакна се събират в тази част на задните рога на гръбначния мозък, която контролира възприятието и потискането на болката. Болка се възприема само когато болковият импулс е по-силен от болкоуспокояващия.</li></ul><p>Практическото използване на този механизъм се осъществява чрез <strong>TENS</strong> (транскутанна електрична нервна стимулация). Тя се прилага директно в огнището на болката, в съответния дерматом или по хода на нерва, като големината на тока се контролира в диапазона 5—15 mА.</p><h4>По отношение на мускулния тонус и съдовата стена</h4><ul><li><strong>Тонолитичен ефект:</strong> Освен чрез реципрочна инервация, тонолиза се постига при директно въздействие върху спастичните мускули с честота от 100 до 250 Hz.</li><li><strong>Съдоразширяващ ефект:</strong> Нискочестотните токове оказват вазодилатиращ ефект с последващ хипотензивен такъв. Прилагат се токове с правоъгълна форма (0,5-1 ms, 100 Hz) в синукаротидната област (яка на Щербак) или в областта на бъбреците.</li></ul><h4>Противопоказания</h4><p>Това са пейсмейкьр, остри възпалителни процеси, инфекциозни заболявания и фебрилитет.</p><br><br><br><style></p><p>    body { </p><p>      font-family: "Open Sans", Arial, sans-serif; </p><p>      max-width: 1200px; </p><p>      margin: 2rem auto; </p><p>      padding: 0 1rem; </p><p>      line-height: 1.6; </p><p>      color: #1f2937; </p><p>    }</p><p>    h1 { </p><p>      font-weight: 600; </p><p>      font-size: 1.5em;</p><p>      margin-top: 1.5em;</p><p>      margin-bottom: 0.5em;</p><p>      color: #3a5a40;</p><p>      border-bottom: 2px dashed #a3b18a;</p><p>      padding-bottom: 5px;</p><p>    }</p><p>    p { </p><p>      margin: 0.7em 0 1.5em 0; </p><p>      white-space: pre-wrap;</p><p>    }</p><p>    @media (max-width: 768px) {</p><p>      body { font-size: 16px; }</p><p>      h1 { font-size: 1.3em; }</p><p>    }</p><p>  </style>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+<script>
+renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true},
+    {left: '$', right: '$', display: false},
+    {left: '\\[', right: '\\]', display: true},
+    {left: '\\(', right: '\\)', display: false}
+  ],
+  throwOnError: false
+});
+</script>
+</body>
+</html>

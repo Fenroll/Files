@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <style>
+    body { 
+      font-family: "Open Sans", Arial, sans-serif; 
+      max-width: 1550px; 
+      margin: 0.5rem auto; 
+      padding: 0 1rem; 
+      line-height: 1.6; 
+      color: #1f2937; 
+    }
+    h1, h2, h3, h4 { 
+      font-weight: 600; 
+      margin-top: 0.7em;
+      margin-bottom: 0;
+      color: #588157;
+    }
+    h1 { font-size: 1.65em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; margin-bottom: 0; }
+    h4 { font-size: 1.05em; margin-bottom: 0; }
+    h1 + h2, h1 + h3, h1 + h4, h2 + h3, h2 + h4, h3 + h4 { margin-top: 0.1em; }
+    p { 
+      margin: 0.3em 0; 
+      white-space: pre-wrap;
+    }
+    hr {
+      margin: 0.45em 0 0.2em;
+    }
+    hr + h1,
+    hr + h2,
+    hr + h3,
+    hr + h4 {
+      margin-top: 0.2em;
+    }
+    hr + p,
+    hr + ul,
+    hr + ol,
+    hr + blockquote,
+    hr + pre,
+    hr + table {
+      margin-top: 0.08em;
+    }
+    p + ul, p + ol { margin-top: 0.2em; }
+    h1 + p, h2 + p, h3 + p, h4 + p,
+    h1 + ul, h2 + ul, h3 + ul, h4 + ul,
+    h1 + ol, h2 + ol, h3 + ol, h4 + ol { 
+      margin-top: 0; 
+    }
+    ul, ol { 
+      margin: 0.2em 0; 
+      padding-left: 1.5em; 
+      list-style-position: outside;
+    }
+    li { margin: 0.2em 0; }
+    li p {
+      margin: 0;
+      padding: 0;
+      display: inline;
+    }
+    li > ul, li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    ul ul, ul ol, ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    ul ul { list-style-type: circle; }
+    ul ul ul { list-style-type: square; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+    code { 
+      background: rgba(146, 64, 14, 0.1); 
+      padding: 2px 6px; 
+      border-radius: 3px; 
+      font-family: "Courier New", monospace; 
+      font-size: 0.9em; 
+    }
+    pre {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 12px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.5em 0;
+      font-family: "Courier New", monospace;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    blockquote {
+      border-left: 3px solid #588157;
+      padding-left: 1em;
+      margin: 0.5em 0;
+      font-style: italic;
+      color: #166534;
+    }
+    table { 
+      border-collapse: collapse; 
+      margin: 0.75em 0; 
+      width: 100%; 
+      table-layout: auto;
+    }
+    th, td { 
+      border: 1px solid rgba(2, 2, 2, 0.2);
+      padding: 6px 10px; 
+      text-align: left; 
+      vertical-align: top;
+      height: 24px;
+      line-height: 1.2;
+    }
+    thead th { 
+      background: rgba(88, 129, 87, 0.13); 
+      font-weight: 600; 
+    }
+    tbody tr:nth-child(odd) { 
+      background: rgba(88, 129, 87, 0.06); 
+    }
+    /* Image alignment rules for exported content and md-viewer */
+    img[data-align="left"] {
+      display: block;
+      margin: 8px auto 8px 0;
+    }
+    img[data-align="center"] {
+      display: block;
+      margin: 8px auto;
+    }
+    img[data-align="right"] {
+      display: block;
+      margin: 8px 0 8px auto;
+    }
+    .audio-link-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0.2em 0;
+      max-width: 100%;
+      vertical-align: middle;
+    }
+    .audio-link-icon {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #588157;
+      border-radius: 999px;
+      background: #f0f7f0;
+      color: #2f5d50;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+    .audio-link-inline audio {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .audio-link-icon img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    a {
+      color: inherit; /* Changed to inherit */
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #74b673;
+    }
+    /* Keep <p> tags inside list items on same line (as they appear in editor) */
+    li p {
+      margin: 0 !important;
+      padding: 0 !important;
+      display: inline !important;
+    }
+    /* Prevent nested list paragraph issues */
+    li > ul,
+    li > ol {
+      margin: 0.15em 0 0 0;
+      padding-left: 1.5em;
+    }
+    /* Ensure list structure is clean */
+    ul ul, ul ol,
+    ol ul, ol ol {
+      margin-top: 0.1em;
+      padding-left: 1.5em;
+    }
+    @media (max-width: 768px) {
+      body {
+        margin: 0.5rem 0;
+        padding: 0 0.5rem;
+        font-size: 16px;
+      }
+      h1 { font-size: 1.65em; }
+      h2 { font-size: 1.3em; }
+      h3 { font-size: 1.1em; }
+      p { margin: 0.3em 0; }
+      ul, ol { padding-left: 1.5em; }
+      li { margin: 0.2em 0; }
+      table { font-size: 0.9em; }
+      th, td { padding: 6px 10px; }
+    }
+    .editor-note {
+      text-decoration: underline dotted #a3b18a;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      text-decoration-skip-ink: none;
+      cursor: help;
+      position: relative;
+    }
+    .note-tooltip {
+      display: none;
+      position: absolute;
+      background-color: #f0f7f0;
+      color: #1f2937;
+      border: 1px solid #588157;
+      border-radius: 4px;
+      padding: 8px 12px;
+      width: fit-content;
+      max-width: min(700px, calc(100vw - 20px));
+      max-height: calc(100vh - 20px);
+      overflow: auto;
+      box-sizing: border-box;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 10000;
+      font-size: 0.9em;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    .note-tooltip ul, .note-tooltip ol {
+      margin: 0 !important;
+      padding-left: 20px !important;
+    }
+    .note-tooltip li {
+      margin: 0 0 0.1em 0 !important;
+      padding: 0 !important;
+      line-height: 1.2 !important;
+    }
+    .note-tooltip li:last-child {
+      margin-bottom: 0 !important;
+    }
+    .note-tooltip .note-table-scroll {
+      overflow-x: auto;
+      margin: 0.3em 0;
+    }
+    .note-tooltip table {
+      border-collapse: collapse;
+      width: max-content;
+      max-width: 100%;
+      min-width: 220px;
+      background: #ffffff;
+    }
+    .note-tooltip th,
+    .note-tooltip td {
+      border: 1px solid rgba(88, 129, 87, 0.35);
+      padding: 4px 8px;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .note-tooltip thead th {
+      background: rgba(88, 129, 87, 0.12);
+      font-weight: 600;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'note-tooltip';
+      document.body.appendChild(tooltip);
+
+      function parseNoteMarkdown(text) {
+        if (!text) return '';
+        
+        const splitTableCells = function(line) {
+          return String(line || '')
+            .trim()
+            .replace(/^\|/, '')
+            .replace(/\|$/, '')
+            .split('|')
+            .map(function(cell) { return cell.trim(); });
+        };
+
+        const isTableSeparatorLine = function(line) {
+          const cells = splitTableCells(line);
+          return cells.length > 0 && cells.every(function(cell) {
+            return /^:?-{3,}:?$/.test(cell);
+          });
+        };
+
+        const getTableAlignment = function(cell) {
+          if (/^:-{3,}:$/.test(cell)) return 'center';
+          if (/^-{3,}:$/.test(cell)) return 'right';
+          if (/^:-{3,}$/.test(cell)) return 'left';
+          return '';
+        };
+
+        let lines = text.split('\n');
+        let html = [];
+        let stack = [];
+        
+        for (let i = 0; i < lines.length; i++) {
+          let line = lines[i];
+          
+          let indentMatch = line.match(/^(\s*)/);
+          let indent = indentMatch ? indentMatch[1].length : 0;
+          let content = line.trim();
+
+          const nextLine = i + 1 < lines.length ? lines[i + 1].trim() : '';
+          const maybeTableHeader = content.includes('|') && splitTableCells(content).length >= 2;
+          const maybeTableSeparator = nextLine.includes('|') && isTableSeparatorLine(nextLine);
+
+          if (maybeTableHeader && maybeTableSeparator) {
+            while (stack.length > 0) {
+              let closed = stack.pop();
+              html.push('</' + closed.type + '>');
+            }
+
+            const headerCells = splitTableCells(content);
+            const alignCells = splitTableCells(nextLine);
+
+            html.push('<div class="note-table-scroll"><table><thead><tr>');
+            headerCells.forEach(function(cell, idx) {
+              const align = getTableAlignment(alignCells[idx] || '');
+              const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+              html.push('<th' + alignAttr + '>' + cell + '</th>');
+            });
+            html.push('</tr></thead><tbody>');
+
+            i += 2;
+            while (i < lines.length) {
+              const rowLine = lines[i].trim();
+              if (!rowLine || !rowLine.includes('|')) break;
+              if (isTableSeparatorLine(rowLine)) {
+                i++;
+                continue;
+              }
+
+              const rowCells = splitTableCells(rowLine);
+              if (rowCells.length === 0) {
+                i++;
+                continue;
+              }
+
+              html.push('<tr>');
+              rowCells.forEach(function(cell, idx) {
+                const align = getTableAlignment(alignCells[idx] || '');
+                const alignAttr = align ? ' style="text-align:' + align + ';"' : '';
+                html.push('<td' + alignAttr + '>' + cell + '</td>');
+              });
+              html.push('</tr>');
+              i++;
+            }
+
+            html.push('</tbody></table></div>');
+            i--;
+            continue;
+          }
+          
+          let isUl = /^[-*]\s+(.+)/.test(content);
+          let isOl = /^\d+\.\s+(.+)/.test(content);
+          
+          if (isUl || isOl) {
+            let listType = isUl ? 'ul' : 'ol';
+            let match = isUl ? content.match(/^[-*]\s+(.+)/) : content.match(/^\d+\.\s+(.+)/);
+            let itemText = match[1];
+            
+            if (stack.length === 0) {
+              stack.push({ type: listType, indent: indent });
+              html.push('<' + listType + '>');
+            } else {
+              let last = stack[stack.length - 1];
+              
+              if (indent > last.indent) {
+                stack.push({ type: listType, indent: indent });
+                html.push('<' + listType + '>');
+              } else if (indent < last.indent) {
+                while (stack.length > 0 && stack[stack.length - 1].indent > indent) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                }
+                if (stack.length === 0 || stack[stack.length - 1].indent !== indent) {
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                } else if (stack[stack.length - 1].type !== listType) {
+                   let closed = stack.pop();
+                   html.push('</' + closed.type + '>');
+                   stack.push({ type: listType, indent: indent });
+                   html.push('<' + listType + '>');
+                }
+              } else {
+                if (last.type !== listType) {
+                  let closed = stack.pop();
+                  html.push('</' + closed.type + '>');
+                  stack.push({ type: listType, indent: indent });
+                  html.push('<' + listType + '>');
+                }
+              }
+            }
+            html.push('<li>' + itemText + '</li>');
+          } else {
+            if (content !== '') {
+               while (stack.length > 0) {
+                 let closed = stack.pop();
+                 html.push('</' + closed.type + '>');
+               }
+            }
+            if (/^#{1,4}\s+/.test(content)) {
+              const headingMatch = content.match(/^(#{1,4})\s+(.+)$/);
+              if (headingMatch) {
+                const level = headingMatch[1].length;
+                html.push('<h' + level + '>' + headingMatch[2] + '</h' + level + '>');
+              }
+            } else if (content) {
+              html.push(content + '<br>');
+            } else {
+              html.push('<br>');
+            }
+          }
+        }
+        
+        while (stack.length > 0) {
+          let closed = stack.pop();
+          html.push('</' + closed.type + '>');
+        }
+        
+        let result = html.join('')
+          .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/__(.+?)__/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>')
+          .replace(/_(.+?)_/g, '<em>$1</em>')
+          .replace(/`(.+?)`/g, '<code>$1</code>')
+          .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
+        
+        result = result
+          .replace(/<br><ul>/g, '<ul>')
+          .replace(/<br><ol>/g, '<ol>')
+          .replace(/</ul><br>/g, '</ul>')
+          .replace(/</ol><br>/g, '</ol>');
+        
+        return result;
+      }
+
+      document.body.addEventListener('mouseover', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          const note = e.target.dataset.note;
+          if (note) {
+            tooltip.innerHTML = parseNoteMarkdown(note);
+            tooltip.style.display = 'block';
+            const rect = e.target.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+            const pageX = window.scrollX || window.pageXOffset;
+            const pageY = window.scrollY || window.pageYOffset;
+            const maxLeft = pageX + window.innerWidth - tooltipRect.width - 10;
+            const minLeft = pageX + 10;
+
+            let left = rect.left + pageX;
+            if (left > maxLeft) left = maxLeft;
+            if (left < minLeft) left = minLeft;
+
+            let top = rect.bottom + pageY + 6;
+            const maxTop = pageY + window.innerHeight - tooltipRect.height - 10;
+            if (top > maxTop) {
+              top = rect.top + pageY - tooltipRect.height - 6;
+            }
+            if (top < pageY + 10) top = pageY + 10;
+
+            tooltip.style.left = left + 'px';
+            tooltip.style.top = top + 'px';
+          }
+        }
+      });
+
+      document.body.addEventListener('mouseout', function(e) {
+        if (e.target.classList.contains('editor-note')) {
+          setTimeout(() => {
+            if (!tooltip.matches(':hover')) {
+              tooltip.style.display = 'none';
+            }
+          }, 100);
+        }
+      });
+
+      tooltip.addEventListener('mouseleave', function() {
+        tooltip.style.display = 'none';
+      });
+    });
+  </script>
+</head>
+<body>
+<h1 style="text-align: center">МАГНИТОТЕРАПИЯ</h1><h2>Обща характеристика и физични основи</h2><p>Магнитните полета са естествена част от човешкия организъм, а самият човек е постоянно потопен в магнитното поле на Земята. Геомагнитното поле изпълнява защитна функция, като не пропуска вредните йонизиращи лъчения и космическите частици. </p><p>Източниците на магнитно поле, използвани в практиката, биват два вида:</p><ul><li><strong>Естествени:</strong> Желязна руда.</li><li><strong>Изкуствени (индуктори):</strong> Създават се на принципа, че електричният ток генерира магнитно поле около себе си. Биват индуктори-соленоиди и индуктори-електромагнити.</li></ul><p>Магнитното поле се характеризира чрез два основни параметъра:</p><ol><li><strong>Напрегнатост:</strong> Измерва се в<strong> А/m</strong> (по системата SI) или в <strong>Ое </strong>(Оерщеда, по системата CGS), като 1 Ое = 79,58 А/m.</li><li><strong>Магнитна индукция:</strong> Характеризира полето в тъканите и се измерва в <strong>Т</strong> (Тeсла по системата SI) или в <strong>Gs</strong> (Гаус по системата CGS), като 1 мТ = 10 Gs.</li></ol><h2>Видове магнитни полета и полярност</h2><ul><li><strong>Постоянни:</strong> Непроменящи се във времето и пространството.</li><li><strong>Променливи:</strong> </li><ul><li><strong>Синусоидални </strong>- <p>чиято характеристика е синусоидална функция на </p><p>времето.</p></li><li><strong>Пулсиращи </strong>- <p>периодично изменящо се МП, без промяна в </p><p>направлението.</p></li><li><strong>Импулсни </strong>- <p>с импулсен характер.</p></li></ul></ul><p>Във физиотерапията се използват: основно постоянното МП и променливото синусоидално МП, прилагани в непрекъснат или импулсен режим. </p><p>Важно значение има полярността на магнита:</p><ul><li><strong>Северен полюс (отрицателна полярност):</strong> Действа разпръскващо на енергията, има охлаждащ и успокояващ ефект върху организма.</li><li><strong>Южен полюс (положителна полярност):</strong> Концентрира енергията, има затоплящо и възбуждащо действие.</li></ul><h2>Механизъм на действие</h2><p>Макар механизмът на въздействие на магнитотерапията да не е напълно изяснен, съществуват над 20 хипотези. Сред най-вероятните са:</p><ul><li><strong>Изменения в свойствата на водната молекула в тялото и преминаването на водата от поляризирано в неполяризирано състояние</strong>.</li><li><strong>Активиране на биологичното окисление</strong> в митохондриите, което влияе върху скоростта на синтеза на АТФ.</li><li><strong>Забавяне на биохимичните реакции</strong>, което повлиява процесите на остаряване на клетките.</li><li><strong>Прилагане на теорията на Селие за адаптацията</strong>.</li></ul><h2>Въздействие върху човешкия организъм</h2><p>Магнитотерапията оказва многостранно влияние върху различните системи в тялото, като трите най-важни ефекта са <strong><u>!</u></strong><strong><u>обезболяващ, противовъзпалителен и трофичен!</u></strong>.</p><ul><li>Най-значителното действие е <strong>успокояването на болката</strong>. Особено при болки вследствие на травми. Изключително добър ефект има при повлияване на болевата и възпалителна компонента при различни видове артрити, артрозна болест, радикулерни, дискогенни и др. синдроми.</li><li>Специфично действие върху хемостазата. При слабо магнитно поле <strong>хипокоагулационния ефект </strong>може да бъде променен в посока на хиперкоагулация.</li><li><strong>Противовъзпалително действие</strong>. Магнитното поле предизвиква активация на глюко- и минералкортикоидната функция на надбъбрецитеи щитовидната жлеза. Повишава се имунологичната реактивност и микроциркулацията. Повишава се общата резистентност на организма и намалява заболеваемостта от различни вирусни и бактериални заболявания.</li><li>Върху НС <strong>засилва задръжните процеси в ЦНС</strong>, като най-чувствителни към това са хипоталамусът и кората. Магнитното поле стимулира или потиска освобождаването на невромедиаторните субстанции и по този начин повлиява и болевата сетивност. Освен това магнитното поле стимулира парасимпатикуса, което води до повишено отделяне на хистамин.</li><li><strong>Противооточно, обезболяващо и стимулиращо регенерацията на тъканите</strong> – особено при болни с <strong>шийна остеохондроза </strong>и притискане на нервни коренчета. Повлиява изключително добре клиниката при диабетни полиневрити, радикулити, фантомни болки и др.</li><li>Върху ставите <strong>подобрява смазващата функция на синовиалната течност</strong>, забавя остаряването, подпомага бързото зарастване на фрактурите.</li><li>Върху ССС води до снижаване на бета-адренергичните реакции и депонирането на катехоламините в миокарда. Магнитното поле води до <strong>меко хипотензивно действие</strong>.</li><li><strong>Подобрява </strong>съществено <strong>артериалното</strong>, <strong>венозното и капилярното кръвообръщение</strong>, повишава фибринолитичната активност и съдържанието на хепарина при Бюргер и атеросклеротични облитерации на крайниците.</li><li><strong>Подобрява метаболизма </strong>и особено обмяната на уреята, холестерола и въглехидратите, лекува безсънието и се използва също при различните видове затлъстявания.</li><li>Действа ефективно върху различни <strong>кожни заболявания </strong>като псориазис, екземи, алергии и др.</li><li>Отслабеното магнитно поле води до появата на <strong>остеопороза</strong>, като загубата на калций при същото заболяване може да бъде спряно чрез въздействие с магнитoтерапия.</li></ul><h2>Параметри на процедурата и клинично приложение</h2><p>Ефективността на лечението зависи от дозировката и режима на работа:</p><ul><li><strong>Продължителност:</strong> Курсът обикновено включва 10–15 до 30 процедури с времетраене от 6 до 30 минути.</li><li><strong>Малки мощности (4–40 Ое):</strong> Имат стимулиращо действие и се използват при остри възпалителни процеси.</li><li><strong>Високи стойности (50–500 Ое):</strong> Действат потискащо и са подходящи за хронични възпаления.</li><li><strong>Режим:</strong> Импулсният режим засилва действието на магнитотерапията.</li></ul><p>Магнитотерапията подобрява метаболизма (обмяна на уреята, холестерола и въглехидратите) и се използва при затлъстяване и безсъние.</p><h2>Противопоказания и странични ефекти</h2><p>Прилагането на магнитотерапия изисква съобразяване със следните ограничения:</p><p><strong>Абсолютни противопоказания:</strong></p><ul><li>Наличие на пейсмейкър.</li><li>Бременност.</li><li>Активна туберкулоза.</li><li>Склонност към кръвотечения.</li><li>Тежка исхемична болест на сърцето (ИБС).</li></ul><p><strong>Относителни противопоказания:</strong></p><ul><li>Тежки психични заболявания.</li><li>Тежки онкологични заболявания в терминален стадий.</li><li>Период на химиотерапия (поради възможнo инхибиране на действието на цитостатиците).</li></ul><p><strong>Странични действия:</strong> Появяват се много рядко и могат да включват признаци на нервно разстройство, леко повишаване на кръвното налягане или сърцебиене.</p><hr data-separator-style="dashed" style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(88, 129, 87)"><p><br></p><p><br></p><hr data-separator-style="dashed" style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(88, 129, 87)"><h1 style="text-align: center">УЛТРАЗВУК</h1><h2>Физична характеристика и разпространение</h2><p>Ултразвукът представлява механични, колебателни и вълнообразно разпространяващи се движения на частиците в еластична материална среда като вода или въздух. Тези вълни имат честота над 20 kHz, като за нуждите на ултразвуковата терапия се използва енергията на частици с честота от 800 до 3000 kHz. При своето разпространение в нееднородна среда ултразвуковите вълни могат да се пречупват, отразяват или поглъщат, като една част от тях преминава праволинейно в следващата среда.</p><hr><h2>Отражение и контактни среди</h2><p>Когато акустичното съпротивление на две среди е съвсем различно, падащите вълни се отразяват почти напълно от границата между тях. Такъв е случаят на границата между тъканите на организма и въздуха, където отражението достига 99,7%. Поради тази причина по време на процедура е критично важно да се осигури <strong>!безвъздушен контакт! </strong>на ултразвуковата глава с третирания участък, като за целта се използват контактни среди като вазелин, течен парафин, глицерин или вода. Тъй като коефициентът на отразяване нараства с увеличаване на ъгъла на падане, <strong>!озвучителят задължително се поставя перпендикулярно!</strong> на кожата.</p><hr><h2>Интерференция и стоящи вълни</h2><p>След отразяване на ултразвука от препятствие (друга среда) може да настъпи наслагване или интерференция на вълните. Това явление се наблюдава основно в тъканите в близост до озвучителя, когато той е в неподвижно положение (стабилен метод). В такива случаи е възможно прегряване на тъканите, което налага намаляване на интензитета на ултразвука.<i> </i></p><p>При перпендикулярно падане върху гранична повърхност и пълно отразяване в обратна посока се образуват <strong>стоящи вълни</strong>. В резултат на триенето при възникването на тези вълни в организма се генерира значителна топлина.</p><hr><h2>Абсорбция и проникване в тъканите</h2><p>Дълбочината на проникване на ултразвука зависи пряко от честотата на колебанията — колкото по-висока е тя, толкова по-малко прониква вълната. Генераторите с честота <strong>800 </strong>kHz проникват на дълбочина <strong>7-12 cm</strong> и се използват във физиотерапията, докато тези с честота 1500 kHz достигат само 1-2 cm и са предназначени за дерматологията. </p><p>Поглъщането в човешките тъкани е неравномерно: то е най-силно в нервите, мускулите и костите, по-слабо във вътрешните органи и най-слабо в подкожната мазнина. Най-голямо количество енергия се поглъща с образуване на топлина на границите между различните тъкани, като например кожа-подкожна мазнина, фасция-мускул, надкостница-кост или кости-мускули. При наличие на оток в тъканите коефициентът на поглъщане намалява.</p><hr><h2>Кавитация и биологични процеси</h2><p>Преминаването на ултразвукова вълна през течност води до нейното обезгазяване и отделяне на малки мехурчета на повърхността. Ако вълната премине през вече обезгазена течност, в нея се появяват кухини, наречени <strong>кавитационни мехурчета</strong>. Това явление, известно като псевдокавитация, се наблюдава и в човешките тъкани. Кавитационните мехурчета действат като много активни енергийни центрове, в които протичат бързи биологични, физични и химични процеси.</p><hr><h2>Генериране на ултразвук и апаратура</h2><p>Във физиотерапията най-често се използват <strong>генератори, работещи на принципа на обратния пиезоелектричен ефект</strong>. Той се постига чрез подлагане на кварцов кристал на ритмична деформация в поле с висока честота, при което електричната енергия се превръща в механични трептения. </p><p>Ултразвуковият апарат се състои от<strong> генератор за високочестотен то</strong>к и <strong>озвучител</strong>. Самият озвучител включва дръжка и метална глава, в която са разположени кварцовата пластинка и вибрираща мембрана (с големина от 1 до 8 cm<sup>2</sup>). Кристалът трепти в резонанс с генератора и излъчва вълни, които се насочват към лекувания участък чрез металната мембрана. </p><p>!!!Приложени в ниски терапевтични дози, тези вълни имат благоприятни ефекти, но при висок интензитет могат да имат разрушително действие върху тъканите.!!!</p><hr><h2>МНОГОСТРАНЕН ЕФЕКТ НА УЛТРАЗВУКА ВЪРХУ ОРГАНИЗМА</h2><p>Ултразвукът (УЗ) притежава комплексно и многопосочно въздействие върху човешкия организъм, което се проявява чрез специфични физични и биологични механизми.</p><h3>1. МЕХАНИЧНО ДЕЙСТВИЕ</h3><p>Под механичното въздействие на ултразвуковите вълни се пораждат вихрови движения на цитоплазмата в клетките, което представлява своеобразен микромасаж на тъканите, който активира дифузията през клетъчната мембрана и засилва междуклетъчната обмяна на веществата. В резултат на механичните сили в биологичните тъкани се формира явлението псевдокавитация.</p><p>Особено значение има !!<strong>тиксотропното действие!!! </strong>на УЗ, което се изразява в обратима промяна на състоянието на тъканите от гел в зол и подмладяване на вътреклетъчната структура. Този механизъм е в основата на:</p><ul><li>Фибринолитичното действие и размекването на цикатрикси.</li><li>Натрупването на гликоген и мукополизахариди в клетките.</li><li>Активирането на синтеза на хиалуронова и хондроитин-сярна киселина.</li><li>Хондропротективния ефект върху ставите.</li></ul><h3>2. ТЕРМИЧЕН ЕФЕКТ</h3><p>Топлинното въздействие се дължи главно на поглъщането на механичната ултразвукова енергия от тъканите и нейното превръщане в топлина. При използване на ниски терапевтични дозировки и импулсно приложение, топлинната и механичната компонента действат синергично за:</p><ul><li>Засилване на пермеабилитета на клетъчните мембрани и обмяната на веществата.</li><li>Повишаване на нервната проводимост и мембранните потенциали.</li><li>Намаляване на спазмите на набраздената и гладка мускулатура.</li></ul><h3>3. ФИЗИКО-ХИМИЧЕН ЕФЕКТ</h3><p>В зоната на ултразвуково въздействие настъпват редица вторични физико-химични реакции, които имат подчертан саногенезен (оздравителен) ефект.</p><h4>Антиалергично и противовъзпалително действие</h4><p>Антиалергичният ефект се постига чрез свързване и неутрализиране на излишното количество хистамин в кръвните белтъци и активиране на глюкокортикоидната функция на надбъбреците. </p><p>При заболявания като <strong>болест на Бехтерев и ревматоиден артрит</strong>, УЗ намалява активността на възпалителния процес, нормализира съдържанието на глобулиновите фракции и намалява нивата на глюкозамини и сиалова киселина в кръвта.</p><h4>Въздействие върху имунната система</h4><p>При <strong>лечение на тонзилити </strong>се наблюдава засилено синтезиране на IgA, който осигурява защитен ефект върху лигавицата на сливиците и горните дихателни пътища, както и повишена активност на лимфоцитите към патогени.</p><h4>Въздействие върхну нервната система</h4><p>Въздействието върху нервната система зависи строго от приложената доза:</p><ul><li><strong>Малки дози </strong>(0,2 W/cm<sup>2</sup>) в импулсен режим стимулират нервните структури и подобряват отпадната симптоматика при паралитичен ишиас.</li><li><strong>По-големи дози </strong>(0,5—0,7 W/cm<sup>2</sup>) могат да доведат до задълбочаване на намалената моторна и кожносетивна възбудимост.</li></ul><h4>Рефлекторно и регенеративно действие</h4><p>Приложението в зоните на <strong>Захарин-Хед</strong> има нервно-рефлекторно въздействие, което нормализира състоянието на съдовата гладка мускулатура и вътрешните органи. </p><p>УЗ оказва нормализиращ ефект върху симпатико-адреналната система, като приложението върху симпатикови ганглии (0,2 W/cm<sup>2</sup>) действа нормотонично при периферносъдови разстройства. </p><p>Ултразвукът подобрява и процеса на калусообразуване при фрактури.</p><h4>Приложение в офталмологията</h4><p>В очната практика ултразвуковата терапия стимулира регенерацията, успокоява възпалителните процеси, намалява отока на стромата, ускорява разнасянето на фибрина и намалява съединително-тъканните ръбци.</p><h3>4. БАКТЕРИЦИДЕН ЕФЕКТ</h3><p>При висок интензитет (3 W/cm<sup>2</sup>) и честота 1 MHz се наблюдава бактерициден ефект. Това действие се обяснява с разтварянето на бактериите, разпадането на определени белтъчни групи и ефекта на кавитация, предизвикан от вълните. Този ефект намира приложение предимно в дерматологията при лечение на кожни възпалителни процеси.</p><h3>ОБОБЩЕНО ТЕРАПЕВТИЧНО ДЕЙСТВИЕ</h3><p>Въз основа на многостранните си ефекти, терапевтичното действие на ултразвука се обобщава като:</p><ul><li>Фибринолитично и противовъзпалително.</li><li>Обезболяващо и антиалергично.</li><li>Нормализиращо съдовия тонус и подобряващо обмяната на веществата.</li><li>Стимулиращо регенерацията на тъканите и калусообразуването.</li><li>Хиперемизиращо и бактерицидно.</li></ul><hr><h2>МЕТОДИ НА ПРИЛОЖЕНИЕ</h2><p>В клиничната практика приложението на ултразвук се разделя на два основни метода в зависимост от начина на контакт с тъканите:</p><ul><li><strong>Директен метод:</strong> При него озвучителят влиза в пряк контакт с кожата на пациента чрез контактна среда. Той се подразделя на:</li><ul><li> <strong>Стабилен метод</strong>, при който озвучителят се прикрепва неподвижно към лекуваната част с помощта на специално приспособление,</li><li><strong>Лабилен метод</strong>, при който областта се масажира с плавни кръгови или линейни движения.</li></ul><li><strong>Индиректен метод:</strong> Извършва се чрез използването на дегазирана (преварена или дестилирана) вода като проводник. Този метод включва:</li><li><strong>Субаквален метод</strong>, при който крайникът се поставя във ваничка с вода, а озвучителят се движи или фиксира от терапевта</li><li><strong>Опосредствен метод</strong>, при който озвучаването преминава през гумен мехур с вода или специални наконечници пълни с вода, фиксирани към главата на апарата.</li></ul><h2>ИНТЕНЗИТЕТ И ДОЗИРОВКА</h2><p>Интензитетът на ултразвука представлява количеството енергия, преминаващо през площ от 1 cm<sup>2</sup> на мембраната, и се измерва в W/cm<sup>2</sup>. Дозировките се класифицират в три нива:</p><ul><li><strong>Ниски дози:</strong> 0,01—0,4 W/cm<sup>2</sup>.</li><li><strong>Средни дози:</strong> 0,5—0,7 W/cm<sup>2</sup>.</li><li><strong>Високи дози:</strong> 0,8—1,2 W/cm<sup>2</sup>.</li></ul><p>При лабилния метод се използват стойности от 0,1 до 0,8 W/cm<sup>2</sup>, докато при стабилния метод дозировката е значително по-ниска — от 0,02 до 0,05 W/cm<sup>2</sup>.</p><h2>СПЕЦИАЛНИ ИЗИСКВАНИЯ И ПРОДЪЛЖИТЕЛНОСТ</h2><p>При провеждане на процедурите трябва да се спазват специфични правила за безопасност и ефективност. </p><p><strong>Ако в зоната на третиране има наличие на метални импланти, дозировката задължително трябва да се редуцира до 1/2 или 1/3 от стандартната</strong>. </p><p><strong>При озвучаване на гръбначен стълб паравертебрално, </strong><strong>отначало се озвучава едната страна, а след това другата. Забранява </strong><strong>се преминаването напречно на гръбначния мозък. Или се изключва </strong><strong>апаратът, или пък се преминава през зоната на cauda equina</strong><strong>. </strong></p><p>Продължителността на една процедура варира от 3 до 10 минути, а пълният лечебен курс обикновено включва между 10 и 15 процедури.</p><h2>ВИДОВЕ ОЗВУЧАВАНЕ И ФУНКЦИОНАЛНА ПРОВЕРКА</h2><p>Според лечебната цел и зоната на въздействие, озвучаването може да бъде:</p><ul><li><strong>Локално:</strong> За директно лечение на стави, мускули, сухожилия и рани.</li><li><strong>Рефлекторно:</strong> В зоните на Захарин-Хед за лечение на вътрешни органи.</li><li><strong>Сегментарно:</strong> Паравертебрално в областта на нервните коренчета при гръбначна патология.</li><li><strong>Ганглиотропно:</strong> Върху симпатикусови ганглии при <p>синдроми на периферни съдове, болестта на Зудек и др.</p></li><li><strong>Фонопресура (фонопунктура):</strong> Въздействие в акупунктурните точки.</li></ul><p>Изправността на ултразвуковия озвучител може да се провери лесно чрез няколко теста: </p><ul><li>Поставяне в чаша вода - причинява дегазация&nbsp;<p>и </p><p>мехурчетата въздух стават видими.</p></li><li>Накапване на вода върху мембраната - водата започва да кипи .</li><li>Поставяне на капка белтък - белтъкът загаря.</li></ul><h2>ПОКАЗАНИЯ</h2><p>Ултразвуковата терапия намира приложение при широк спектър от заболявания:</p><ul><li><strong>Опорно-двигателен апарат:</strong> Артрозна болест, ревматоиден артрит, болест на Бехтерев, периартрити, бурсити, епикондилити, фрактури и контрактури (включително Дюпуитренова).</li><li><strong>Нервна система:</strong> Мононеврити, дискови хернии, невралгия на тригеминалния нерв, окципитална и интеркостална невралгия.</li><li>Гинекологични заболяваня: поствъзпалителни сраствания, салпингити, аднексити&nbsp;</li><li>Кожни заболявания - цикатрикси, келоиди</li><li>Очни заболявания - кератит, увеит, глаукома</li><li>УНГ заболявания - тонзилити, синузити</li><li><p>Стоматологични заболявания – артроза на темпоро-</p><p>мандибуларната става, невралгия на n. trigeminus,</p></li></ul><h2>Противопоказания</h2><p>Основните противопоказания включват:</p><ul><li>Възраст под 14 години поради риск от увреждане на епифизните фуги (въпреки наличието на по-нови оспорващи теории)</li><li><span class="editor-note" data-note="**Болест на Пертес:** Представлява временно нарушение на кръвоснабдяването на тазобедрената става при деца, което води до **некроза **и деформация на главата на бедрената кост." id="note-1775061476084-0">Болест на Пертес</span>, <span class="editor-note" data-note="**Шойерман-Мау:** Гръбначно изкривяване (**кифоза**), причинено от клиновидна деформация на прешлените по време на интензивния растеж в юношеска възраст." id="note-1775061486975-1">Шойерман-Мау</span>, <span class="editor-note" data-note="**Осгуд-Шлатер:** Болезнено възпаление в горната част на пищяла под колянното капаче, което се среща често при физически активни тийнейджъри." id="note-1775061496444-2">Осгуд-Шлатер</span>, активна туберкулоза, тумори, остри възпалителни процеси, тромбофлебит, хронична ИБС и в областите на главния и гръбначния мозък.</li><li>Бременност и директно въздействие върху матката.</li></ul><hr data-separator-style="dashed" style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(88, 129, 87)"><p><br></p><p><br></p><hr data-separator-style="dashed" style="border-right: none; border-bottom: none; border-left: none; border-image: initial; border-top: 2px dashed rgb(88, 129, 87)"><h1 style="text-align: center">ФОНОФОРЕЗА</h1><h2>Същност и изисквания</h2><p>Фонофорезата представлява въвеждане на лекарствени вещества през неувредена кожа посредством ултразвук. При този процес ултразвукът действа като катализатор, който ускорява резорбцията и дифузията на лекарствата. Важно условие е лекарственото вещество да не се разрушава от ултразвука и да бъде приготвено под формата на унгвент, гел или линимент. При този метод се използват медикаменти в по-ниски дозировки, тъй като техният ефект се потенцира от действие на ултразвуковите вълни.</p><h2>Физични параметри и ефективност</h2><p>Най-голямо проникване на лекарствения препарат се постига при аплициране на ултразвук с честота <strong>880 kHz</strong>. Ефективността на проникване нараства при повишаване на интензивността от <strong>0,3 до 0,8 W/cm</strong><sup><strong>2</strong></sup>. </p><p>Изборът на методика и режим също оказва влияние върху резултатите:</p><ul><li><strong>Методика:</strong> При <strong>лабилната методика </strong>се въвежда от 20% до 40% повече вещество в сравнение със стабилната.</li><li><strong>Режим:</strong> При <strong>импулсен режим </strong>фонофоретичният ефект се намалява от 1,3 до 1,6 пъти в сравнение с <strong>непрекъснатия режим</strong>.</li></ul><h2>Практически препоръки</h2><p>За осигуряване на по-добро проникване на лекарственото вещество се препоръчва третираният участък предварително да бъде озвучен в продължение на 3–5 минути, след което да се пристъпи към самата фонофореза. След приключване на процедурата останалият върху кожата медикамент не трябва да се изтрива. Препоръчително е той да се покрие с лека превръзка, за да се гарантира неговото последействие върху организма.</p><p><img src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775043023611-image.png" alt="image" data-original-src="https://files.coursebook.lol/%D0%9F%D0%B0%D0%B8%D1%81%D0%B8%D0%B9/2026-04-01/text-editor-images/2026/04/1775043023611-image.png" data-width="100" data-align="center" style="width: 511px; max-width: 100%; height: auto; display: block; float: none; margin: 8px auto"><br><br></p><br><style></p><p>    body { </p><p>      font-family: "Open Sans", Arial, sans-serif; </p><p>      max-width: 1200px; </p><p>      margin: 2rem auto; </p><p>      padding: 0 1rem; </p><p>      line-height: 1.6; </p><p>      color: #1f2937; </p><p>    }</p><p>    h1 { </p><p>      font-weight: 600; </p><p>      font-size: 1.5em;</p><p>      margin-top: 1.5em;</p><p>      margin-bottom: 0.5em;</p><p>      color: #3a5a40;</p><p>      border-bottom: 2px dashed #a3b18a;</p><p>      padding-bottom: 5px;</p><p>    }</p><p>    p { </p><p>      margin: 0.7em 0 1.5em 0; </p><p>      white-space: pre-wrap;</p><p>    }</p><p>    @media (max-width: 768px) {</p><p>      body { font-size: 16px; }</p><p>      h1 { font-size: 1.3em; }</p><p>    }</p><p>  </style>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+<script>
+renderMathInElement(document.body, {
+  delimiters: [
+    {left: '$$', right: '$$', display: true},
+    {left: '$', right: '$', display: false},
+    {left: '\\[', right: '\\]', display: true},
+    {left: '\\(', right: '\\)', display: false}
+  ],
+  throwOnError: false
+});
+</script>
+</body>
+</html>
